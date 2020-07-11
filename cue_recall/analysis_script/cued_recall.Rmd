@@ -1,0 +1,106 @@
+---
+title: "Cued_recall"
+author: "Jason Geller"
+date: "6/22/2020"
+output: html_document
+---
+
+```{r}
+library(janitor)
+library(here)
+library(afex)
+library(emmeans)
+library(Rmisc)
+library(data.table)
+library(tidyr)
+library(see)
+```
+
+```{r}
+
+
+setwd(here::here("cue_recall", "gorilla_data"))
+
+data=here::here("cue_recall", "gorilla_data") # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+dataset <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)})) #fread makes reading in files quick
+#
+
+```
+
+
+```{r}
+
+dd<-dataset %>% 
+  janitor::clean_names(.) %>% 
+  dplyr::filter(display=="test", zone_type=="response_text_entry") %>%
+  mutate(target=tolower(target), response=tolower(response),  acc=ifelse(target==response, 1, 0)) 
+
+dd[is.na(dd)] <- 0
+
+dd_acc<-dd  %>%
+  dplyr::group_by(participant_private_id, font) %>%
+  dplyr::summarise(mean_acc=mean(acc)) %>%
+  pivot_wider(names_from="font", values_from = "mean_acc")
+
+dd_acc<-dd  %>%
+  dplyr::group_by(id, font) %>%
+  dplyr::summarise(mean_acc=mean(Scored)) %>%
+  pivot_wider(names_from="font", values_from = "mean_acc")
+
+t.test(x=dd_acc$a, y=dd_acc$sf, paired=TRUE, data=dd_acc)
+```
+
+```{r}
+#get Rts
+rt<-dataset %>% janitor::clean_names(.) %>%  dplyr::filter(zone_type=="continue_button", display=="study") 
+
+# get RT
+rt$reaction_time<-as.numeric(rt$reaction_time)
+rt1<- rt %>% 
+  dplyr::group_by(participant_private_id , condition) %>% 
+  dplyr::summarise(mean=mean(reaction_time, na.rm=TRUE))
+
+rt2=rt1 %>% pivot_wider(names_from=condition, values_from = "mean")
+
+
+ttestBF(x=rt2$normal, y=rt2$SF, paired=TRUE, data=rt2)
+t.test(x=rt2$normal, y=rt2$SF, paired=TRUE, data=rt2)
+
+#6.67
+```
+
+
+```{r}
+#JOls
+
+ #get Rts
+jols<-dataset %>% janitor::clean_names(.) %>%  dplyr::filter(zone_type=="response_slider_endValue" | zone_type=="response_text_entry") 
+
+# get RT
+jols$rsponse<-as.numeric(jols$reposne)
+jols1<- jols %>% 
+  dplyr::select(participant_private_id, response)
+
+
+
+jold2=jj %>% pivot_wider(names_from=type, values_from = "response")
+
+
+t.test(x=rt2$normal, y=rt2$SF, paired=TRUE, data=rt2)
+
+#6.67
+
+
+```
