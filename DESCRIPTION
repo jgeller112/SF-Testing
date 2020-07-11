@@ -1,9 +1,9 @@
 Type: Compendium
 Package: Compendium title
-Title: What the Package Does (One Line, Title Case)
+Title: Repository for SF Data Testing Expectancy
 Version: 0.0.1
 Authors@R: 
-    person(given = "Karthik",
+    person(given = "Jason ",
            family = "Ram",
            role = c("aut", "cre"),
            email = "karthik.ram@gmail.com",
@@ -15,7 +15,11 @@ Depends:
     dplyr,
     ggplot2,
     lubridate,
-    tidyr,
-    viridis
+    viridis, 
+    tidyverse,
+    see, 
+    BayesFactor, 
+    afex
+    
 Encoding: UTF-8
 LazyData: true
