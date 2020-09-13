@@ -63,7 +63,7 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-The highly influential desirable difficulty principle suggests that making learning harder not easier, such as having students engage in retrieval practice, can have noticeable and lasting impacts on student achievement [@Bjork2011; see @Sotola2020 for a recent meta-analysis]. Recently, the concept of desirable difficulties has been extended to include subtle perceptual manipulations that are difficult to encode [e.g., atypical fonts, blurring, handwritten cursive; @Diemand-Yauan2011; @Yue2012; @Geller2018]. One perceptual disfluency manipulation garnering increased attention from news outlets (NPR and Washington Post) and researchers alike is the Sans Forgetica typeface. Sans Forgetica is a typeface developed by a team of psychologists, graphic designers, and marketers, consisting of intermittent gaps and black-slanted letters [@Earp2017]. The perceptual characteristics of Sans Forgetica are purported to stave off forgetting and enhance learning. However, as Carl Sagan once said, "Extradionary claims require extradionary evidence.” []
+The influential desirable difficulty principle suggests that making learning harder not easier, such as having students take a test over information previously studied, can have noticeable and lasting impacts on student achievement [@Bjork2011; see @Sotola2020 for a recent meta-analysis]. Recently, the concept of desirable difficulties has been extended to include subtle perceptual manipulations that are difficult to encode [e.g., atypical fonts, blurring, handwritten cursive; @Diemand-Yauan2011; @Yue2012; @Geller2018]. One such perceptual disfluency manipulation garnering increased attention from news outlets (NPR and Washington Post) and researchers alike is the Sans Forgetica typeface. Sans Forgetica is a typeface developed by a team of psychologists, graphic designers, and marketers, consisting of intermittent gaps and black-slanted letters [@Earp2017]. The perceptual characteristics of Sans Forgetica are purported to stave off forgetting and enhance learning. However, as Carl Sagan once said, "Extradionary claims require extradionary evidence.” []
 
 In two independent attempts, @Taylor2020 and @Geller2020 set out to examine whether Sans Forgetica is *really* a desirable difficulty. In the first conceptual replications of the Sans Forgetica effect, @Taylor2020, found (in a sample of 882 people across 4 experiments) that while Sans Forgetica was perceived as more disfluent by participants (Experiment 1) there was no evidence that Sans Forgetica yielded a mnemonic boost in cued recall with highly related word pairs (Experiment 2) compared to a fluent typeface (Arial) or when learning simple prose passages (Experiments 3-4). Extending these findings, @Geller2020 conducted three pre-registered experiments with over 800 participants, and found, similar to @Taylor202, that Sans Forgetica does not enhance learning for weakly related word pairs (Experiment 1), a complex prose passage on ground water (Experiment 2), or when the type of test was changed to a recognition memory test (Experiment 3). Taken together, across two independent replication attempts, and over a 1000 participants, there is weak evidence for a Sans Forgetica memory effect.
 
@@ -104,7 +104,109 @@ For both experiments, an alpha level of .05 is maintained. Cohen’s *d* and gen
 
 ### Recognition Memory
 
-Per our pregreistation, sensitivity (d') as analyzed with a 2 (Typeface: Arial vs. Sans Forgetica ) x 2 (Testing Expextancy: High vs. Low) Mixed analysis of variance (ANOVA). There was no difference in cued recall between the Generation and Sans Forgetica groups, *F*(1, 230) = 0.19, $\eta_{g}^{2}$ <.001, p = .752. Individuals recalled more disfluent target words than fluency target words, *F*(1, 230) = 25.31, $\eta_{g}^{2}$ =.017, *p* < .001. This was qualified by an interaction between Fluency and Difficulty Type, *F*(1, 230) = 25.06, $\eta_{g}^{2}$ = .017, *p* < .001. A Bayesian ANOVA indicated strong evidence for the interaction model over the main effects model, BF~10~ > 100. As seen in Figure 2, the magnitude of the generation effect was larger than the Sans Forgetica effect, which was, in fact, negligible. 
+Performance was examined with d', a memory sensitivity measure derived from signal detection theory [@Macmillan2005]. Hits or false alarms at ceiling or floor were changed to .99 or .01. Hits and false alarms along with sensitivity (d') can be seen in Figure 1. Per our pre-registation, sensitivity (d') as analyzed with a 2 (Typeface: Arial vs. Sans Forgetica ) x 2 (Testing Expectancy: High vs. Low) Mixed analysis of variance (ANOVA). Participants that were told about a memory test performed better than those not told about a memory test,*M* ~diff~ = 0.161,*F*(1, 229) = 4.11, $\eta_{g}^{2}$ = .014, p = .044. Individuals were better at discriminating target words presented in Sans Forgetica than Arial,*M* ~diff~ = 0.125  *F*(1, 229) = 10.73, $\eta_{g}^{2}$ =.010, *p* = .001. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 229) = 4.34, $\eta_{g}^{2}$ = .004, *p* = .038. Simple effects showed that individuals in the low expectancy group showed better recognition memory for words presented in Sans Forgetica font compared to Arial, *F*(1, 229) = 14.297, *p* < .001. In the high test expectancy group, there was  d` differences between the two typefaces, *F*(1, 229) = 0.716, *p* = .398, BF~O1~ = . 
+
+
+### JOLs
+
+Seven participants were removed for not providing JOls to each typeface. Using the same model as above, JOLs were higher when testing expectancy was lower, *F*(1,221) = 16.01, $\eta_{g}^{2}$ = .065, *p* < .001. JOLs were lower for Sans Forgetica than Arial, *M* ~diff~ = 4.0, *F*(1,221) = 27.05, $\eta_{g}^{2}$ = .004, *p* < .001. There was no interaction between Texting Expextancy and Typeface, *F*(1,221) = 0.13, $\eta_{g}^{2}$ < .001, *P* = .715. 
+
+```{r}
+
+#plot
+
+```
+
+
+```{r}
+#JOls
+
+ #get Rts
+
+jol_high_low <- rbind(datasetlow, highdata)
+
+jols<-jol_high_low %>% janitor::clean_names(.) %>% mutate(date=as.Date(utc_date)) %>%  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020"|date=="0010/07/2020" | date=="09/06/2020",  zone_type=="response_slider_endValue" | zone_type=="response_text_entry")
+
+# get RTjols1
+
+jols$response<-as.numeric(jols$response)
+
+jols1<- jols %>% 
+  dplyr::select(participant_private_id, response, testexpt) %>%
+  mutate(cond=rep(1:2, 231), font=ifelse(cond==1, "SF", "A")) %>%
+  select(-cond)%>%
+  drop_na()
+
+
+#write.csv(jols1, file="low_high_jols.csv")
+
+#6.67
+
+```
+
+
+```{r}
+a1 <- aov_ez("participant_private_id", "response", jols1, 
+             between = c("testexpt"), within=c("font")) # mixed
+
+summary(jolsfa)
+
+
+jolfont=emmeans(a1, ~font)
+
+joltestexpect= emmeans(a1, ~font)
+
+```
+### Reading Times
+
+Although not pre-registered, outliers 2.5 SD above the mean per condition for each participant were removed. The outlier procedure removed ~3 % of the data. Given reactions times are notoriously positively skewed, we also log transformed the data (see Fig.1C for reaction time data). Testing Expectancy did not influence reading times, *F*(1,229) = 1.97, $\eta_{g}^{2}$ = .008, *p* =  .162, BF. Typeface did influence reading times. Response latencies were overall slower for Sans Forgetica than Arial, *F*(1,229) = 30.91, $\eta_{g}^{2}$ = .001, *p* < .001. There was no interaction between Testing Expextancy and Typeface, *F*(1,229) = 1.10, $\eta_{g}^{2}$ < .001, *p* = .296.
+
+```{r}
+datasetlow$testexpt<-"low"
+highdata$testexpt<-"high"
+
+rt_high_low <- rbind(datasetlow, highdata)
+
+rt<-rt_high_low %>% janitor::clean_names(.) %>% mutate(date=as.Date(utc_date)) %>%  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020"|date=="0010/07/2020" | date=="09/06/2020", zone_type=="continue_button", display=="study") 
+
+# get RT
+rt$reaction_time<-as.numeric(rt$reaction_time)
+
+rt1<- rt %>% 
+  dplyr::group_by(participant_private_id, condition, testexpt) %>% 
+  dplyr::select(participant_private_id, condition, testexpt, reaction_time) %>%
+  dplyr::mutate(sdabove = mean(reaction_time, na.rm=TRUE) +  2.5*sd(reaction_time, na.rm=TRUE)) %>%
+    dplyr::filter(reaction_time < sdabove) %>% 
+  dplyr::summarise(mean_rt=median(reaction_time), log_rt=log(reaction_time))
+
+
+
+fig_rt <- ggplot(rt1,aes(x=condition,y=log_rt,fill=condition))+ facet_grid(~testexpt) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
+  geom_boxplot(aes(x = condition, y = log_rt),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Reading Times (ms)", x = "Typeface") + theme(legend.position = "none")
+
+
+#write.csv(rt2, file="rt_high_low.csv")
+
+#ttestBF(x=rt2$normal, y=rt
+```
+
+```{r}
+a1 <- aov_ez("participant_private_id", "log_rt", rt1, 
+             between = c("testexpt"), within=c("condition")) # mixed
+
+summary(a1)
+
+```
+
+
+```
 
 ```{r}
 library(janitor)
@@ -209,7 +311,7 @@ highdata$testexpt<-"high"
 
 rt_high_low <- rbind(datasetlow, highdata)
 
-rt<-rt_high_low %>% janitor::clean_names(.) %>%  dplyr::filter(zone_type=="continue_button", display=="study") 
+rt<-rt_high_low %>% janitor::clean_names(.) %>% mutate(date=as.Date(utc_date)) %>%  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020"|date=="0010/07/2020" | date=="09/06/2020", zone_type=="continue_button", display=="study") 
 
 # get RT
 rt$reaction_time<-as.numeric(rt$reaction_time)
@@ -236,7 +338,7 @@ write.csv(rt2, file="rt_high_low.csv")
 
 jol_high_low <- rbind(datasetlow, highdata)
 
-jols<-jol_high_low %>% janitor::clean_names(.) %>%  dplyr::filter(zone_type=="response_slider_endValue" | zone_type=="response_text_entry") 
+jols<-jol_high_low %>% janitor::clean_names(.) %>% mutate(date=as.Date(utc_date)) %>%  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020"|date=="0010/07/2020" | date=="09/06/2020",  zone_type=="response_slider_endValue" | zone_type=="response_text_entry")
 
 # get RTjols1
 
@@ -245,7 +347,7 @@ jols$response<-as.numeric(jols$response)
 
 jols1<- jols %>% 
   dplyr::select(participant_private_id, response, testexpt) %>%
-  mutate(cond=rep(1:2, 327), font=ifelse(cond==1, "SF", "A")) %>%
+  mutate(cond=rep(1:2, 231), font=ifelse(cond==1, "SF", "A")) %>%
   select(-cond)%>%
   pivot_wider(names_from="font", values_from="response")
 
@@ -270,7 +372,6 @@ sayold=case_when(
   response=="old"~ 1, 
   response=="new" ~ 0, 
   ))
-
 
 
 #classic SDT for those wanting to compare
@@ -395,7 +496,6 @@ patchwork1 + plot_annotation(tag_levels = 'A')
 
 ```
 
-
 ### Reaction Times
 
 Self-paced reading times for Sans Forgetica were longer than reading times for Arial, (*M* ~diff~ = 0.14), *t*(143) = 3.16, *SE* =  0.046, *p* = .002, *d* = 0.26. There was strong evidence for an effect, (BF~10~ = 10.55). 
@@ -405,167 +505,277 @@ Self-paced reading times for Sans Forgetica were longer than reading times for A
 There were no JOL differences between Sans Forgetica and Arial typefaces, *t*(141) = 0.220, *SE* = 1.634, *p* = .826, BF ~01~ = 11.11). 
 
 # Experiment 2
+##Methods
+
 ### Participants
 
-One hundred and forty four participants (*N* = 144) participated on Prolific for U.S. $2.43. All participants were native English speakers with normal or corrected-to-normal vision. A sensitivity analysis conducted with the R package pwr indicated that our sample size provided  90% power to detect a small effect size  (d = 0.16) or  larger. 
+One hundred and sixteen participants (*N* = 116) participated through Prolific for U.S. $2.43. All participants were native English speakers with normal or corrected-to-normal vision. A sensitivity analysis conducted with the R package pwr[@Champely2020] indicated that our sample size provided  90% power to detect a small effect size  (d = 0.16) or  larger. 
 
 ### Materials, Procedure, and Design
 Experiment 4 was in all respects identical to Experiment 3,
 except for the encoding instructions given to participants at the start. Participants were told that they would be reading words presented in different typefaces. No memory test was mentioned.
 
+###Scoring
+
+
 ## Results and Discussion
 
 ### Recognition Memory
 
-With intentional instructions, performance was better when words were presented in Sans Forgetica compared to Arial (*M* ~diff~ = 0.14), *t*(143) = 3.16, *SE* =  0.046, *p* = .002, *d* = 0.26. There was strong evidence for an effect, (BF~10~ = 10.55).2
+With low testing expectancy, performance was better when words were presented in Sans Forgetica compared to Arial (*M* ~diff~ = 0.14), *t*(115) = -2.363, *SE* =  0.046, *p* = .020, *d* = -0.219.
 
 ### Reaction Times
 
-Self-paced reading times for Sans Forgetica were longer than reading times for Arial, (*M* ~diff~ = 0.14), *t*(143) = 3.16, *SE* =  0.046, *p* = .002, *d* = 0.26. There was strong evidence for an effect, (BF~10~ = 10.55). 
+To account for outliers, we removed RTs 3 SDs above and below  each participant's mean. Because the raw data showed significant departures from normality (see Fig2C), a Wilcoxon signed-rank test was computed to assess whether reading times for Sans Forgetica were longer than for  Arial. Self-paced reading times for Sans Forgetica were longer than reading times for Arial, (*M* ~diff~ = -167), W = 2108, *SE* =  236, *p* < .001, *r* = -.379.
 
 ### JOLs
 
-There were no JOL differences between Sans Forgetica and Arial typefaces, *t*(141) = 0.220, *SE* = 1.634, *p* = .826, BF ~01~ = 11.11). 
-
+Similar to reading times, a Wilcoxon signed-rank test was computed to assess whether JOLs for Sans Forgetica were longer than for  Arial. Sans Forgetica JOLs were lower than Arial JOLs, *M* ~diff~ = -10.00 , W = 240, *SE* = 1.61, *p* < .001, *r* = -0.557). 
 
 Contrary to Experiments 1-3, when testing expectancy was low, we observed better memory for materials in Sans Forgetica. This provides a potential boundary condition for the Sans Forgetica effect. That is, when testing expectancy is high (e.g., Experiments 1-3) we do not see a Sans Forgetica effect. However, we do when testing expectancy is low. This might offer a potential explanation for why there is mixed evidence on the effectiveness of Sans Forgetica to enhance memory [See @Eskenazi2020]. Indeed, probing into @Eskenazi2020, it appears they did not tell their participants about the upcoming orthographic and semantic discriminability test. The results herein might explain why they did find a positive effect for Sans Forgetica in a subset of their participants. Despite this, given the small effect size and the fact that studying is almost always done intentionally, their is really no evidence that it should be used as a study tool. 
 
-
 RTs (one possible is optimal study hypothesis switching from harder stimuli to stumuli they know). JOLs would contradict this. 
 
+```{r, echo=TURE, fig.cap="Accuracy on cued recall test", fig.height=6, fig.width=8, message=FALSE, warning=FALSE, results="asis"}}
 
-```{r echo=FALSE, fig.align="center", eval = FALSE, fig.cap="A. Mean proportions of “old” responses. Violin plots represent the kernal density of average probability (black dots) with the mean (white dot) and within-subject 95\\% CIs. B. Memory sensitivity (d'). Violin plots represent the kernal density of avearge accuracy (black dots) with the mean (white dot) and Cousineau-Morey within-subject 95\\% CIs.", fig.height=6, fig.width=8, message=FALSE, warning=FALSE, results="asis"}
-#frecog=read_csv(here("Expt3_data", "expt3recog.csv"))
-#oldnew=glmer(sayold~isold*condition1+(1+isold*condition1|Participant.Private.ID)+ (1+isold*condition1|Stims), data=sfrecog, family=binomial(link="probit"))
+library(dabestr)
 
-data=here::here('Expt4_data', 'expt4_data.csv')  
-dd=read_csv(data)
+cued_fig <- read.csv(here("cue_recall", "summary_data", "cued", "dd_acc.csv"))
 
 
-ex4=dd %>% mutate(condition1= case_when( 
-  condition == "SF" ~ "Sans Forgetica", 
-  condition =="normal" ~  "Arial", 
-), isold= case_when (
-  old_new== "old" ~ 1, 
-  old_new== "new" ~ 0), 
-sayold=case_when( 
-  response=="old"~ 1, 
-  response=="new" ~ 0, 
-  ))
+two.group.paired <- 
+  cued_fig %>%
+  pivot_longer(., a:sf, names_to="typeface", values_to="accuracy")%>%
+  mutate(Typeface=case_when(typeface==
+                               "a" ~ "Arial", 
+                            typeface=="sf" ~ "Sans Forgetica"
+                             )) 
+
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+#set up raincloud params
+raincloud_theme = theme(
+text = element_text(size = 10),
+axis.title.x = element_text(size = 16),
+axis.title.y = element_text(size = 16),
+axis.text = element_text(size = 14),
+axis.text.x = element_text(angle = 45, vjust = 0.5),
+legend.title=element_text(size=16),
+legend.text=element_text(size=16),
+legend.position = "right",
+plot.title = element_text(lineheight=.8, face="bold", size = 16),
+panel.border = element_blank(),
+panel.grid.minor = element_blank(),
+panel.grid.major = element_blank(),
+axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
+axis.line.y = element_line(colour = 'black', size=0.5, linetype='solid'))
 
 
-
-#classic SDT for those wanting to compare
-sdt <- ex4 %>% 
-  dplyr::mutate(type = "hit",
-         type = ifelse(isold==1 & sayold==0, "miss", type),
-         type = ifelse(isold==0 & sayold==0, "cr", type),  # Correct rejection
-         type = ifelse(isold==0 & sayold==1, "fa", type))  # False alarm
-sdt <- sdt %>% 
-  dplyr::group_by(participant_private_id, type, condition1) %>% 
-  dplyr::summarise(count = n()) %>% 
-  spread(type, count)  # Format data to one row per person
-
-sdt <- sdt %>% 
-  group_by(participant_private_id, condition1)%>%
-  dplyr::mutate(hr = hit / (hit+miss),
-         fa = fa / (fa+cr)) %>%
-  dplyr::mutate(hr=case_when(
-    is.na(hr) ~ 0.99,
-    TRUE ~ hr), 
-    fa=case_when(
-      is.na(fa)  ~ 0.01,
-    TRUE ~ fa),
-     zhr=qnorm(hr), 
-     zfa=qnorm(fa), 
-    dprime = zhr-zfa) %>%
-  ungroup()
-
-sdt
-
-sdt1=sdt  %>% select(participant_private_id, condition1, hr, fa) %>% 
-  pivot_longer(hr:fa, names_to="type") %>%
-  dplyr::mutate(isold=case_when(type=="hr" ~ "Old", type=="fa" ~ "New"))
+fig1a <- ggplot(two.group.paired,aes(x=Typeface,y=accuracy,fill=Typeface))+
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.4) + 
+  geom_boxplot(aes(x = Typeface, y = accuracy),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Cued Recall Accuracy", x = "Typeface") + theme(legend.position = "none")
 
 
+cued_jol <- read.csv(here("cue_recall", "summary_data", "jols", "cued_jols_summary.csv"))
 
-sdt1$isold<-factor(sdt1$isold, levels=c("Old", "New"))
-
-sdt1$Condition<-factor(sdt1$condition1, levels=c("Sans Forgetica", "Arial"))
-
-
-dprimebf=sdt  %>% select(participant_private_id, condition1, dprime) %>%
-  pivot_wider(names_from=condition1, values_from = dprime)
-
-
-#paired ttest
-a1 <- t.test(dprimebf$Arial,dprimebf$`Sans Forgetica`, paired=TRUE, data=dprimebf)
-
-#Bayes Factor
-dprimebf<-as.data.frame(dprimebf)
-
-ttestBF(x=dprimebf$Arial, y=dprimebf$`Sans Forgetica`, paired=TRUE, data=dprimebf)
-
-t.test(x=dprimebf$Arial, y=dprimebf$`Sans Forgetica`, paired=TRUE, data=dprimebf)
-#BF=7.14
-
-# path to data files
-
-
-means <- sdt1 
-
-means$Condition<-factor(means$Condition, levels=c("Sans Forgetica", "Arial"))
+two.group.pairedJOL <- 
+  cued_jol %>%
+  drop_na()%>%
+  pivot_longer(., A:SF, names_to="typeface", values_to="JOLs")%>%
+  mutate(Typeface=case_when(typeface==
+                               "A" ~ "Arial", 
+                            typeface=="SF" ~ "Sans Forgetica"
+                             )) 
+fig1b <- ggplot(two.group.pairedJOL,aes(x=Typeface,y=JOLs,fill=Typeface))+
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.4) + 
+  geom_boxplot(aes(x = Typeface, y = JOLs),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none")
 
 
 
-oldnewsub=summarySEwithin(data = means, measurevar = "value",
-                       withinvars = c("Condition", "isold","type"), idvar = "participant_private_id")
+cued_rt <- read.csv(here("cue_recall", "summary_data", "rts", "cued_rt_summary.csv"))
 
-bold <- element_text(face = "bold", color = "black", size = 14) 
-
-p1<- ggplot(means, aes(Condition, value, fill=Condition))+
-  facet_grid(~isold) + 
-  geom_violin() + 
-  geom_jitter2(width=0.11, alpha=.5)+ 
-  geom_line(data=oldnewsub,aes(y=value, group=1), size=1)+ 
-  geom_pointrange(data=oldnewsub, aes(y=value, ymin=value-ci, ymax=value+ci), size=1, color="white")+ 
-  theme_bw(base_size=14)+
-  labs(y="Pr Saying Old", x="Font Type") + 
-  theme(legend.position = "none") + 
-  theme(axis.text=bold) 
+two.group.pairedrt <- 
+  cued_rt %>%
+  pivot_longer(., a:sf, names_to="typeface", values_to="JOLs")%>%
+  mutate(Typeface=case_when(typeface==
+                               "a" ~ "Arial", 
+                            typeface=="sf" ~ "Sans Forgetica"
+                             )
 
 
-#oldnew=brm(glmm2, data=ex3, family=bernoulli(link="identity"), prior=Priors, sample_prior = TRUE,  cores=6, inits = 0, control = list(adapt_delta = .9), iter=3000)
-
-p1
-
-sdt$condition1<-factor(sdt$condition1, levels=c("Sans Forgetica", "Arial"))
-
-
-dsw=summarySEwithin(data = sdt, measurevar = "dprime",
-                       withinvars = "condition1", idvar = "participant_private_id")
- 
- 
- 
-p2<- ggplot(sdt, aes(condition1, dprime, fill=condition1))+
-  geom_violin() + 
-  geom_jitter2(width=0.11, alpha=.5)+ 
-  geom_line(data=dsw,aes(y=dprime, group=1), size=1)+ 
-  geom_pointrange(data=dsw, aes(y=dprime, ymin=dprime-ci, ymax=dprime+ci), size=1, color="white")+ 
-  theme_bw(base_size=14)+
-  labs(y="Sensitivity (d')", x="Font Type") + 
-  theme(legend.position = "none") + 
-  theme(axis.text=bold)
-
-p2
+fig1c <- ggplot(two.group.pairedrt,aes(x=Typeface,y=JOLs,fill=Typeface))+
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.4) + 
+  geom_boxplot(aes(x = Typeface, y = JOLs),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Reaction times (ms)", x = "Typeface") + theme(legend.position = "none")
 
 
-patchwork1= p1/ p2 
-patchwork1 + plot_annotation(tag_levels = 'A')
+fig1 <- plot_grid(
+  fig1a, fig1b, fig1c,
+  labels = "AUTO", ncol= 2, nrow = 2
+)
+
+fig1
 
 
 ```
 
+
+
+
+```{r, echo=TURE, fig.cap="Judgements of Learning", fig.height=6, fig.width=8, message=FALSE, warning=FALSE, results="asis"}}
+
+library(dabestr)
+
+cued_jol <- read.csv(here("cue_recall", "summary_data", "cued", "dd_acc.csv"))
+
+
+two.group.paired <- 
+  cued_fig %>%
+  pivot_longer(., a:sf, names_to="typeface", values_to="accuracy")%>%
+  mutate(Typeface=case_when(typeface==
+                               "a" ~ "Arial", 
+                            typeface=="sf" ~ "Sans Forgetica"
+                             )) %>% 
+  dabest(Typeface, accuracy, 
+         idx = c("Arial", "Sans Forgetica"), 
+         paired = TRUE, id.col = participant_private_id )
+
+fig_cued<- two.group.paired %>% 
+  cohens_d() %>% 
+  plot(rawplot.ylabel="Cued Recall Accuracy")
+
+fig_cued
+
+```
+
+
+```{r}
+
+setwd(here::here("cue_recall", "gorilla_data"))
+
+data=here::here("cue_recall", "gorilla_data") # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+dataset <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)})) #fread makes reading in files quick
+#
+
+```
+
+
+```{r}
+#acc based on perfect match
+dd<-dataset %>% 
+  janitor::clean_names(.) %>% 
+  dplyr::filter(display=="test", zone_type=="response_text_entry") %>%
+  mutate(target=tolower(target), response=tolower(response),  acc=ifelse(target==response, 1, 0)) 
+
+dd[is.na(dd)] <- 0
+#acc based on perfect match
+#dd_acc<-dd  %>%
+ # dplyr::group_by(participant_private_id, font) %>%
+ # dplyr::summarise(mean_acc=mean(acc)) %>%
+ # pivot_wider(names_from="font", values_from = "mean_acc")
+
+
+#acc baed on 80% match from lrd
+# Compute percent match for cued-recall
+dd_lrd <- dplyr::select(dd, participant_private_id, response, target, font)
+
+matched = percent_match.cr(dd_lrd$response, key = dd_lrd$target, id = dd_lrd$participant_private_id)# Now score the output using a 75% match criteria
+# Note that score_recall automatically stores output in a .csv file
+score_recall.cr(matched, cutoff = .80)
+#saves file as output
+#read_file
+
+lrd_out<-read.csv(here::here("cue_recall", "summary_data", "cued",  "lrd_80_score.csv"))
+
+dd_acc<-lrd_out %>%
+  dplyr::group_by(id, font) %>%
+  dplyr::summarise(mean_acc=mean(Scored)) %>%
+  pivot_wider(names_from="font", values_from = "mean_acc")
+
+t.test(x=dd_acc$a, y=dd_acc$sf, paired=TRUE, data=dd_acc)
+```
+
+```{r}
+#get Rts
+rt<-dataset %>% janitor::clean_names(.) %>%  dplyr::filter(zone_type=="continue_button", display=="study") 
+
+# get RT
+rt$reaction_time<-as.numeric(rt$reaction_time)
+
+rt1<- rt %>% 
+  dplyr::group_by(participant_private_id , font) %>% 
+  dplyr::summarise(mean=mean(reaction_time, na.rm=TRUE))
+
+rt2=rt1 %>% pivot_wider(names_from=font, values_from = "mean")
+
+
+ttestBF(x=rt2$a, y=rt2$sf, paired=TRUE, data=rt2)
+t.test(x=rt2$a, y=rt2$sf, paired=TRUE, data=rt2)
+
+#write.csv(rt2, file="cued_rt_summary.csv")
+```
+
+
+```{r }
+#JOls
+
+ #get Rts
+jols<-dataset %>% janitor::clean_names(.) %>%  dplyr::filter(display=="JOLs", zone_type=="response_text_entry")
+
+# get RT
+jols$rsponse<-as.numeric(jols$reposne)
+
+jols1<- jols %>% 
+  dplyr::select(participant_private_id, response) %>%
+  mutate(cond=rep(1:2, 116), font=ifelse(cond==1, "SF", "A")) %>%
+  dplyr::select(-cond)%>%
+  pivot_wider(names_from="font", values_from="response")
+
+```
+
+
+```{r}
+# t.test on JOL data
+# take 1599998 provided weird number 
+# some Ps did not provide a response or only provided one JOL 
+
+jols1 <- jols1 %>%
+  dplyr::filter(participant_private_id!="1599998") %>%
+  mutate(SF=as.numeric(SF), A=as.numeric(A))
+
+t.test(x=jols1$A, y=jols1$SF, paired=TRUE, data=jols1)
+
+
+#write.csv(jols1, file="cued_jols_summary.csv")
+```
 
 
 \newpage
