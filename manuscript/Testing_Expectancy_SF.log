@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.12)  17 SEP 2020 17:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.9.12)  25 SEP 2020 16:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -755,159 +755,71 @@ File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Underfull \vbox (badness 4660) has occurred while \output is active []
+Underfull \vbox (badness 2970) has occurred while \output is active []
 
 [1{/Users/jgeller1/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 }
 
 
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[2]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 21
-5.
-(/Users/jgeller1/Library/TinyTeX/texmf-dist/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-Overfull \hbox (250.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##    participant_pri~ condition1 testexpect    cr    fa   hit
-  miss    hr     zhr[] 
- []
-
-
-Overfull \hbox (250.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##               <int> <chr>      <chr>      <int> <dbl> <int>
- <int> <dbl>   <dbl>[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  1          1531474 Arial      low           37 0.213    21
-    26 0.447 -0.134[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  2          1531474 Sans Forg~ low           36 0.234    20
-    27 0.426 -0.188[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  3          1531487 Arial      low           25 0.468    20
-    27 0.426 -0.188[] 
- []
-
-
-Overfull \hbox (250.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  4          1531487 Sans Forg~ low           26 0.447    23
-    24 0.489 -0.0267[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  5          1531488 Arial      low           40 0.149    20
-    27 0.426 -0.188[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  6          1531488 Sans Forg~ low           34 0.277    32
-    15 0.681  0.470[] 
- []
-
-
-Overfull \hbox (238.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  7          1531494 Arial      low           47 0.01     42
-     5 0.894  1.25[] 
- []
-
-
-Overfull \hbox (238.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  8          1531494 Sans Forg~ low           47 0.01     42
-     5 0.894  1.25[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ##  9          1531503 Arial      low           30 0.362    18
-    29 0.383 -0.298[] 
- []
-
-
-Overfull \hbox (244.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ## 10          1531503 Sans Forg~ low           12 0.745    32
-    15 0.681  0.470[] 
- []
-
-
-Overfull \hbox (202.25676pt too wide) in paragraph at lines 230--230
-[]\T1/pcr/m/n/10 ## # ... with 452 more rows, and 2 more variables: zfa <dbl>, 
-dprime <dbl>[] 
- []
-
-[3]
-<Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-8-1.pdf, id=135, 722.7p
+] [2]
+<Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-8-1.pdf, id=116, 722.7p
 t x 867.24pt>
 File: Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-8-1.pdf Graphic fi
 le (type pdf)
 <use Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-8-1.pdf>
 Package pdftex.def Info: Testing_Expectancy_SF_files/figure-latex/unnamed-chunk
--8-1.pdf  used on input line 234.
+-8-1.pdf  used on input line 212.
 (pdftex.def)             Requested size: 241.74484pt x 290.09383pt.
-<Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-15-1.pdf, id=136, 722.7
+[3]
+<Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-15-1.pdf, id=132, 722.7
 pt x 867.24pt>
 File: Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-15-1.pdf Graphic f
 ile (type pdf)
 <use Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-15-1.pdf>
 Package pdftex.def Info: Testing_Expectancy_SF_files/figure-latex/unnamed-chunk
--15-1.pdf  used on input line 260.
+-15-1.pdf  used on input line 238.
 (pdftex.def)             Requested size: 241.74484pt x 290.09383pt.
 [4 <./Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-20-1.pdf, id=162, 722.7
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+<Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-20-1.pdf, id=158, 722.7
 pt x 867.24pt>
 File: Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-20-1.pdf Graphic f
 ile (type pdf)
 <use Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-20-1.pdf>
 Package pdftex.def Info: Testing_Expectancy_SF_files/figure-latex/unnamed-chunk
--20-1.pdf  used on input line 318.
+-20-1.pdf  used on input line 295.
 (pdftex.def)             Requested size: 241.74484pt x 290.09383pt.
 [5 <./Testing_Expectancy_SF_files/figure-latex/unnamed-chunk-15-1.pdf>] [6 <./T
-esting_Expectancy_SF_files/figure-latex/unnamed-chunk-20-1.pdf>] [7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 415.
-[8
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 415.
+esting_Expectancy_SF_files/figure-latex/unnamed-chunk-20-1.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 392.
+[7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 392.
 (./Testing_Expectancy_SF.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 415.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 415.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 392.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 392.
 Package rerunfilecheck Info: File `Testing_Expectancy_SF.out' has not changed.
-(rerunfilecheck)             Checksum: 07988C8547AC455C4518D19D788EE4BE;2509.
+(rerunfilecheck)             Checksum: CD4DE2B342BEBDCC34578D937979B03B;2462.
  ) 
 Here is how much of TeX's memory you used:
- 14744 strings out of 482824
- 218449 string characters out of 5952456
- 511304 words of memory out of 5000000
- 29723 multiletter control sequences out of 15000+600000
- 597963 words of font info for 124 fonts, out of 8000000 for 9000
+ 14710 strings out of 482824
+ 217963 string characters out of 5952456
+ 510293 words of memory out of 5000000
+ 29696 multiletter control sequences out of 15000+600000
+ 597342 words of font info for 122 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 47i,9n,47p,3392b,548s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 47i,9n,47p,3392b,477s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/jgeller1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</Use
-rs/jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></Use
 rs/jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></Us
 ers/jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></Users
 /jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></Users/j
 geller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></Users/jg
 eller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/jgel
 ler1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Testing_Expectancy_SF.pdf (8 pages, 427023 bytes).
+Output written on Testing_Expectancy_SF.pdf (7 pages, 413979 bytes).
 PDF statistics:
- 330 PDF objects out of 1000 (max. 8388607)
- 303 compressed objects within 4 object streams
- 82 named destinations out of 1000 (max. 500000)
+ 313 PDF objects out of 1000 (max. 8388607)
+ 289 compressed objects within 3 object streams
+ 80 named destinations out of 1000 (max. 500000)
  192 words of extra memory for PDF output out of 10000 (max. 10000000)
 
