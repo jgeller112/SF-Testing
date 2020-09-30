@@ -1,0 +1,297 @@
+---
+title: "Expt2- Cued Recall"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+  pdf_document: default
+---
+
+# Load in Packages
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(janitor)
+library(tidyverse)
+library(here)
+library(afex)
+library(data.table)
+library(cowplot)
+library(lrd)
+```
+
+# Raw data
+
+```{r}
+setwd(here::here("cue_recall", "gorilla_data"))
+data=here::here("cue_recall", "gorilla_data") # path to data files
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+dataset <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)})) #fread makes reading in files quick
+#
+```
+
+## Cued Recall
+
+### Scoring with LRD
+
+
+```{r}
+#acc based on perfect match
+dd<-dataset %>% 
+  janitor::clean_names(.) %>% 
+  dplyr::filter(display=="test", zone_type=="response_text_entry") %>%
+  mutate(target=tolower(target), response=tolower(response),  acc=ifelse(target==response, 1, 0)) 
+
+dd[is.na(dd)] <- 0
+#acc based on perfect match
+#dd_acc<-dd  %>%
+ # dplyr::group_by(participant_private_id, font) %>%
+ # dplyr::summarise(mean_acc=mean(acc)) %>%
+ # pivot_wider(names_from="font", values_from = "mean_acc")
+
+
+#acc baed on 80% match from lrd
+# Compute percent match for cued-recall
+dd_lrd <- dplyr::select(dd, participant_private_id, response, target, font)
+
+dd_lrd$participant_private_id<-as.factor(dd_lrd$participant_private_id)
+
+matched = percent_match.cr(dd_lrd$response, key = dd_lrd$target, id = dd_lrd$participant_private_id)# Now score the output using a 75% match criteria
+# Note that score_recall automatically stores output in a .csv file
+score_recall.cr(matched, cutoff = .80)
+#saves file as output
+#read_file
+lrd_out <- matched %>% 
+  mutate(scored= case_when(
+    percent_match >= .8 ~ 1,
+  TRUE ~ 0)) %>%
+  rename("participant_private_id" = "id", "response" = "x", "target" = "key") %>%
+  mutate(participant_private_id=as.factor(participant_private_id))
+
+dd_acc<-lrd_out %>%
+  dplyr::left_join(., dd_lrd) %>% 
+  dplyr::group_by(participant_private_id, font) %>%
+  dplyr::summarise(mean_acc=mean(scored)) %>%
+  pivot_wider(names_from="font", values_from = "mean_acc")
+
+```
+
+### T-test Cued Recall
+
+```{r}
+t.test(x=dd_acc$a, y=dd_acc$sf, paired=TRUE, data=dd_acc)
+```
+
+###  Plot Cued Recall
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+#get cued data with lrd accuracy and plot
+
+
+cued_fig <- read.csv(here::here("cue_recall", "summary_data", "cued", "dd_acc.csv"))
+
+
+two.group.paired <- 
+  cued_fig %>%
+  pivot_longer(., a:sf, names_to="typeface", values_to="accuracy")%>%
+  mutate(Typeface=case_when(typeface==
+                               "a" ~ "Arial", 
+                            typeface=="sf" ~ "Sans_Forgetica"
+                             ), Typeface=as.factor(Typeface)) %>%
+                             select(-typeface)%>%
+          tidyr::pivot_wider(names_from=Typeface, values_from=accuracy)
+          
+          
+          
+# plot 
+
+
+fig2a <- 
+  cued_fig %>%
+  pivot_longer(., a:sf, names_to="typeface", values_to="accuracy")%>%
+  mutate(Typeface=case_when(typeface==
+                               "a" ~ "Arial", 
+                            typeface=="sf" ~ "Sans Forgetica"
+                             ), Typeface=as.factor(Typeface)) %>%
+  mutate(accuracy=accuracy*100)
+      
+```
+
+
+```{r}
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+#set up raincloud params
+raincloud_theme = theme(
+text = element_text(size = 10),
+axis.title.x = element_text(size = 16),
+axis.title.y = element_text(size = 16),
+axis.text = element_text(size = 14),
+axis.text.x = element_text(angle = 45, vjust = 0.5),
+legend.title=element_text(size=16),
+legend.text=element_text(size=16),
+legend.position = "right",
+plot.title = element_text(lineheight=.8, face="bold", size = 16),
+panel.border = element_blank(),
+panel.grid.minor = element_blank(),
+panel.grid.major = element_blank(),
+axis.line.x = element_line(colour = 'black', size=0.5, linetype='solid'),
+axis.line.y = element_line(colour = 'black', size=0.5, linetype='solid'))
+
+
+fig1a <- ggplot(fig2a,aes(x=Typeface,y=accuracy,fill=Typeface))+
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.4) + 
+  geom_boxplot(aes(x = Typeface, y = accuracy),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun=mean, geom="point", colour="darkred", size=5)+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Cued Recall Accuracy (Percent Correct)", x = "Typeface") + theme(legend.position = "none") 
+
+
+ggsave("fig1a.png", width=4, height=8)
+
+fig1a
+
+```
+
+## JOLS
+
+### Read in data
+
+```{r}
+#JOls
+jols<-dataset %>% janitor::clean_names(.) %>%  dplyr::filter(display=="JOLs", zone_type=="response_text_entry")
+# get RT
+jols$rsponse<-as.numeric(jols$reposne)
+jols1<- jols %>% 
+  dplyr::select(participant_private_id, response) %>%
+  mutate(cond=rep(1:2, 116), font=ifelse(cond==1, "SF", "A")) %>%
+  dplyr::select(-cond)%>%
+  pivot_wider(names_from="font", values_from="response")
+```
+
+### T-test JOLs
+```{r}
+# t.test on JOL data
+# take 1599998 provided weird number 
+# some Ps did not provide a response or only provided one JOL 
+jols1 <- jols1 %>%
+  dplyr::filter(participant_private_id!="1599998") %>%
+  mutate(SF=as.numeric(SF), A=as.numeric(A))
+t.test(x=jols1$A, y=jols1$SF, paired=TRUE, data=jols1)
+#write.csv(jols1, file="cued_jols_summary.csv")
+```
+
+### Plot JOls
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+#read in summary data
+
+cued_jol <- read.csv(here("cue_recall", "summary_data", "jols", "cued_jols_summary.csv"))
+
+two.group.pairedJOL <- 
+  cued_jol %>%
+  drop_na()%>%
+  pivot_longer(., A:SF, names_to="typeface", values_to="JOLs")%>%
+  mutate(Typeface=case_when(typeface==
+                               "A" ~ "Arial", 
+                            typeface=="SF" ~ "Sans Forgetica"              
+                            )) 
+
+
+```
+
+```{r}
+#plot jols
+
+fig2b <- ggplot(two.group.pairedJOL,aes(x=Typeface,y=JOLs,fill=Typeface))+
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.4) + 
+  geom_boxplot(aes(x = Typeface, y = JOLs),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    stat_summary(fun=mean, geom="point", colour="darkred", size=5)+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none")
+
+ggsave("fig2b.png", width=4, height=8, dpi=300)
+
+
+fig2b
+                        
+```
+
+## RTs
+
+### Read in data
+
+```{r, message=FALSE, warning=FALSE}
+#get Rts
+rt<-dataset %>% janitor::clean_names(.) %>%  dplyr::filter(zone_type=="continue_button", display=="study") 
+
+# get RT
+rt$reaction_time<-as.numeric(rt$reaction_time)
+
+# 2.5 SD above and Below and log transform
+rt1<- rt %>% 
+  dplyr::group_by(participant_private_id, font) %>% 
+  dplyr::select(participant_private_id, font, reaction_time) %>%
+  dplyr::mutate(sdabove = mean(reaction_time, na.rm=TRUE) +  2.5*sd(reaction_time, na.rm=TRUE)) %>%
+    dplyr::filter(reaction_time > 150, reaction_time < sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(reaction_time))) %>%
+  pivot_wider(names_from=font, values_from = "mean_rt")
+  
+
+# fig
+
+rt1_fig <- rt %>% 
+  dplyr::group_by(participant_private_id, font) %>% 
+  dplyr::select(participant_private_id, font, reaction_time) %>%
+  dplyr::mutate(sdabove = mean(reaction_time, na.rm=TRUE) +  2.5*sd(reaction_time, na.rm=TRUE)) %>%
+    dplyr::filter(reaction_time > 150, reaction_time < sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(reaction_time))) %>%
+  mutate(font=ifelse(font=="a", "Arial", "Sans Forgetica"))
+  
+```
+
+
+
+```{r}
+t.test(x=rt1$a, y=rt1$sf, paired=TRUE, data=rt1)
+
+```
+### Plot RTs
+
+```{r}  
+
+# plot RTs
+  fig2c <- ggplot(rt1_fig,aes(x=font,y=mean_rt,fill=font))+
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.4) + 
+  geom_boxplot(aes(x = font, y = mean_rt),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+      stat_summary(fun=mean, geom="point", colour="darkred", size=5)+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "log(Study Time)", x = "Typeface") + theme(legend.position = "none")
+
+ggsave("fig2c.png", width=4, height=8)
+
+fig2c
+
+```
+
+
