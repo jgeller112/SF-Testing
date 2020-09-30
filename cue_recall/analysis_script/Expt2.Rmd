@@ -159,7 +159,7 @@ fig1a <- ggplot(fig2a,aes(x=Typeface,y=accuracy,fill=Typeface))+
   labs(y = "Cued Recall Accuracy (Percent Correct)", x = "Typeface") + theme(legend.position = "none") 
 
 
-ggsave("fig1a.png", width=4, height=8)
+ggsave("fig1a.png", width=6, height=8)
 
 fig1a
 
@@ -226,7 +226,7 @@ fig2b <- ggplot(two.group.pairedJOL,aes(x=Typeface,y=JOLs,fill=Typeface))+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none")
 
-ggsave("fig2b.png", width=4, height=8, dpi=300)
+ggsave("fig2b.png", width=6, height=8, dpi=300)
 
 
 fig2b
@@ -288,7 +288,7 @@ t.test(x=rt1$a, y=rt1$sf, paired=TRUE, data=rt1)
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "log(Study Time)", x = "Typeface") + theme(legend.position = "none")
 
-ggsave("fig2c.png", width=4, height=8)
+ggsave("fig2c.png", width=6, height=8)
 
 fig2c
 
