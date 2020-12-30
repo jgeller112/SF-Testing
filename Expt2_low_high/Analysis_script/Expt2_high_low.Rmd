@@ -413,9 +413,10 @@ rt_all <- rbind(dataset1_rt, dataset2_rt, dataset3_rt, dataset4_rt)
 
 rt_all1<- rt_all %>% 
   dplyr::group_by(new_id1, font, cond) %>% 
-dplyr::mutate(sdabove = mean(mouse_4.time, na.rm=TRUE) +  2.5*sd(mouse_4.time, na.rm=TRUE)) %>%
-    dplyr::filter(mouse_4.time > .150, mouse_4.time < sdabove) %>%
-  dplyr::summarise(mean_rt= mean(log(mouse_4.time))) %>%
+  dplyr::mutate(rt=mouse_4.time*1000) %>% 
+dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
+    dplyr::filter(rt > 150, rt < sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt))) %>%
    mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica"))
   
 
@@ -558,6 +559,8 @@ fig3c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) +
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "log(RT/s)", x = "Typeface") + theme(legend.position = "none") + 
    geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1)
+
+fig3c
 
 ```
 # Combine Plots
