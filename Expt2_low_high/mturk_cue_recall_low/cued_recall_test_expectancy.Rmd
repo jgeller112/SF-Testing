@@ -1,0 +1,140 @@
+---
+title: "Cued Recall Test Expectancy"
+author: "Jason Geller"
+date: "12/27/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Low Test Expectancy
+Read in Files from MTURK
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('Experiment_Pav', 'cue_recall_low')) # folder to find Ps in
+
+data=here::here('Experiment_Pav', 'cue_recall_low')  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow1 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('Experiment_Pav', 'cue_recall_low2')) # folder to find Ps in
+
+data=here::here('Experiment_Pav', 'cue_recall_low2')  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow2 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+# Did not learn English before age of 4
+
+```{r}
+dplyr::filter(datasetlow1, `Did you learn English before the age of 4?`=="no")
+#list IDs
+#PARTICIPANT_weird_font_low_1_2020-12-26_11h27.26.800.csv
+```
+```{r}
+dplyr::filter(datasetlow2, `Did you learn English before the age of 4?`=="no") %>% select(unique(participant))
+#list IDs
+#A2ZYO0FHHESP4J
+# Oksana
+# rajan
+```
+
+
+
+
+# Extract the cued responses
+```{r cars}
+dataset1 <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(turkid, textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0))
+
+```
+
+```{r cars}
+dataset2 <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(turkid, textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0))
+
+```
+# Need to get MturkIDs or participant names. Make sure all Ps have 24 trials and there are no duplicate IDs! 
+
+```{r}
+dataset1$id2<-ifelse(is.na(dataset1$participant)| dataset1$participant=="J", dataset1$turkid,dataset1$participant) #Mturkers used "me" for participant name so we need to extract unique id
+
+as.data.frame(count(dataset1, id2)) # check to make sure 24 trails per
+
+
+sub_id1=rep(1:57, each=24)
+
+dataset1$sub_id<- sub_id1 # assign arbit subj number
+```
+
+
+
+```{r}
+
+dataset2$id2<-ifelse(is.na(dataset2$participant)| dataset2$participant=="me", dataset2$turkid,dataset2$participant) #Mturkers used "me" for participant name so we need to extract unique id
+
+as.data.frame(count(dataset2, id2)) # check to make sure 24 trails per
+
+
+sub_id2=rep(58:108, each=24)
+
+dataset2$sub_id<- sub_id2 # assign arbit subj number
+
+```
+
+#Use LRD package to score cued recall
+
+```{r}
+#lrd package has issues so used shiny app to calculate 80%
+#readin file
+
+score1=read.csv(here::here('Experiment_Pav', 'lrd_scored', "lrd_scored_low.csv"))
+# path 
+
+score1
+
+```
+```{r}
+#analyze
+
+score2 <- score1 %>% group_by(id, font) %>%
+  summarise(mean=mean(Scored)) %>% 
+  pivot_wider(names_from="font", values_from = "mean") %>%
+  mutate(id=rep(1:91, each=2))
+
+
+t.test(score2$SF, score2$flu, paried=TRUE)
+
+
+```

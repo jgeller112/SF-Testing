@@ -1,0 +1,336 @@
+---
+title: "Experiment 3: Time_on_task"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+---
+
+# Introduction
+
+In a preregistered study we manipulated the influence of time on task (Self-paced vs. Timed (3 s) on the Sans Forgetica effect/disfluency effect. We collected 232 participants (116 in each group) on Prolific. This file explains how to read in the data, analyze, and plot the results. 
+
+# Read in Data
+
+Read in data for counterbalance 1
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb1")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb1")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow1 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+Here we extract the cued responses
+```{r cars}
+dataset1 <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="self-paced")
+
+```
+
+Read in raw data for counterbalance 2 
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb2")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb2")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow2 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+Extract the cued responses
+```{r cars}
+dataset2 <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="self-paced")
+
+```
+
+Read in the data for timed cb1 
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb31")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb31")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow3 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+
+extract cued responses
+```{r cars}
+dataset3 <- datasetlow3 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="timed")
+
+```
+read in data for timed cb 2
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb32")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb32")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow4 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+extract cued responses
+```{r cars}
+dataset4 <- datasetlow4 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="timed")
+
+```
+
+# Bind Data
+
+Bind all the cued responses
+```{r}
+all<-rbind(dataset1, dataset2, dataset3, dataset4)
+
+write.csv(all, file="all.csv")
+
+
+```
+
+#Scoring
+
+The RD package scores cued response data. The data is loaded into a shiny application and then brought back in to R. The R code has some issues which is why we cant run it from here.
+
+Next, we get the mean across all participants as a function of Typeface and Timed group. 
+
+```{r}
+setwd(here::here('TimeTaskSelf', "scored_recall")) # folder to find Ps in
+recall_all<-read.csv(here::here('TimeTaskSelf', "scored_recall", "experiment3_times_recall80.csv"))  # path to data files
+
+
+recall_all1 <- recall_all %>% 
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored)) %>%
+  tidyr::pivot_wider(names_from="font", values_from="acc")
+
+write.csv(recall_all1, file="wide_recall_timed.csv")
+
+recall_all1 <- recall_all %>% 
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored))
+
+write.csv(recall_all1, file="long_recall_timed.csv")
+
+
+```
+# 2x2 Mixed ANOVA
+
+Run the analysis
+
+```{r}
+#ANOVA
+
+
+a1 <- aov_ez("id", "acc", recall_all1, 
+            within=c("font"), between=c("cond")) # mixed
+
+summary(a1)
+
+
+sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "dprime",
+                       withinvars = "condition1", betweenvars = "testexpect", idvar = "participant_private_id")
+
+bf = anovaBF(dprime ~ condition1*testexpect + participant_private_id, highlowaov, 
+          whichRandom="participant_private_id")
+
+
+a1
+```
+
+#Plot
+
+```{r}
+
+library(see)
+library(ggrepel)
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+bold <- element_text(face = "bold", color = "black", size = 14) 
+
+recall_all1 <- recall_all1 %>%
+  mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial")) %>%
+  mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
+
+means = recall_all1 %>%
+  dplyr::group_by(timed, Typeface)%>% 
+  dplyr::summarise(mean=mean(acc))
+
+
+sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "id")
+
+fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
+  facet_grid(~timed) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
+  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.5, color="red")+ 
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
+   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
+
+fig3a
+
+
+```
+
+# JOLs
+
+
+Extract JOLs and combine them
+
+```{r}
+
+dataset1_jol <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="self-paced") %>% 
+  na.omit(.) %>%
+  pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+dataset2_jol <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="self-paced") %>% 
+  na.omit(.) %>%  pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+
+dataset3_jol <- datasetlow3 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="timed") %>% 
+  na.omit(.) %>%
+pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+dataset4_jol <- datasetlow4 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="timed") %>% 
+  na.omit(.) %>%
+  pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
+
+
+```
+## JOLs Analyis
+
+A 2 x 2 Mixed ANOVA was run. 
+
+```{r}
+ANOVA
+
+a1 <- aov_ez("participant", "jols", jol_all, 
+            within=c("Typeface"), between=c("cond")) # mixed
+
+summary(a1)
+```
+
+
+# Plot
+```{r}
+
+jol_rename <- jol_all %>%
+  mutate(Typeface=ifelse(Typeface=="atypic_slider.response", "Sans Forgetica", "Arial")) %>%
+  mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
+
+means = jol_rename %>%
+  dplyr::group_by(timed, Typeface)%>% 
+  dplyr::summarise(mean=mean(jols))
+
+# get withinsubject CIs
+sfgenjol_wsci=summarySEwithin(data = jol_rename, measurevar = "jols",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "participant")
+
+
+
+fig3b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~timed) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=1, color="red")+ 
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") + 
+   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1)
+
+```
+
+## RTs
+
+RTs were not analyzed as they were only collected in the self-paced condition. 
+
+
+
+
