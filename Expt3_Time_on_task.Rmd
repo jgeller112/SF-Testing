@@ -31,6 +31,8 @@ source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/f
 
 ## Read in Data
 
+First we must read in data for each counterbalanced list. There were four and there was no simple way to counterbalance online with PsychoPy and Pavlovia. 
+
 ### CB 1 (Self-Paced)
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
@@ -368,6 +370,8 @@ fig3 <- plot_grid(
 )
 
 fig3
+
+ggsave("fig3experiment3.png", width=8, height=12, dpi=500)
 ```
 
 

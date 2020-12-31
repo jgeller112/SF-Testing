@@ -1,5 +1,5 @@
 ---
-title: "Expt-HighvsLow"
+title: "Expt2-HighvsLow"
 author: "Jason Geller"
 date: "12/29/2020"
 output:
@@ -10,11 +10,10 @@ output:
 
 # Introduction
 
-In a preregistered study we manipulated test expectancy on on the Sans Forgetica effect/disfluency effect. We collected 232 participants (116 in each group) through MTurk. This file explains how I read in the data, analyzed it, and plotted the results. If you have any questions please reach out to me at:jason.geller@ruccs.rutgers.edu
+This RMD file comes from a preregistered study where we examined the moderating role of test expectancy on the Sans Forgetica effect/disfluency effect. We preregistered a sample size of 232 participants (116 in each group) through MTurk. This file explains how I read in the data, analyzed it, and plotted the results. If you have any questions please reach out to me at:jason.geller@ruccs.rutgers.edu
 
-# Read in Data
+# Load Packages
 
-First we must load the packages and read in data for each counterbalanced list. There were four and there was no simple way to counterbalance online with PsychoPy and Pavlovia. 
 
 ```{r}
 #packages you will need
@@ -26,8 +25,13 @@ library(Rmisc)
 library(cowplot)
 library(see)
 library(ggrepel)
-```
+library(report)
+library(emmeans)
 
+```
+# Read in Raw Data
+
+First we must read in data for each counterbalanced list. There were four and there was no simple way to counterbalance online with PsychoPy and Pavlovia. 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
 # read in low test expect data exported from gorilla
 setwd(here::here('Expt2_low_high', "mturk_cue_recall_low")) # folder to find Ps in
@@ -48,19 +52,20 @@ datasetlow1 <-
     fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
 ```
 
-## Load in data Low cb1 condition
+## CB 1 (Low Test Expectancy)
 
-```{r cars}
+### Cued Recall Responses
+
+```{r}
 dataset1 <- datasetlow1 %>% 
-    dplyr::group_by(participant, turkid)%>%
+    dplyr::group_by(participant, turkid)%>% # polygon_2 is a unqiue value for the test phase
     dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
-    mutate(textbox.text=tolower(textbox.text)) %>% 
+    mutate(textbox.text=tolower(textbox.text)) %>% # some folks capitalzied words
   dplyr::mutate(cond="Low Test Expectancy", cb="low1") %>%
  dplyr::mutate(new_id=ifelse(is.na(participant)| participant=="J", turkid,participant)) #Mturkers used "me" for participant name so we need to extract unique id
 as.data.frame(dplyr::count(dataset1, new_id))
 ```
-
-# load in JOls for low condition (CB1)
+### JOls
 
 ```{r}
 dataset1_jol <- datasetlow1 %>% 
@@ -77,7 +82,7 @@ dataset1_jol <- datasetlow1 %>%
 as.data.frame(dplyr::count(dataset1_jol, new_id1))
 ```
 
-## Get RTs
+### RTs
 
 ```{r}
 
@@ -95,7 +100,10 @@ as.data.frame(dplyr::count(dataset1_rt, new_id1))
 ```
 
 
-# Extract cued responses for Low Condition (CB 2)
+## CB 2 - Low Test 
+
+### Cued Recall
+
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
 # read in low test expect data exported from gorilla
 setwd(here::here('Expt2_low_high', "mturk_cue_recall_low2")) # folder to find Ps in
@@ -116,7 +124,7 @@ datasetlow2 <-
     fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]}))
 ```
 
-```{r cars}
+```{r}
 dataset2 <- datasetlow2 %>% 
     dplyr::group_by(participant, turkid)%>%
     dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
@@ -128,7 +136,7 @@ dataset2 <- datasetlow2 %>%
 as.data.frame(dplyr::count(dataset2, new_id))
 ```
 
-# Get JOls for cb1
+### JOLs
 
 ```{r}
 dataset2_jol <- datasetlow2 %>% 
@@ -144,7 +152,7 @@ dataset2_jol <- datasetlow2 %>%
 
 as.data.frame(dplyr::count(dataset2_jol, new_id1))
 ```
-## RTs
+### RTs
 
 ```{r}
 
@@ -161,8 +169,7 @@ as.data.frame(dplyr::count(dataset2_rt, new_id1))
 
 ```
 
-
-# High CB 1
+## CB 1 (High Test Expectancy)
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
 # read in low test expect data exported from gorilla
@@ -185,9 +192,9 @@ datasethigh3 <-
 ```
 
 
-## Cued Responses
+### Cued Responses
 
-```{r cars}
+```{r }
 dataset3 <- datasethigh3 %>% 
     dplyr::group_by(participant, turkid)%>%
     dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
@@ -199,7 +206,7 @@ dataset3 <- datasethigh3 %>%
 as.data.frame(dplyr::count(dataset2, new_id))
 ```
 
-## JOLs
+### JOLs
 
 ```{r}
 dataset3_jol <- datasethigh3 %>% 
@@ -216,6 +223,7 @@ dataset3_jol <- datasethigh3 %>%
 as.data.frame(dplyr::count(dataset3_jol, new_id1))
 ```
 
+### RTs
 ```{r}
 
 dataset3_rt <- datasethigh3 %>% 
@@ -231,7 +239,7 @@ as.data.frame(dplyr::count(dataset3_rt, new_id1))
 
 ```
 
-# High CB 2
+## CB 2 (High Expectancy)
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
 # read in low test expect data exported from gorilla
@@ -253,7 +261,7 @@ datasethigh4 <-
     fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:70]})) #fread makes reading in f
 ```
 
-# Cued Responses
+### Cued Responses
 
 ```{r}
 dataset4 <- datasethigh4 %>% 
@@ -266,7 +274,7 @@ dataset4 <- datasethigh4 %>%
 #check number of Ps in each CB and make sure names are unqiue 
 as.data.frame(dplyr::count(dataset2, new_id))
 ```
-## JOLs 
+### JOLs 
 
 ```{r}
 dataset4_jol <- datasethigh4 %>% 
@@ -284,7 +292,7 @@ as.data.frame(dplyr::count(dataset3_jol, new_id1))
 ```
 
 
-## RTs
+### RTs
 
 
 ```{r}
@@ -303,7 +311,8 @@ as.data.frame(dplyr::count(dataset4_rt, new_id1))
 ```
  
  
- Combine High and Low CB lists
+# Combine High and Low CB lists
+## Cued
 
 ```{r}
 all_c<- rbind(dataset1, dataset2, dataset3, dataset4)
@@ -314,20 +323,48 @@ all_c %>% group_by(cb) %>% dplyr::summarise(count = n()) # make sure equal numbe
 as.data.frame(dplyr::count(all_c, new_id))
 
 
-write.csv(all_c, file="test_expect.csv")
+#write.csv(all_c, file="test_expect.csv")
 
 ```
+
+## JOLs
+
+```{r}
+all_jol <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
+```
+
+## RTs
+
+```{r}
+rt_all <- rbind(dataset1_rt, dataset2_rt, dataset3_rt, dataset4_rt)
+
+rt_all1<- rt_all %>% 
+  dplyr::group_by(new_id1, font, cond) %>% 
+  dplyr::mutate(rt=mouse_4.time*1000) %>% 
+dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
+    dplyr::filter(rt > 150, rt < sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt))) %>%
+   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica"))
+  
+
+
+```
+
 # Analysis
+
+We employed 2 x 2 MIXED ANOVA. 
 
 ## Cued Recall
 
-Read in data from the scored folder and aggreagte (long and wide)
+Read in data from the scored folder and aggregate (long and wide)
 
 ```{r}
 setwd(here::here('Expt2_low_high', "Summary", "scored")) # folder to find Ps in
 
 recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","scored", "Expt2_scored_recall.csv")) # folder to find Ps in)
 ```
+
+
 ```{r}
 recall_highlow_agg_wide <- recall_highlow %>% 
   dplyr::group_by(id, font, cond) %>%
@@ -341,7 +378,6 @@ recall_highlow_agg <- recall_highlow %>%
   
 ```
 
-
 ```{r}
 #ANOVA
 
@@ -351,6 +387,11 @@ a1 <- aov_ez("id", "mean_acc", recall_highlow_agg,
 summary(a1)
 
 a1
+
+
+
+
+
 ```
 
 ### Testing Interaction
@@ -370,14 +411,8 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 
 
 ```
+
 ## JOLs
-
-```{r}
-all_jol <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
-```
-
-
-## 2 x 2 ANOVA
 
 ```{r}
 #ANOVA
@@ -388,7 +423,7 @@ jol_a <- aov_ez("new_id1", "jols", all_jol,
 summary(jol_a)
 ```
 
-## Testing Interaction 
+### Testing Interaction 
 ```{r}
 Within_Fitted_Interaction <- emmeans(jol_a, ~ TypeFace|cond)
 
@@ -406,22 +441,6 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 
 ## RTs
 
-### 2 x 2 Mixed ANOVA
-
-```{r}
-rt_all <- rbind(dataset1_rt, dataset2_rt, dataset3_rt, dataset4_rt)
-
-rt_all1<- rt_all %>% 
-  dplyr::group_by(new_id1, font, cond) %>% 
-  dplyr::mutate(rt=mouse_4.time*1000) %>% 
-dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
-    dplyr::filter(rt > 150, rt < sdabove) %>%
-  dplyr::summarise(mean_rt= mean(log(rt))) %>%
-   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica"))
-  
-
-
-```
 
 ```{r}
 #ANOVA
@@ -433,7 +452,7 @@ summary(rt_a)
 ```
 #### Main Effects
 
-No interaction, but main effets
+No interaction, but main effet
 
 ```{r}
 Within_font <- emmeans(rt_a, ~ font)
@@ -445,7 +464,6 @@ Within_cond <- emmeans(rt_a, ~ cond)
 Within_cond
 
 ```
-
 # Plot
 
 ## Cued Recall
@@ -477,9 +495,9 @@ recall_highlow_agg
 
 ```
 
-```{r}
+```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of test expectancy for Experiment 2.", fig.height=14, fig.width=10, results="asis", eval=TRUE}
 
-fig3a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
+fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
   facet_grid(~cond) + 
   geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
@@ -487,21 +505,21 @@ fig3a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
-  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=1, color="red")+ 
+  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
+   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8)
 
 
-print(fig3a)
-
+fig2a
 ```
 
 
 ## JOL
-```{r}
+
+```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. JOLs as a function of testing expectancy in Experiment 2.", fig.height=14, fig.width=10, results="asis", eval=TRUE}
 
 jol_rename <- all_jol %>%
   mutate(Typeface=ifelse(TypeFace=="atypic_slider.response", "Sans Forgetica", "Arial"))
@@ -515,19 +533,19 @@ sfgenjol_wsci= Rmisc::summarySEwithin(data = jol_rename, measurevar = "jols",
                        withinvars = "Typeface", betweenvars = "cond", idvar = "new_id1")
 
 
-fig3b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~cond) + 
+fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~cond) + 
   geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=1, color="red")+ 
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.5, color="red")+ 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1)
+   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8)
 
 
 
@@ -535,7 +553,7 @@ fig3b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~co
 
 ## RTs
 
-```{r}
+```{r, fig.align="center", fig.height=14, fig.width=10, results="asis", eval=TRUE}
 
 means = rt_all1 %>%
   dplyr::group_by(cond, font)%>% 
@@ -546,32 +564,35 @@ sfgenrt_wsci= Rmisc::summarySEwithin(data = rt_all1, measurevar = "mean_rt",
                        withinvars = "font", betweenvars = "cond", idvar = "new_id1")
 
 
-fig3c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) + 
+fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) + 
   geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = font , y = mean_rt),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
-  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci), size=1, color="red")+ 
+  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci), width=.5, size=.5, color="red") + 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "log(RT/s)", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1)
+   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
 
-fig3c
+fig2c
 
 ```
 # Combine Plots
 
 
-```{r}
+```{r, fig.align="center", fig.height=16, fig.width=8, results="asis", eval=TRUE}
 
-fig3 <- plot_grid(
-  fig3a, fig3b, fig3c,
-  labels = "AUTO", ncol= 2, nrow = 2
+fig2 <- plot_grid(
+  fig2a, fig2b, fig2c,
+  labels = "AUTO", ncol= 1, nrow = 3
 )
 
+fig2
+
+ggsave("figexpt2.png", width=8, height=12, dpi=500)
 
 ```
