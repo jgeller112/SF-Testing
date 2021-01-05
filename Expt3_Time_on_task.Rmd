@@ -306,19 +306,18 @@ sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
 
 fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
   facet_grid(~timed) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
                alpha = 0.5, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
-  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.5, color="red")+ 
+  geom_pointrange2(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.5, color="red")+ 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
    geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
-
 fig3a
 
 
@@ -341,19 +340,21 @@ sfgenjol_wsci=summarySEwithin(data = jol_rename, measurevar = "jols",
                        withinvars = "Typeface", betweenvars = "timed", idvar = "participant")
 
 
-fig3b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~timed) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
-  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+fig3b <- ggplot(jol_rename,aes(x=Typeface,y=round(jols,2),fill=Typeface))+ 
+  facet_grid(~timed) + 
+  geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
+  #geom_violinhalf(fill_dots = "black") + 
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2, scale=width) +
   geom_boxplot(aes(x = Typeface, y = jols), outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.8, color="red")+ 
+  geom_pointrange2(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.8, color="red")+ 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1)
+   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 1)
 
 fig3b
 
@@ -371,7 +372,7 @@ fig3 <- plot_grid(
 
 fig3
 
-ggsave("fig3experiment3.png", width=8, height=12, dpi=500)
+ggsave("fig3experiment3.png", width=10, height=12, dpi=500)
 ```
 
 

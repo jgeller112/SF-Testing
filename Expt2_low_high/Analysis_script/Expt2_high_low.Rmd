@@ -27,6 +27,7 @@ library(see)
 library(ggrepel)
 library(report)
 library(emmeans)
+library(BayesFactor)
 
 ```
 # Read in Raw Data
@@ -344,8 +345,9 @@ rt_all1<- rt_all %>%
 dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
     dplyr::filter(rt > 150, rt < sdabove) %>%
   dplyr::summarise(mean_rt= mean(log(rt))) %>%
-   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica"))
-  
+   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica")) %>%
+  mutate(new_id1=ifelse(is.na(new_id1), "na1", new_id1)) %>%
+  ungroup()
 
 
 ```
@@ -371,9 +373,15 @@ recall_highlow_agg_wide <- recall_highlow %>%
   dplyr::summarise(mean_acc=mean(Scored))%>%
   tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")
 
+write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
+
+
 recall_highlow_agg <- recall_highlow %>% 
   dplyr::group_by(id, font, cond) %>%
+  dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
   dplyr::summarise(mean_acc=mean(Scored))
+
+write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
 
   
 ```
@@ -409,8 +417,47 @@ Within_Fitted_Interaction
 
 pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 
+```
+
+#### Effect sizes
+```{r}
+### get d_avg for high
+
+recall_high <- recall_highlow %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+dplyr::filter(cond=="High Test Expectancy")%>%
+  unroup() %>%
+  group_by(font)%>% 
+  dplyr::summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
+
+writecsv
+                   
+                   
+
+
+h=d.dep.t.avg(m1 = recall_high$mean1, m2 = recall_high$mean2, sd1 = recall_high$sd1,
+                sd2 = recall_high$sd2, n = 116, a = .05)
+  
+  
+#### get d_avg for low
+
+
+recall_low <- recall_highlow %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+dplyr::filter(cond=="Low Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
+
+
+l=d.dep.t.avg(m1 = recall_low$mean1, m2 = recall_low$mean2, sd1 = recall_low$sd1,
+                sd2 = recall_low$sd2, n = 116, a = .05)
 
 ```
+
 
 ## JOLs
 
@@ -431,6 +478,38 @@ Within_Fitted_Interaction
 
 ```
 
+
+### Effect Sizes
+
+```{r}
+
+recall_highjol <- all_jol %>% 
+  dplyr::group_by(new_id1, TypeFace, cond) %>%
+  dplyr::summarise(mean_jol=mean(jols))%>%
+  tidyr::pivot_wider(names_from = "TypeFace", values_from = "mean_jol")%>%
+dplyr::filter(cond=="High Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(normal_slider.response ), sd1=sd(normal_slider.response), mean2=mean(atypic_slider.response ), sd2=sd(atypic_slider.response ))
+
+h_jol=d.dep.t.avg(m1 = recall_highjol$mean1, m2 = recall_highjol$mean2, sd1 = recall_highjol$sd1,
+                sd2 = recall_highjol$sd2, n = 116, a = .05)
+  
+recall_lowjol <- all_jol %>% 
+  dplyr::group_by(new_id1, TypeFace, cond) %>%
+  dplyr::summarise(mean_jol=mean(jols))%>%
+  tidyr::pivot_wider(names_from = "TypeFace", values_from = "mean_jol")%>%
+dplyr::filter(cond=="Low Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(normal_slider.response ), sd1=sd(normal_slider.response), mean2=mean(atypic_slider.response ), sd2=sd(atypic_slider.response ))
+
+
+
+l_jol=d.dep.t.avg(m1 = recall_lowjol$mean1, m2 = recall_lowjol$mean2, sd1 = recall_lowjol$sd1,
+                sd2 = recall_lowjol$sd2, n = 115, a = .05)
+
+
+```
+
 ```{r}
 
 pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
@@ -438,9 +517,7 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 
 ```
 
-
 ## RTs
-
 
 ```{r}
 #ANOVA
@@ -449,10 +526,12 @@ rt_a <- aov_ez("new_id1", "mean_rt",rt_all1,
             within=c("font"), between=c("cond")) # mixed
 
 summary(rt_a)
+
+rt_a
 ```
 #### Main Effects
 
-No interaction, but main effet
+No interaction, but main effect
 
 ```{r}
 Within_font <- emmeans(rt_a, ~ font)
@@ -464,6 +543,35 @@ Within_cond <- emmeans(rt_a, ~ cond)
 Within_cond
 
 ```
+### Bayesian Analyis
+
+Main-effect vs. interaction model
+
+```{r, eval=FALSE}
+
+rt_all1$new_id1<-rep(1:232, each=2)
+
+rt_all1$new_id1<-as.factor(rt_all1$new_id1)
+
+rt_all1$cond<-as.factor(rt_all1$cond)
+
+rt_all1$font<-as.factor(rt_all1$font)
+
+bfrt = anovaBF(mean_rt ~ cond*font + new_id1, rt_all1, 
+          whichRandom="new_id1")
+
+#Bayes factor analysis
+#--------------
+#[1] font + cond + new_id1 : 4.322303 ±4.6%
+
+##Against denominator:
+#  mean_rt ~ font + cond + font:cond + new_id1 
+#---
+#Bayes factor type: BFlinearModel, JZS
+
+
+```
+
 # Plot
 
 ## Cued Recall
@@ -495,11 +603,11 @@ recall_highlow_agg
 
 ```
 
-```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of test expectancy for Experiment 2.", fig.height=14, fig.width=10, results="asis", eval=TRUE}
+```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of test expectancy for Experiment 2.", fig.height=8, fig.width=6, results="asis", eval=TRUE}
 
 fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
   facet_grid(~cond) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = mean_acc ),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
@@ -519,7 +627,7 @@ fig2a
 
 ## JOL
 
-```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. JOLs as a function of testing expectancy in Experiment 2.", fig.height=14, fig.width=10, results="asis", eval=TRUE}
+```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. JOLs as a function of testing expectancy in Experiment 2.", fig.height=8, fig.width=6, results="asis", eval=TRUE}
 
 jol_rename <- all_jol %>%
   mutate(Typeface=ifelse(TypeFace=="atypic_slider.response", "Sans Forgetica", "Arial"))
@@ -534,7 +642,7 @@ sfgenjol_wsci= Rmisc::summarySEwithin(data = jol_rename, measurevar = "jols",
 
 
 fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~cond) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
@@ -548,12 +656,12 @@ fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~co
    geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8)
 
 
-
+fig2b
 ```
 
 ## RTs
 
-```{r, fig.align="center", fig.height=14, fig.width=10, results="asis", eval=TRUE}
+```{r, fig.align="center", fig.height=8, fig.width=6, results="asis", eval=TRUE}
 
 means = rt_all1 %>%
   dplyr::group_by(cond, font)%>% 
@@ -565,7 +673,7 @@ sfgenrt_wsci= Rmisc::summarySEwithin(data = rt_all1, measurevar = "mean_rt",
 
 
 fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = font , y = mean_rt),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
