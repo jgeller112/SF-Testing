@@ -306,22 +306,26 @@ sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
 
 fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
   facet_grid(~timed) + 
-  geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  #geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
-               alpha = 0.5, width = .1, colour = "BLACK") +
+               alpha = 0.5, width = .4, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  #geom_line(aes(group = id)) + 
   geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
-  geom_pointrange2(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.5, color="red")+ 
+  geom_pointrange2(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.8, color="red")+ 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
+   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
+  theme(size="14")
 fig3a
 
 
 ```
+
+
 ## JOLS
 
 ```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=8, fig.width=10, results="asis"}
@@ -342,11 +346,11 @@ sfgenjol_wsci=summarySEwithin(data = jol_rename, measurevar = "jols",
 
 fig3b <- ggplot(jol_rename,aes(x=Typeface,y=round(jols,2),fill=Typeface))+ 
   facet_grid(~timed) + 
-  geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
+  #geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
   #geom_violinhalf(fill_dots = "black") + 
-  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2, scale=width) +
-  geom_boxplot(aes(x = Typeface, y = jols), outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = jols ),outlier.shape = NA,
+               alpha = 0.5, width = .4, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
   geom_pointrange2(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.8, color="red")+ 
