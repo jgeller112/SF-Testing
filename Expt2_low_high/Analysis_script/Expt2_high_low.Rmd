@@ -343,13 +343,13 @@ rt_all1<- rt_all %>%
   dplyr::group_by(new_id1, font, cond) %>% 
   dplyr::mutate(rt=mouse_4.time*1000) %>% 
 dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
-    dplyr::filter(rt > 150, rt < sdabove) %>%
-  dplyr::summarise(mean_rt= mean(log(rt))) %>%
+    dplyr::filter(rt > 150 || rt > sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt), na.rm=TRUE)) %>%
    mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica")) %>%
   mutate(new_id1=ifelse(is.na(new_id1), "na1", new_id1)) %>%
   ungroup()
 
-
+rt_all1
 ```
 
 # Analysis
@@ -361,9 +361,9 @@ We employed 2 x 2 MIXED ANOVA.
 Read in data from the scored folder and aggregate (long and wide)
 
 ```{r}
-setwd(here::here('Expt2_low_high', "Summary", "scored")) # folder to find Ps in
+setwd(here::here('Expt2_low_high', "Summary", "cued")) # folder to find Ps in
 
-recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","scored", "Expt2_scored_recall.csv")) # folder to find Ps in)
+recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","cued", "Expt2_scored_recall.csv")) # folder to find Ps in)
 ```
 
 
@@ -428,11 +428,9 @@ recall_high <- recall_highlow %>%
   dplyr::summarise(mean_acc=mean(Scored))%>%
   tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
 dplyr::filter(cond=="High Test Expectancy")%>%
-  unroup() %>%
-  group_by(font)%>% 
-  dplyr::summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
+  dplyr::ungroup() %>%
+  summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
 
-writecsv
                    
                    
 
@@ -455,6 +453,11 @@ dplyr::filter(cond=="Low Test Expectancy")%>%
 
 l=d.dep.t.avg(m1 = recall_low$mean1, m2 = recall_low$mean2, sd1 = recall_low$sd1,
                 sd2 = recall_low$sd2, n = 116, a = .05)
+
+
+h
+
+l 
 
 ```
 
@@ -613,12 +616,13 @@ fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
-  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
-  theme_cowplot() +
+  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.3, color="red")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8)
+   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none")
 
 
 fig2a
@@ -641,20 +645,21 @@ sfgenjol_wsci= Rmisc::summarySEwithin(data = jol_rename, measurevar = "jols",
                        withinvars = "Typeface", betweenvars = "cond", idvar = "new_id1")
 
 
-fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~cond) + 
+fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ 
+  facet_grid(~cond) + 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.5, color="red")+ 
-  theme_cowplot() +
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
-  labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8)
-
+  labs(y = "Judgements of Learning", x = "Typeface") +  theme(legend.position = "none")+ 
+  geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+  theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none")
 
 fig2b
 ```
@@ -679,16 +684,21 @@ fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) +
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
-  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci), width=.5, size=.5, color="red") + 
-  theme_cowplot() +
-  scale_colour_brewer(palette = "Dark2")+
-  scale_fill_brewer(palette = "Dark2") +
+  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci),size=.3, color="red") + 
+  scale_colour_brewer(palette = "lego")+
+  scale_fill_brewer(palette = "lego") +
   labs(y = "log(RT/s)", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
+   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
+theme_cowplot(font_size=14) + 
+  theme(legend.position = "none")
+
+
 
 fig2c
 
 ```
+
+
 # Combine Plots
 
 
