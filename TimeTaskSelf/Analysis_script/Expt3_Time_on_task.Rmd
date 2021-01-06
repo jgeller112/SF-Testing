@@ -12,7 +12,23 @@ In a preregistered study we manipulated the influence of time on task (Self-pace
 
 # Read in Data
 
-Read in data for counterbalance 1
+Load packages and read in data for counterbalance 1
+
+```{r}
+#packages you will need
+library(tidyverse)
+library(data.table)
+library(here)
+library(afex)
+library(Rmisc)
+library(cowplot)
+library(see)
+library(ggrepel)
+#library(report)
+library(emmeans)
+library(BayesFactor)
+library(MOTE)
+```
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
 # read in low test expect data exported from gorilla
@@ -175,9 +191,11 @@ write.csv(recall_all1, file="long_recall_timed.csv")
 
 
 ```
-# 2x2 Mixed ANOVA
+# Analysis
 
-Run the analysis
+## Cued Recall
+
+Run the  2 x 2 ANOVA analysis
 
 ```{r}
 #ANOVA
@@ -189,57 +207,106 @@ a1 <- aov_ez("id", "acc", recall_all1,
 summary(a1)
 
 
-sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "dprime",
-                       withinvars = "condition1", betweenvars = "testexpect", idvar = "participant_private_id")
-
-bf = anovaBF(dprime ~ condition1*testexpect + participant_private_id, highlowaov, 
-          whichRandom="participant_private_id")
-
 
 a1
 ```
 
-#Plot
+# Main Effects
+
+Get means for each main effect
+
+```{r}
+Within_font <- emmeans(a1, ~ font)
+
+Within_font
+
+Within_cond <- emmeans(a1, ~ cond)
+
+Within_cond
+
+```
+
+
+### Interaction
+
+```{r}
+Within_Fitted_Interaction <- emmeans(a1, ~ font|cond)
+
+Within_Fitted_Interaction
+
+```
+
+
+### Planned Comparisons
 
 ```{r}
 
-library(see)
-library(ggrepel)
-source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 
-bold <- element_text(face = "bold", color = "black", size = 14) 
+```
+### Effect sizes
 
-recall_all1 <- recall_all1 %>%
-  mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial")) %>%
-  mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
+```{r}
 
-means = recall_all1 %>%
-  dplyr::group_by(timed, Typeface)%>% 
-  dplyr::summarise(mean=mean(acc))
+recall_sp <- recall_all1 %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(acc))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+dplyr::filter(cond=="self-paced")%>%
+  ungroup() %>%
+  summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
 
+sp_recall=d.dep.t.avg(m1 = recall_sp$mean1, m2 = recall_sp$mean2, sd1 = recall_sp$sd1,
+                sd2 = recall_sp$sd2, n = 116, a = .05)
+  
+recall_timed <- recall_all1 %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(acc))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+dplyr::filter(cond=="timed")%>%
+  ungroup() %>%
+  summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
 
-sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
-                       withinvars = "Typeface", betweenvars = "timed", idvar = "id")
-
-fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
-  facet_grid(~timed) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
-  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
-    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
-  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.5, color="red")+ 
-  theme_cowplot() +
-  scale_colour_brewer(palette = "Dark2")+
-  scale_fill_brewer(palette = "Dark2") +
-  labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
-
-fig3a
+time_recall=d.dep.t.avg(m1 = recall_timed$mean1, m2 = recall_timed$mean2, sd1 = recall_timed$sd1,
+                sd2 = recall_timed$sd2, n = 116, a = .05)
+  
+sp_recall
+time_recall
 
 
 ```
+
+
+### Bayesian Analyis
+
+Run the 2 x 2 Bayesian Analyis
+```{r}
+
+recall_all1$new_id1<-rep(1:232, each=2)
+
+recall_all1$new_id1<-as.factor(recall_all1$new_id1)
+
+recall_all1$cond<-as.factor(recall_all1$cond)
+
+recall_all1$font<-as.factor(recall_all1$font)
+
+
+bfcue = anovaBF(acc ~ cond*font, recall_all1, 
+          whichRandom="new_id1")
+
+
+#Bayes factor analysis
+--------------
+#[1] font + cond : 5.497366 ±3.24%
+
+#Against denominator:
+#  acc ~ font + cond + font:cond 
+#---
+#Bayes factor type: BFlinearModel, JZS
+
+
+```
+
 
 # JOLs
 
@@ -278,6 +345,11 @@ dataset4_jol <- datasetlow4 %>%
 
 jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
 
+jol_all_wide <- jol_all %>% 
+  pivot_wider(names_from = "Typeface", values_from="jols")
+
+#write.csv(jol_all_wide, file="expt3_jols_sum.csv")
+
 
 ```
 ## JOLs Analyis
@@ -285,16 +357,135 @@ jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
 A 2 x 2 Mixed ANOVA was run. 
 
 ```{r}
-ANOVA
+#ANOVA
 
 a1 <- aov_ez("participant", "jols", jol_all, 
             within=c("Typeface"), between=c("cond")) # mixed
 
 summary(a1)
+
+a1
+```
+### Main Effects
+```{r}
+Within_font <- emmeans(a1, ~ Typeface)
+
+Within_font
+
+Within_cond <- emmeans(a1, ~ cond)
+
+Within_cond
+
+```
+
+
+
+
+### Testing Interaction 
+```{r}
+Within_Fitted_Interaction <- emmeans(a1, ~ Typeface|cond)
+
+Within_Fitted_Interaction
+
+```
+### Effect sizes
+
+```{r}
+
+recall_spjol <- jol_all %>% 
+  dplyr::group_by(participant, Typeface, cond) %>%
+  dplyr::summarise(mean_jol=mean(jols))%>%
+  tidyr::pivot_wider(names_from = "Typeface", values_from = "mean_jol")%>%
+dplyr::filter(cond=="self-paced")%>%
+  ungroup() %>%
+  summarise(mean1=mean(normal_slider.response ), sd1=sd(normal_slider.response), mean2=mean(atypic_slider.response ), sd2=sd(atypic_slider.response ))
+
+sp_jol=d.dep.t.avg(m1 = recall_spjol$mean1, m2 = recall_spjol$mean2, sd1 = recall_spjol$sd1,
+                sd2 = recall_spjol$sd2, n = 116, a = .05)
+  
+recall_timejol <- jol_all %>% 
+  dplyr::group_by(participant, Typeface, cond) %>%
+  dplyr::summarise(mean_jol=mean(jols))%>%
+  tidyr::pivot_wider(names_from = "Typeface", values_from = "mean_jol")%>%
+dplyr::filter(cond=="timed")%>%
+  ungroup() %>%
+  summarise(mean1=mean(normal_slider.response ), sd1=sd(normal_slider.response), mean2=mean(atypic_slider.response ), sd2=sd(atypic_slider.response ))
+
+
+
+t_jol=d.dep.t.avg(m1 = recall_timejol$mean1, m2 = recall_timejol$mean2, sd1 = recall_timejol$sd1,
+                sd2 = recall_timejol$sd2, n = 116, a = .05)
+sp_jol
+t_jol
+
+
+```
+
+# Bayesian Analysis 
+
+```{r}
+
+jol_all$new_id1<-rep(1:232, each=2)
+
+jol_all$new_id1<-as.factor(jol_all$new_id1)
+
+jol_all$cond<-as.factor(jol_all$cond)
+
+jol_all$Typeface<-as.factor(jol_all$Typeface)
+
+
+bftimed = anovaBF(jols ~ cond*Typeface, jol_all, 
+          whichRandom="new_id1")
+
 ```
 
 
 # Plot
+
+## Cued Recall 
+
+
+```{r}
+
+library(see)
+library(ggrepel)
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+bold <- element_text(face = "bold", color = "black", size = 14) 
+
+recall_all1 <- recall_all1 %>%
+  mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial")) %>%
+  mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
+
+means = recall_all1 %>%
+  dplyr::group_by(timed, Typeface)%>% 
+  dplyr::summarise(mean=mean(acc))
+
+
+sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "id")
+
+fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
+  facet_grid(~timed) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
+  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.3, color="red")+ 
+  theme_cowplot(font_size=14) +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
+   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5)
+
+fig3a
+
+```
+
+## JOLs
+
 ```{r}
 
 jol_rename <- jol_all %>%
@@ -312,24 +503,41 @@ sfgenjol_wsci=summarySEwithin(data = jol_rename, measurevar = "jols",
 
 
 fig3b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ facet_grid(~timed) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+ # geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=1, color="red")+ 
-  theme_cowplot() +
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1)
+   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.1) + 
+  theme_cowplot(font_size=14) + 
+  theme(legend.position = "none")
+
+fig3b
 
 ```
 
 ## RTs
 
 RTs were not analyzed as they were only collected in the self-paced condition. 
+
+```{r, fig.align="center", fig.height=16, fig.width=8, results="asis", eval=TRUE}
+
+fig3 <- plot_grid(
+  fig3a, fig3b,
+  labels = "AUTO", ncol= 1, nrow = 3
+)
+
+fig3
+
+ggsave("figexpt2.png",width=10, height=12, dpi=500)
+
+```
+
 
 
 
