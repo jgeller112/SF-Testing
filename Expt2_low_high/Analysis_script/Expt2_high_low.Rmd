@@ -807,4 +807,13 @@ fig2_diff <- plot_grid(
 
 ggsave("figexpt2b.png", width=10, height=14, dpi=500)
 
+
+fig2 <- plot_grid(
+  fig2a,fig2adiff, fig2b, fig2b_diff, fig2c, fig2c_diff,
+  labels = "AUTO", ncol= 2, nrow = 3
+)
+
+ggsave("figexpt2b_all.png", width=12, height=14, dpi=500)
+
+
 ```

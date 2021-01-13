@@ -318,7 +318,7 @@ fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
-  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc-ci, ymax=acc+ci), size=.8, color="darkred")+ 
+  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc, ymax=acc), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + 
@@ -386,21 +386,20 @@ fig3b <- ggplot(jol_rename,aes(x=Typeface,y=round(jols,2),fill=Typeface))+
   facet_grid(~timed) + 
   #geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
   #geom_violinhalf(fill_dots = "black") + 
-   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = Typeface, y = jols ),outlier.shape = NA,
-               alpha = 0.5, width = .1, colour = "BLACK") +
+               alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange2(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.8, color="darkred")+ 
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + 
   theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0,                     seed = 42, box.padding = 1) + 
+   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)),seed = 42, box.padding = 0.8) + 
   theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
-  geom_hline(yintercept = 0, linetype="dotted") + 
   theme(axis.title = bold)
 
   
@@ -445,6 +444,12 @@ ggsave("fig3experiment3.png", width=10, height=12, dpi=500)
 fig3_diff <- plot_grid(fig3a_diff, fig3b_diff, ncol=, nrow=2)
 
 ggsave("fig3_diff.png", width=10, height=12, dpi=500)
+
+
+fig3_diff <- plot_grid(fig3a, fig3a_diff, fig3b, fig3b_diff, ncol=2, nrow=2)
+
+ggsave("fig3_diff_all.png", width=12, height=14, dpi=500)
+
 ```
 
 

@@ -7,7 +7,7 @@ output:
 ---
 
 In this preregistered experiment we examined the effect of testing expectancy
-on the disfluency effect using recognition memory. 
+on the disfluency effect using a recognition memory test. 
 
 
 # Load in packages
@@ -527,6 +527,11 @@ ggsave("figexpt1.png", width=10, height=14, dpi=500)
 fig1_diff <- plot_grid(fig1a_diff, fig2b_diff, figrt_diff, labels = "AUTO", ncol=, nrow=3)
 
 ggsave("figexpt1_diff.png", width=10, height=14, dpi=500) 
+
+fig1_diff_all <- plot_grid(fig1a, fig1a_diff, figjol, fig2b_diff,figrt, figrt_diff, labels = "AUTO", ncol=2, nrow=3)
+
+ggsave("figexpt1_diff_all.png", width=12, height=14, dpi=500) 
+
 
 ```
 
