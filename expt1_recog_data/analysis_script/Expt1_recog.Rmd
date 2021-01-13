@@ -6,6 +6,10 @@ output:
     df_print: paged
 ---
 
+In this preregistered experiment we examined the effect of testing expectancy
+on the disfluency effect using recognition memory. 
+
+
 # Load in packages
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
