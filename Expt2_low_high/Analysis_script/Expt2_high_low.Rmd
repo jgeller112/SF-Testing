@@ -28,6 +28,7 @@ library(ggrepel)
 library(report)
 library(emmeans)
 library(BayesFactor)
+library(MOTE)
 
 ```
 # Read in Raw Data
@@ -330,8 +331,19 @@ as.data.frame(dplyr::count(all_c, new_id))
 
 ## JOLs
 
+Bind and tidy wide for plotting
+
 ```{r}
 all_jol <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
+
+all_jol_wide= all_jol %>%
+  tidyr::pivot_wider(names_from = "TypeFace", values_from = "jols") %>%
+  dplyr::mutate(Difference=atypic_slider.response-normal_slider.response)
+  
+all_jol_mean_wide <- all_jol_wide %>% 
+  dplyr::group_by(cond) %>% 
+  dplyr::summarise(mean=mean(Difference))
+
 ```
 
 ## RTs
@@ -349,7 +361,14 @@ dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
   mutate(new_id1=ifelse(is.na(new_id1), "na1", new_id1)) %>%
   ungroup()
 
-rt_all1
+rt_all_wide <- rt_all1 %>% 
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_rt")%>% 
+  dplyr::mutate(Difference= `Sans Forgetica` - Arial)
+
+
+rt_all_wide_mean <- rt_all_wide %>%
+  dplyr::group_by(cond) %>% 
+  dplyr::summarise(mean=mean(Difference))
 ```
 
 # Analysis
@@ -371,7 +390,13 @@ recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","cued", "Expt2_s
 recall_highlow_agg_wide <- recall_highlow %>% 
   dplyr::group_by(id, font, cond) %>%
   dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc") %>%
+  dplyr::mutate(Difference=SF - flu)
+
+recall_means_wide <- recall_highlow_agg_wide %>%
+  dplyr::group_by(cond) %>%
+  dplyr::summarise(mean=mean(Difference))
+
 
 write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
 
@@ -616,16 +641,37 @@ fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
-  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.3, color="red")+ 
+  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc, ymax=mean_acc), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  theme(axis.title = bold)
+
+# plot difference plots 
+fig2adiff <- ggplot(recall_highlow_agg_wide,aes(x=cond,y=Difference, fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+  #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
+  #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Test Difference (Sans Forgetica - Arial", x = "Test Expectancy")+
+     theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title =bold) + 
+  geom_hline(yintercept = 0, linetype="dotted") + 
+   geom_label_repel(data=recall_means_wide, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
 
 
 fig2a
+
+fig2adiff
 ```
 
 
@@ -653,15 +699,38 @@ fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+
                alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") +  theme(legend.position = "none")+ 
-  geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
-  theme_cowplot(font_size=14)+ 
-  theme(legend.position = "none")
+  geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title = bold)
+
+
+fig2b_diff <- ggplot(all_jol_wide,aes(x=cond,y=Difference,fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+ # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "JOL Difference (Sans Forgetica - Arial)", x = "Test Expectancy") +  theme(legend.position = "none")+ 
+  geom_label_repel(data=all_jol_mean_wide, aes(y=mean , label=round(mean, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(axis.title = bold)
+
 
 fig2b
+
+fig2b_diff
 ```
 
 ## RTs
@@ -682,19 +751,38 @@ fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) +
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
   geom_boxplot(aes(x = font , y = mean_rt),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
-   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
-  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci),size=.3, color="red") + 
-  scale_colour_brewer(palette = "lego")+
-  scale_fill_brewer(palette = "lego") +
-  labs(y = "log(RT/s)", x = "Typeface") + theme(legend.position = "none") + 
+  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt),size=.8, color="darkred") + 
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "log(Study Time)", x = "Typeface") + theme(legend.position = "none") + 
    geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
 theme_cowplot(font_size=14) + 
-  theme(legend.position = "none")
+  theme(legend.position = "none", axis.title = bold)
 
+
+fig2c_diff <- ggplot(rt_all_wide,aes(x=cond,y=Difference,fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond , y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  #geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+  #geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci),size=.3, color="red") + 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Time Difference (Sans Forgetica - Arial)", x = "Test Expectancy") + theme(legend.position = "none") + 
+   geom_label_repel(data=rt_all_wide_mean, aes(y=mean, label=round(mean, 2)), seed = 42, box.padding = 0.5) + 
+theme_cowplot(font_size=14) + 
+    geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(legend.position = "none", axis.title = bold)
 
 
 fig2c
+
+fig2c_diff
 
 ```
 
@@ -705,12 +793,18 @@ fig2c
 ```{r, fig.align="center", fig.height=16, fig.width=8, results="asis", eval=TRUE}
 
 fig2 <- plot_grid(
-  fig2a, fig2b, fig2c,
+  fig2a,fig2b,fig2c,
   labels = "AUTO", ncol= 1, nrow = 3
 )
 
-fig2
+ggsave("figexpt2.png", width=10, height=14, dpi=500)
 
-ggsave("figexpt2.png", width=8, height=12, dpi=500)
+
+fig2_diff <- plot_grid(
+  fig2adiff,fig2b_diff,fig2c_diff,
+  labels = "AUTO", ncol= 1, nrow = 3
+)
+
+ggsave("figexpt2b.png", width=10, height=14, dpi=500)
 
 ```
