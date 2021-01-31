@@ -1,0 +1,22 @@
+"Source","Statistic","df1","df2","Test.Comparison","Value","Reported.Comparison","Reported.P.Value","Computed","Raw","Error","DecisionError","OneTail","OneTailedInTxt","APAfactor"
+"Testing_Expectancy_SF_RR","F",1,229,"=",1.1,"=",0.296,0.295371733238041,"F(1,229) = 1.10, p = .296",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,229,"=",4.11,"=",0.04,0.0437889337502114,"F(1, 229) = 4.11, p = .04",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,229,"=",14.297,"<",0.001,0.000199227530267263,"F(1, 229) = 14.297, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,221,"=",16.01,"<",0.001,8.59845182166638e-05,"F(1,221) = 16.01, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,221,"=",0.13,"=",0.715,0.718776416485075,"F(1,221) = 0.13, p = .715",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,229,"=",1.97,"=",0.162,0.161802423197012,"F(1,229) = 1.97, p = .162",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,229,"=",13.57,"<",0.001,0.000286824691074835,"F(1,229)
+= 13.57, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,229,"=",87.05,"<",0.001,9.45915523154379e-18,"F(1,229) = 87.05, p <
+.001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,229,"=",13.65,"<",0.001,0.000275521323791429,"F(1,229) = 13.65, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",17.02,"<",0.001,5.17130111975587e-05,"F(1,230) = 17.02, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",27.74,"<",0.001,3.1848763350212e-07,"F(1,230) = 27.74, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",0.39,"=",0.533,0.532918387300704,"F(1,230) = 0.39, p = .533",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",0.369,"<",0.544,0.544149119862045,"F(1, 230) = 0.369, p < .544",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",15.03,"<",0.001,0.000138102052457787,"F(1, 230) = 15.03, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",1.13,"=",0.289,0.288890157881112,"F(1, 230) = 1.13,p = .289",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",17.43,"<",0.001,4.23093623332555e-05,"F(1,230) = 17.43, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",48.81,"<",0.001,3.01182112291257e-11,"F(1,230) = 48.81, p < .001",FALSE,FALSE,FALSE,TRUE,0.64
+"Testing_Expectancy_SF_RR","F",1,230,"=",27.17,"<",0.001,4.14396382913235e-07,"F(1,230)
+= 27.17, p < .001",FALSE,FALSE,FALSE,TRUE,0.64

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.31)  31 JAN 2021 16:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.31)  31 JAN 2021 17:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1119,23 +1119,17 @@ c file (type pdf)
 Package pdftex.def Info: Testing_Expectancy_SF_RR_files/figure-latex/unnamed-ch
 unk-19-1.pdf  used on input line 299.
 (pdftex.def)             Requested size: 241.74043pt x 282.0305pt.
-
-Underfull \vbox (badness 5302) has occurred while \output is active []
-
 [7 <./Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-19-1.pdf>]
-<Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-56-1.pdf, id=278, 57
-8.16pt x 1156.32pt>
+<Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-56-1.pdf, id=278, 86
+7.24pt x 1156.32pt>
 File: Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-56-1.pdf Graphi
 c file (type pdf)
 <use Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-56-1.pdf>
 Package pdftex.def Info: Testing_Expectancy_SF_RR_files/figure-latex/unnamed-ch
 unk-56-1.pdf  used on input line 365.
-(pdftex.def)             Requested size: 241.74043pt x 483.48088pt.
-[8]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[9 <./Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-56-1.pdf>]
-<Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-74-1.pdf, id=319, 86
+(pdftex.def)             Requested size: 241.74043pt x 322.32059pt.
+[8] [9 <./Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-56-1.pdf>]
+<Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-74-1.pdf, id=320, 86
 7.24pt x 1011.78pt>
 File: Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-74-1.pdf Graphi
 c file (type pdf)
@@ -1143,115 +1137,23 @@ c file (type pdf)
 Package pdftex.def Info: Testing_Expectancy_SF_RR_files/figure-latex/unnamed-ch
 unk-74-1.pdf  used on input line 415.
 (pdftex.def)             Requested size: 241.74043pt x 282.0305pt.
-[10]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[10 <./Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-74-1.pdf>] [11
+]
+Underfull \vbox (badness 1215) has occurred while \output is active []
 
-[11 <./Testing_Expectancy_SF_RR_files/figure-latex/unnamed-chunk-74-1.pdf>] [12
-] [13] [14] [15pdfTeX warning (ext4): destination with the same identifier (nam
-e{ref-Bjork2016}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.598 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Bot
-vinick2001}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.598 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Cra
-ik1972}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.598 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Eit
-el2016}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.598 
-      ] [16pdfTeX warning (ext4): destination with the same identifier (name{re
-f-Geller2018}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.661 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Hal
-amish2018}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.661 
-      ] [17pdfTeX warning (ext4): destination with the same identifier (name{re
-f-Nairne1988}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.721 
-      ]pdfTeX warning (ext4): destination with the same identifier (name{ref-Na
-irne1988}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.722 \leavevmode\hypertarget{ref-Nairne1988}{}
-                                               %pdfTeX warning (ext4): destinat
-ion with the same identifier (name{ref-Nairne1988}) has been already used, dupl
-icate ignored
-<to be read again> 
-                   \relax 
-l.725 \leavevmode\hypertarget{ref-Nairne1988}{}
-                                               % [18pdfTeX warning (ext4): dest
-ination with the same identifier (name{ref-Olejnik2003}) has been already used,
- duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.784 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Ole
-jnik2003}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.784 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Pan
-2020}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.784 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Per
-ea2016}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.784 
-      ] [19pdfTeX warning (ext4): destination with the same identifier (name{re
-f-Rummer2016}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.844 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Seu
-fert2017}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.844 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Str
-ukelj2016}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.844 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Str
-ukelj2016}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.844 
-      pdfTeX warning (ext4): destination with the same identifier (name{ref-Sus
-ser2013}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  
-l.844 
-      ] [20] (./Testing_Expectancy_SF_RR.aux)
+[12] [13] [14] [15] [16] [17] [18] [19] (./Testing_Expectancy_SF_RR.aux)
 Package rerunfilecheck Info: File `Testing_Expectancy_SF_RR.out' has not change
 d.
-(rerunfilecheck)             Checksum: 09CBDE35F47DA9AC0F1B748CC021FC01;6542.
+(rerunfilecheck)             Checksum: 6F245CCAC3C53E6CEB2B5F93BC94386A;6542.
  ) 
 Here is how much of TeX's memory you used:
  25386 strings out of 481252
- 454856 string characters out of 5914732
- 786546 words of memory out of 5000000
+ 454864 string characters out of 5914732
+ 783607 words of memory out of 5000000
  41565 multiletter control sequences out of 15000+600000
  464920 words of font info for 120 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 102i,8n,103p,2205b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 102i,8n,103p,2206b,489s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/Users/jgeller1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/base/8r.enc}</Use
 rs/jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></Us
 ers/jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></Users
@@ -1259,10 +1161,10 @@ ers/jgeller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></Users
 geller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></Users/jg
 eller1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></Users/jgel
 ler1/Library/TinyTeX/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Testing_Expectancy_SF_RR.pdf (20 pages, 618840 bytes).
+Output written on Testing_Expectancy_SF_RR.pdf (19 pages, 616404 bytes).
 PDF statistics:
- 885 PDF objects out of 1000 (max. 8388607)
- 842 compressed objects within 9 object streams
+ 840 PDF objects out of 1000 (max. 8388607)
+ 799 compressed objects within 8 object streams
  229 named destinations out of 1000 (max. 500000)
  388 words of extra memory for PDF output out of 10000 (max. 10000000)
 
