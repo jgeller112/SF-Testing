@@ -1,1 +1,1 @@
-# Sans Forgetica Github for Testing Expectancy Paper
+# Sans Forgetica Github for Test Expectancy Paper
