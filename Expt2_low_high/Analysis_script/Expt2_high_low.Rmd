@@ -485,7 +485,34 @@ h
 l 
 
 ```
+### LRD
 
+LRD can be used as a shiny application or as a package. Below shows how to score cued recall automatically using the lrd package. I used the Shiny application for this due to the R package not being ready for use. 
+
+```{r, eval=FALSE}
+
+devtools::install_github("npm27/lrd") # load the package
+library(lrd)
+
+all_c$textbox.test[is.na(all_c$textbox.text)] <- "" # does not work if NAs exists
+
+all_c<-as.data.frame(all_c) # needs to be data frame
+
+all_c$trial_id<-rep(1:5568) # needs to have unique rows for some reason 
+# run lrd 
+scored_cued = prop_correct_cued(all, 
+                                responses = "textbox.text",
+                                id = "new_id",
+                                id.trial = "trial_id",
+                                key = "targ1", 
+                                key.trial =  "trial_id",
+                                cutoff = 3, 
+                                group.by = c("font", "cond"))
+
+recall_highlow<-scored_cued$DF_Participant
+
+
+```
 
 ## JOLs
 
