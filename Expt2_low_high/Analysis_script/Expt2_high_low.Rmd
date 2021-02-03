@@ -5,7 +5,9 @@ date: "12/29/2020"
 output:
   html_document:
     df_print: paged
-    toc: true
+    toc: yes
+  word_document:
+    toc: yes
 ---
 
 # Introduction
@@ -320,6 +322,7 @@ as.data.frame(dplyr::count(dataset4_rt, new_id1))
 all_c<- rbind(dataset1, dataset2, dataset3, dataset4)
 
 all_c %>% group_by(cb) %>% dplyr::summarise(count = n()) # make sure equal number of Ps in cbs
+all_c<-mutate(all_c, new_id=ifelse(is.na(new_id), "NA1", new_id))
 
 
 as.data.frame(dplyr::count(all_c, new_id))
@@ -377,20 +380,42 @@ We employed 2 x 2 MIXED ANOVA.
 
 ## Cued Recall
 
-Read in data from the scored folder and aggregate (long and wide)
+### LRD
+
+LRD can be used as a shiny application or as a package. Below shows how to score cued recall automatically using the lrd package. I used the Shiny application for this due to the R package not being ready for use. 
 
 ```{r}
-setwd(here::here('Expt2_low_high', "Summary", "cued")) # folder to find Ps in
 
-recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","cued", "Expt2_scored_recall.csv")) # folder to find Ps in)
+library(lrd)
+
+all_c$textbox.text[is.na(all_c$textbox.text)] <- "" # does not work if NAs exists
+
+all_c<-as.data.frame(all_c) # needs to be data frame
+
+all_c$trial_id<-rep(1:5568) # needs to have unique rows for some reason 
+# run lrd 
+scored_cued = prop_correct_cued(all_c, 
+                                responses = "textbox.text",
+                                id = "new_id",
+                                id.trial = "trial_id",
+                                key = "targ1", 
+                                key.trial =  "trial_id",
+                                cutoff = 3, 
+                                group.by = c("font"))
+
+recall_highlow<-scored_cued$DF_Participant
+
+write.csv(recall_highlow, file="expt2_long_lrd.csv")
+
+
 ```
 
-
 ```{r}
+
 recall_highlow_agg_wide <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc") %>%
+  dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct") %>%
   dplyr::mutate(Difference=SF - flu)
 
 recall_means_wide <- recall_highlow_agg_wide %>%
@@ -398,23 +423,24 @@ recall_means_wide <- recall_highlow_agg_wide %>%
   dplyr::summarise(mean=mean(Difference))
 
 
-write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
+#write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
 
 
-recall_highlow_agg <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
-  dplyr::summarise(mean_acc=mean(Scored))
+#recall_highlow_agg <- recall_highlow %>% 
+ # dplyr::group_by(id, font, cond) %>%
+ # dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
+  #dplyr::summarise(mean_acc=mean(Scored))
 
-write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
+#write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
 
   
 ```
+## ANOVA
 
 ```{r}
 #ANOVA
 
-a1 <- aov_ez("id", "mean_acc", recall_highlow_agg, 
+a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_highlow, 
             within=c("font"), between=c("cond")) # mixed
 
 summary(a1)
@@ -424,6 +450,23 @@ a1
 
 
 
+
+```
+### Main Effects
+#### fonts
+
+```{r}
+font <- emmeans(a1, ~ font)
+
+font
+
+```
+### Testing Effect
+
+```{r}
+cond <- emmeans(a1, ~ cond)
+
+cond
 
 ```
 
@@ -449,14 +492,13 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 ### get d_avg for high
 
 recall_high <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+  dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
 dplyr::filter(cond=="High Test Expectancy")%>%
   dplyr::ungroup() %>%
   summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
 
-                   
                    
 
 
@@ -468,9 +510,9 @@ h=d.dep.t.avg(m1 = recall_high$mean1, m2 = recall_high$mean2, sd1 = recall_high$
 
 
 recall_low <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+  dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
 dplyr::filter(cond=="Low Test Expectancy")%>%
   ungroup() %>%
   summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
@@ -484,38 +526,25 @@ h
 
 l 
 
-```
-### LRD
 
-LRD can be used as a shiny application or as a package. Below shows how to score cued recall automatically using the lrd package. I used the Shiny application for this due to the R package not being ready for use. 
+```
+
+### Bayesian Analysis
 
 ```{r, eval=FALSE}
 
-devtools::install_github("npm27/lrd") # load the package
-library(lrd)
-
-all_c$textbox.test[is.na(all_c$textbox.text)] <- "" # does not work if NAs exists
-
-all_c<-as.data.frame(all_c) # needs to be data frame
-
-all_c$trial_id<-rep(1:5568) # needs to have unique rows for some reason 
-# run lrd 
-scored_cued = prop_correct_cued(all, 
-                                responses = "textbox.text",
-                                id = "new_id",
-                                id.trial = "trial_id",
-                                key = "targ1", 
-                                key.trial =  "trial_id",
-                                cutoff = 3, 
-                                group.by = c("font", "cond"))
-
-recall_highlow<-scored_cued$DF_Participant
-
+recall_highlow$Sub.ID<-rep(1:232, each=2)
+recall_highlow$Sub.ID<-as.factor(recall_highlow$Sub.ID)
+recall_highlow$cond<-as.factor(recall_highlow$cond)
+recall_highlow$font<-as.factor(recall_highlow$font)
+bfcue = anovaBF(Proportion.Correct ~ cond*font + Sub.ID, recall_highlow, 
+          whichRandom=c("new_id1"))
 
 ```
 
 ## JOLs
 
+### ANOVA
 ```{r}
 #ANOVA
 
@@ -532,7 +561,6 @@ Within_Fitted_Interaction <- emmeans(jol_a, ~ TypeFace|cond)
 Within_Fitted_Interaction
 
 ```
-
 
 ### Effect Sizes
 
@@ -573,7 +601,7 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 ```
 
 ## RTs
-
+### ANOVA
 ```{r}
 #ANOVA
 
@@ -642,17 +670,17 @@ source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/f
 
 bold <- element_text(face = "bold", color = "black", size = 14) 
 
-recall_highlow_agg <- recall_highlow_agg %>%
+recall_highlow_agg <- recall_highlow%>%
   dplyr::mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial"))
 
 #means by test and typeface 
 means = recall_highlow_agg %>%
   dplyr::group_by(cond, Typeface)%>% 
-  dplyr::summarise(mean=mean(mean_acc))
+  dplyr::summarise(mean=mean(Proportion.Correct))
 
 # get withinsub CIs
-sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "mean_acc",
-                       withinvars = "Typeface", betweenvars = "cond", idvar = "id")
+sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "Proportion.Correct",
+                       withinvars = "Typeface", betweenvars = "cond", idvar = "Sub.ID")
 
 recall_highlow_agg
 
@@ -660,19 +688,19 @@ recall_highlow_agg
 
 ```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of test expectancy for Experiment 2.", fig.height=8, fig.width=6, results="asis", eval=TRUE}
 
-fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
+fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=Proportion.Correct,fill=Typeface))+ 
   facet_grid(~cond) + 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = mean_acc ),outlier.shape = NA,
+  geom_boxplot(aes(x = Typeface, y = Proportion.Correct ),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
-  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc, ymax=mean_acc), size=.8, color="darkred")+ 
+  geom_line(data=sfarial_wsci,aes(y=Proportion.Correct, group=1), size=1)+ 
+  geom_pointrange(data=sfarial_wsci, aes(y=Proportion.Correct, ymin=Proportion.Correct, ymax=Proportion.Correct), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)),seed = 42, box.padding = 0.8) + 
+   geom_label_repel(data=sfarial_wsci, aes(y=Proportion.Correct, label=round(Proportion.Correct, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
@@ -842,5 +870,5 @@ fig2 <- plot_grid(
 
 ggsave("figexpt2b_all.png", width=12, height=14, dpi=500)
 
-
+fig2
 ```

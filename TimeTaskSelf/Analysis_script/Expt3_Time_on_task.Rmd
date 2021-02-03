@@ -167,7 +167,9 @@ dataset4 <- datasetlow4 %>%
 
 ```
 
-# Bind Data Cued Responses
+# Combine Data 
+
+## Cued Responses
 
 ```{r}
 all<-rbind(dataset1, dataset2, dataset3, dataset4)
@@ -176,7 +178,7 @@ all<-rbind(dataset1, dataset2, dataset3, dataset4)
 
 ```
 
-# JOls
+## JOls
 
 Extract JOLs and combine them
 
@@ -251,7 +253,7 @@ recall_time<-scored_cued$DF_Participant
 ## Cued Recall
 ```
 
-
+### Difference
 
 ```{r}
 
@@ -274,7 +276,7 @@ recall_all_mean <- recall_all1_diff %>%
 
 ```
 
-
+### ANOVA
 ```{r}
 #ANOVA
 
@@ -284,9 +286,11 @@ a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_time,
 
 a1
 
-
 # Main Effects
 ```
+
+### Main Effects
+
 Get means for each main effect
 
 ```{r}
@@ -296,8 +300,6 @@ Within_cond <- emmeans(a1, ~ cond)
 Within_cond
 
 ```
-
-
 ### Interaction
 
 ```{r}
@@ -305,7 +307,6 @@ Within_Fitted_Interaction <- emmeans(a1, ~ font|cond)
 Within_Fitted_Interaction
 
 ```
-
 
 ### Planned Comparisons
 
@@ -340,17 +341,19 @@ sp_recall
 time_recall
 ```
 
-### Bayesian Analyis
+## Bayesian Analyis
+
+### Cued Recall
 
 Run the 2 x 2 Bayesian Analyis
-```{r}
+```{r, eval=FALSE}
 
 recall_time$new_id1<-rep(1:232, each=2)
 recall_time$new_id1<-as.factor(recall_time$Sub.ID)
 recall_time$cond<-as.factor(recall_time$cond)
 recall_time$font<-as.factor(recall_time$font)
-bfcue = anovaBF(Proportion.Correct ~ cond*font, recall_time, 
-          whichRandom="new_id1")
+bfcue = anovaBF(Proportion.Correct ~ cond*font + new_id1, recall_time, 
+          whichRandom=c("new_id1")
 
 bfcue[3]/bfcue[4]
 
@@ -360,30 +363,9 @@ bfcue[3]/bfcue[4]
 
 ```
 
-```{r}
-#ANOVA
+## JOLS
 
-a1 <- aov_ez("participant", "jols", jol_all, 
-            within=c("Typeface"), between=c("cond")) # mixed
-
-summary(a1)
-
-aov=aov(jols ~ (Typeface*cond) +
-            Error(participant/(Typeface)), jol_all)
-
-
-```
-```{r}
-
-aov_sum <- report(aov)
-
-aov_sum
-
-```
-
-### JOLS
-
-# JOLs Analyis
+#### ANOVA
 
 A 2 x 2 Mixed ANOVA was run. 
 
@@ -434,7 +416,7 @@ sp_jol
 t_jol
 ```
 
-# Bayesian Analysis 
+## Bayesian Analysis 
 
 ```{r}
 jol_all$new_id1<-rep(1:232, each=2)
