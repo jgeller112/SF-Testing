@@ -1,4 +1,4 @@
-"","id","font","cond","mean_acc"
+"","Sub.ID","font","cond","Proportion.Correct"
 "1","?","flu","High Test Expectancy",0.25
 "2","?","SF","High Test Expectancy",0.5
 "3","A10LHWALI4BZPC","flu","High Test Expectancy",1
@@ -10,17 +10,17 @@
 "9","A182N7RLXGSCZG","flu","Low Test Expectancy",0
 "10","A182N7RLXGSCZG","SF","Low Test Expectancy",0
 "11","A187RIRDOFNE1B","flu","Low Test Expectancy",0.833333333333333
-"12","A187RIRDOFNE1B","SF","Low Test Expectancy",0.75
+"12","A187RIRDOFNE1B","SF","Low Test Expectancy",0.833333333333333
 "13","A1BQI9JKLVCIL0","flu","High Test Expectancy",0.333333333333333
 "14","A1BQI9JKLVCIL0","SF","High Test Expectancy",0.833333333333333
 "15","A1DWQO9X2ZQ35G","flu","High Test Expectancy",0.75
 "16","A1DWQO9X2ZQ35G","SF","High Test Expectancy",0.75
 "17","A1FG2G9TZSDN","flu","High Test Expectancy",0.416666666666667
-"18","A1FG2G9TZSDN","SF","High Test Expectancy",0.583333333333333
+"18","A1FG2G9TZSDN","SF","High Test Expectancy",0.666666666666667
 "19","A1L1S0IAPZB4MO","flu","Low Test Expectancy",0
 "20","A1L1S0IAPZB4MO","SF","Low Test Expectancy",0
 "21","A1NHFCWPAQNUT6","flu","High Test Expectancy",0.333333333333333
-"22","A1NHFCWPAQNUT6","SF","High Test Expectancy",0.5
+"22","A1NHFCWPAQNUT6","SF","High Test Expectancy",0.583333333333333
 "23","A1O57XVTTB1PNZ","flu","Low Test Expectancy",0
 "24","A1O57XVTTB1PNZ","SF","Low Test Expectancy",0.416666666666667
 "25","A1Q6VY3C3CEOA0","flu","Low Test Expectancy",0.666666666666667
@@ -28,15 +28,15 @@
 "27","A1S6C6EN8MPKC3","flu","Low Test Expectancy",0.166666666666667
 "28","A1S6C6EN8MPKC3","SF","Low Test Expectancy",0.25
 "29","A1U69QDM8UIXZ5","flu","High Test Expectancy",0.25
-"30","A1U69QDM8UIXZ5","SF","High Test Expectancy",0.5
+"30","A1U69QDM8UIXZ5","SF","High Test Expectancy",0.583333333333333
 "31","A1XCQA727LJVL2","flu","Low Test Expectancy",0.75
 "32","A1XCQA727LJVL2","SF","Low Test Expectancy",0.916666666666667
-"33","A1XRIEYLA7ZJ3B","flu","Low Test Expectancy",0.5
-"34","A1XRIEYLA7ZJ3B","SF","Low Test Expectancy",0.666666666666667
+"33","A1XRIEYLA7ZJ3B","flu","Low Test Expectancy",0.583333333333333
+"34","A1XRIEYLA7ZJ3B","SF","Low Test Expectancy",0.75
 "35","A20IA63WXHF683","flu","Low Test Expectancy",0.25
 "36","A20IA63WXHF683","SF","Low Test Expectancy",0.5
-"37","A231NY4QEQ58PJ","flu","Low Test Expectancy",0.25
-"38","A231NY4QEQ58PJ","SF","Low Test Expectancy",0.333333333333333
+"37","A231NY4QEQ58PJ","flu","Low Test Expectancy",0.333333333333333
+"38","A231NY4QEQ58PJ","SF","Low Test Expectancy",0.416666666666667
 "39","A23EGLIF8IEH11","flu","Low Test Expectancy",0.333333333333333
 "40","A23EGLIF8IEH11","SF","Low Test Expectancy",0.333333333333333
 "41","A23HZ18KTCK2DA","flu","Low Test Expectancy",0.5
@@ -47,23 +47,23 @@
 "46","A27LC4TGHQ7GCG","SF","Low Test Expectancy",0.25
 "47","A2H4LJ4CXZQ304","flu","Low Test Expectancy",0
 "48","A2H4LJ4CXZQ304","SF","Low Test Expectancy",0
-"49","A2JM1IVEZCXX3U","flu","High Test Expectancy",0.333333333333333
+"49","A2JM1IVEZCXX3U","flu","High Test Expectancy",0.416666666666667
 "50","A2JM1IVEZCXX3U","SF","High Test Expectancy",0.333333333333333
-"51","a2mqmmcvzjtfl2","flu","High Test Expectancy",0.0833333333333333
+"51","a2mqmmcvzjtfl2","flu","High Test Expectancy",0.25
 "52","a2mqmmcvzjtfl2","SF","High Test Expectancy",0.166666666666667
 "53","A2QC2W3GCGKHB","flu","High Test Expectancy",0.5
-"54","A2QC2W3GCGKHB","SF","High Test Expectancy",0.5
-"55","A2RLOB9VH2XSRT","flu","Low Test Expectancy",0.416666666666667
+"54","A2QC2W3GCGKHB","SF","High Test Expectancy",0.583333333333333
+"55","A2RLOB9VH2XSRT","flu","Low Test Expectancy",0.5
 "56","A2RLOB9VH2XSRT","SF","Low Test Expectancy",0.166666666666667
 "57","A2VB2MZFRO7VN5","flu","Low Test Expectancy",0.0833333333333333
-"58","A2VB2MZFRO7VN5","SF","Low Test Expectancy",0
+"58","A2VB2MZFRO7VN5","SF","Low Test Expectancy",0.0833333333333333
 "59","A2W5BVSBD1G08A","flu","High Test Expectancy",0.583333333333333
-"60","A2W5BVSBD1G08A","SF","High Test Expectancy",0.333333333333333
+"60","A2W5BVSBD1G08A","SF","High Test Expectancy",0.416666666666667
 "61","A314XJY8V1YL12","flu","High Test Expectancy",0.333333333333333
-"62","A314XJY8V1YL12","SF","High Test Expectancy",0.25
+"62","A314XJY8V1YL12","SF","High Test Expectancy",0.333333333333333
 "63","A33B85TN97HQ33","flu","Low Test Expectancy",0.166666666666667
-"64","A33B85TN97HQ33","SF","Low Test Expectancy",0.416666666666667
-"65","A345TDMHP3DQ3G","flu","Low Test Expectancy",0
+"64","A33B85TN97HQ33","SF","Low Test Expectancy",0.5
+"65","A345TDMHP3DQ3G","flu","Low Test Expectancy",0.25
 "66","A345TDMHP3DQ3G","SF","Low Test Expectancy",0.416666666666667
 "67","A34CPKFZXBX1PO","flu","High Test Expectancy",0.666666666666667
 "68","A34CPKFZXBX1PO","SF","High Test Expectancy",0.416666666666667
@@ -75,31 +75,31 @@
 "74","A3GPYCHKB2KDLC","SF","Low Test Expectancy",0
 "75","A3GTPW3MYSLMR7","flu","Low Test Expectancy",0.0833333333333333
 "76","A3GTPW3MYSLMR7","SF","Low Test Expectancy",0.0833333333333333
-"77","A3IQRBKS1DUJVZ","flu","Low Test Expectancy",0
+"77","A3IQRBKS1DUJVZ","flu","Low Test Expectancy",0.0833333333333333
 "78","A3IQRBKS1DUJVZ","SF","Low Test Expectancy",0.333333333333333
 "79","A3K1P4SPR8XS7R","flu","Low Test Expectancy",0.916666666666667
 "80","A3K1P4SPR8XS7R","SF","Low Test Expectancy",1
 "81","A3NG205QJ48IM4","flu","Low Test Expectancy",0.333333333333333
 "82","A3NG205QJ48IM4","SF","Low Test Expectancy",0.583333333333333
 "83","A3PQVDFT21IISU","flu","Low Test Expectancy",0.416666666666667
-"84","A3PQVDFT21IISU","SF","Low Test Expectancy",0.416666666666667
+"84","A3PQVDFT21IISU","SF","Low Test Expectancy",0.5
 "85","A3QL867S9A4NY4","flu","Low Test Expectancy",0.416666666666667
 "86","A3QL867S9A4NY4","SF","Low Test Expectancy",0.416666666666667
-"87","A3TS0KMBDEEUVX","flu","High Test Expectancy",0.416666666666667
+"87","A3TS0KMBDEEUVX","flu","High Test Expectancy",0.583333333333333
 "88","A3TS0KMBDEEUVX","SF","High Test Expectancy",0.5
 "89","A3VBNWON5XOUVS","flu","Low Test Expectancy",0.0833333333333333
 "90","A3VBNWON5XOUVS","SF","Low Test Expectancy",0.416666666666667
-"91","A49A0FF6ZXYDU","flu","High Test Expectancy",0
+"91","A49A0FF6ZXYDU","flu","High Test Expectancy",0.0833333333333333
 "92","A49A0FF6ZXYDU","SF","High Test Expectancy",0.333333333333333
 "93","A55F6J0VK7TLV","flu","Low Test Expectancy",0.666666666666667
-"94","A55F6J0VK7TLV","SF","Low Test Expectancy",0.25
+"94","A55F6J0VK7TLV","SF","Low Test Expectancy",0.333333333333333
 "95","A6O1VFV32LBS8","flu","Low Test Expectancy",0.333333333333333
 "96","A6O1VFV32LBS8","SF","Low Test Expectancy",0.333333333333333
 "97","A770OB1ZAGJ4G","flu","Low Test Expectancy",0.0833333333333333
 "98","A770OB1ZAGJ4G","SF","Low Test Expectancy",0.0833333333333333
 "99","AA","flu","Low Test Expectancy",0.166666666666667
 "100","AA","SF","Low Test Expectancy",0.5
-"101","AB","flu","Low Test Expectancy",0.333333333333333
+"101","AB","flu","Low Test Expectancy",0.416666666666667
 "102","AB","SF","Low Test Expectancy",0.583333333333333
 "103","ACJY49UF6GM13","flu","Low Test Expectancy",0.0833333333333333
 "104","ACJY49UF6GM13","SF","Low Test Expectancy",0.583333333333333
@@ -108,27 +108,27 @@
 "107","AHB886J4P46JW","flu","High Test Expectancy",0.166666666666667
 "108","AHB886J4P46JW","SF","High Test Expectancy",0.333333333333333
 "109","AK1GE19RT3PK6","flu","High Test Expectancy",0.666666666666667
-"110","AK1GE19RT3PK6","SF","High Test Expectancy",0.416666666666667
+"110","AK1GE19RT3PK6","SF","High Test Expectancy",0.5
 "111","AK9CDGMQCBSIU","flu","Low Test Expectancy",0.25
-"112","AK9CDGMQCBSIU","SF","Low Test Expectancy",0.166666666666667
+"112","AK9CDGMQCBSIU","SF","Low Test Expectancy",0.333333333333333
 "113","AKFNJG4UMP6MX","flu","Low Test Expectancy",0.25
-"114","AKFNJG4UMP6MX","SF","Low Test Expectancy",0.166666666666667
+"114","AKFNJG4UMP6MX","SF","Low Test Expectancy",0.333333333333333
 "115","Ali","flu","High Test Expectancy",0.75
-"116","Ali","SF","High Test Expectancy",0.833333333333333
+"116","Ali","SF","High Test Expectancy",0.916666666666667
 "117","Amber","flu","High Test Expectancy",0.916666666666667
 "118","Amber","SF","High Test Expectancy",0.75
-"119","Amy","flu","Low Test Expectancy",0.333333333333333
+"119","Amy","flu","Low Test Expectancy",0.5
 "120","Amy","SF","Low Test Expectancy",0.666666666666667
 "121","Amy T","flu","High Test Expectancy",0.416666666666667
 "122","Amy T","SF","High Test Expectancy",0.583333333333333
 "123","ANADEAU","flu","High Test Expectancy",0.583333333333333
 "124","ANADEAU","SF","High Test Expectancy",0.75
-"125","ANMD34DNHLOLC","flu","Low Test Expectancy",0.25
+"125","ANMD34DNHLOLC","flu","Low Test Expectancy",0.416666666666667
 "126","ANMD34DNHLOLC","SF","Low Test Expectancy",0.25
 "127","Ant","flu","High Test Expectancy",0.666666666666667
 "128","Ant","SF","High Test Expectancy",0.5
 "129","ANUG05IDFTWF","flu","Low Test Expectancy",0.666666666666667
-"130","ANUG05IDFTWF","SF","Low Test Expectancy",0.333333333333333
+"130","ANUG05IDFTWF","SF","Low Test Expectancy",0.416666666666667
 "131","AOB6ZJTDB416G","flu","High Test Expectancy",0.583333333333333
 "132","AOB6ZJTDB416G","SF","High Test Expectancy",0.75
 "133","AOZIEKTQGHSJX","flu","Low Test Expectancy",0.416666666666667
@@ -137,22 +137,22 @@
 "136","ARPBDM5QZ4XQC","SF","High Test Expectancy",0
 "137","AS","flu","High Test Expectancy",0.833333333333333
 "138","AS","SF","High Test Expectancy",0.75
-"139","AS4NIEQJWCG3M","flu","Low Test Expectancy",0
+"139","AS4NIEQJWCG3M","flu","Low Test Expectancy",0.0833333333333333
 "140","AS4NIEQJWCG3M","SF","Low Test Expectancy",0
-"141","AS5W4VV79F5V","flu","Low Test Expectancy",0.0833333333333333
+"141","AS5W4VV79F5V","flu","Low Test Expectancy",0.166666666666667
 "142","AS5W4VV79F5V","SF","Low Test Expectancy",0.5
 "143","ashley","flu","High Test Expectancy",0.5
-"144","ashley","SF","High Test Expectancy",0.583333333333333
+"144","ashley","SF","High Test Expectancy",0.666666666666667
 "145","ATNNZOOIRXT1B","flu","Low Test Expectancy",0.0833333333333333
 "146","ATNNZOOIRXT1B","SF","Low Test Expectancy",0.0833333333333333
-"147","AU01P6YB9J5JX","flu","High Test Expectancy",0.666666666666667
+"147","AU01P6YB9J5JX","flu","High Test Expectancy",0.75
 "148","AU01P6YB9J5JX","SF","High Test Expectancy",0.75
 "149","AUFE6HLRZCIYW","flu","Low Test Expectancy",0.166666666666667
-"150","AUFE6HLRZCIYW","SF","Low Test Expectancy",0.166666666666667
+"150","AUFE6HLRZCIYW","SF","Low Test Expectancy",0.25
 "151","AVKMFV9CZ0MLR","flu","Low Test Expectancy",0.0833333333333333
 "152","AVKMFV9CZ0MLR","SF","Low Test Expectancy",0.25
 "153","AVOF14300525D","flu","Low Test Expectancy",0.5
-"154","AVOF14300525D","SF","Low Test Expectancy",0.75
+"154","AVOF14300525D","SF","Low Test Expectancy",0.833333333333333
 "155","AVWU9JDY5G81E","flu","High Test Expectancy",1
 "156","AVWU9JDY5G81E","SF","High Test Expectancy",0.416666666666667
 "157","AXB86SVXU5SEG","flu","Low Test Expectancy",0
@@ -162,23 +162,23 @@
 "161","AZUTZP7QKWWXN","flu","Low Test Expectancy",0
 "162","AZUTZP7QKWWXN","SF","Low Test Expectancy",0.25
 "163","barri","flu","High Test Expectancy",0.75
-"164","barri","SF","High Test Expectancy",0.666666666666667
+"164","barri","SF","High Test Expectancy",0.833333333333333
 "165","Beclu","flu","High Test Expectancy",0.333333333333333
 "166","Beclu","SF","High Test Expectancy",0.5
 "167","Ben","flu","Low Test Expectancy",0.916666666666667
 "168","Ben","SF","Low Test Expectancy",0.666666666666667
 "169","bma5rocks","flu","High Test Expectancy",0.583333333333333
-"170","bma5rocks","SF","High Test Expectancy",0.5
-"171","Brandi","flu","High Test Expectancy",0.25
+"170","bma5rocks","SF","High Test Expectancy",0.583333333333333
+"171","Brandi","flu","High Test Expectancy",0.333333333333333
 "172","Brandi","SF","High Test Expectancy",0.25
 "173","Brandon","flu","Low Test Expectancy",0.25
 "174","Brandon","SF","Low Test Expectancy",0.166666666666667
-"175","Brett","flu","High Test Expectancy",0
+"175","Brett","flu","High Test Expectancy",0.166666666666667
 "176","Brett","SF","High Test Expectancy",0.416666666666667
 "177","by","flu","Low Test Expectancy",0.166666666666667
-"178","by","SF","Low Test Expectancy",0.25
+"178","by","SF","Low Test Expectancy",0.333333333333333
 "179","Cameron Goldsmith","flu","High Test Expectancy",0.583333333333333
-"180","Cameron Goldsmith","SF","High Test Expectancy",0.5
+"180","Cameron Goldsmith","SF","High Test Expectancy",0.583333333333333
 "181","Candice","flu","Low Test Expectancy",0
 "182","Candice","SF","Low Test Expectancy",0
 "183","Carol","flu","High Test Expectancy",0.0833333333333333
@@ -196,7 +196,7 @@
 "195","cb2_high2","flu","High Test Expectancy",0.666666666666667
 "196","cb2_high2","SF","High Test Expectancy",0.5
 "197","cb4_high4","flu","High Test Expectancy",0
-"198","cb4_high4","SF","High Test Expectancy",0
+"198","cb4_high4","SF","High Test Expectancy",0.0833333333333333
 "199","Cherry","flu","High Test Expectancy",0.833333333333333
 "200","Cherry","SF","High Test Expectancy",0.666666666666667
 "201","Chloe","flu","Low Test Expectancy",0.0833333333333333
@@ -213,7 +213,7 @@
 "212","COPIEDA1C5J40P3I65EI","SF","High Test Expectancy",0.833333333333333
 "213","CS","flu","High Test Expectancy",0.25
 "214","CS","SF","High Test Expectancy",0.25
-"215","d","flu","Low Test Expectancy",0.0833333333333333
+"215","d","flu","Low Test Expectancy",0.166666666666667
 "216","d","SF","Low Test Expectancy",0.25
 "217","DAN","flu","Low Test Expectancy",0
 "218","DAN","SF","Low Test Expectancy",0
@@ -222,18 +222,18 @@
 "221","DC","flu","High Test Expectancy",0.416666666666667
 "222","DC","SF","High Test Expectancy",0.583333333333333
 "223","Dillon","flu","Low Test Expectancy",0
-"224","Dillon","SF","Low Test Expectancy",0
+"224","Dillon","SF","Low Test Expectancy",0.0833333333333333
 "225","Donna","flu","Low Test Expectancy",0.5
 "226","Donna","SF","Low Test Expectancy",0.25
 "227","DOUGLAS","flu","Low Test Expectancy",0.166666666666667
-"228","DOUGLAS","SF","Low Test Expectancy",0.333333333333333
-"229","DS","flu","High Test Expectancy",0.166666666666667
+"228","DOUGLAS","SF","Low Test Expectancy",0.416666666666667
+"229","DS","flu","High Test Expectancy",0.25
 "230","DS","SF","High Test Expectancy",0.333333333333333
-"231","E","flu","High Test Expectancy",0.5
+"231","E","flu","High Test Expectancy",0.583333333333333
 "232","E","SF","High Test Expectancy",0.666666666666667
-"233","ed","flu","Low Test Expectancy",0.25
+"233","ed","flu","Low Test Expectancy",0.333333333333333
 "234","ed","SF","Low Test Expectancy",0.416666666666667
-"235","Ely","flu","Low Test Expectancy",0
+"235","Ely","flu","Low Test Expectancy",0.0833333333333333
 "236","Ely","SF","Low Test Expectancy",0.166666666666667
 "237","Emily","flu","High Test Expectancy",0.0833333333333333
 "238","Emily","SF","High Test Expectancy",0.0833333333333333
@@ -247,55 +247,55 @@
 "246","female","SF","High Test Expectancy",0.166666666666667
 "247","FL","flu","Low Test Expectancy",0.5
 "248","FL","SF","Low Test Expectancy",0.416666666666667
-"249","GAIL","flu","Low Test Expectancy",0.25
+"249","GAIL","flu","Low Test Expectancy",0.333333333333333
 "250","GAIL","SF","Low Test Expectancy",0.25
-"251","gi","flu","Low Test Expectancy",0.166666666666667
-"252","gi","SF","Low Test Expectancy",0.166666666666667
-"253","goo","flu","Low Test Expectancy",0.0833333333333333
+"251","gi","flu","Low Test Expectancy",0.25
+"252","gi","SF","Low Test Expectancy",0.333333333333333
+"253","goo","flu","Low Test Expectancy",0.25
 "254","goo","SF","Low Test Expectancy",0
 "255","Gregg","flu","Low Test Expectancy",0
-"256","Gregg","SF","Low Test Expectancy",0.25
+"256","Gregg","SF","Low Test Expectancy",0.416666666666667
 "257","gv","flu","High Test Expectancy",0.5
 "258","gv","SF","High Test Expectancy",0.583333333333333
 "259","H","flu","Low Test Expectancy",0
 "260","H","SF","Low Test Expectancy",0.25
-"261","Henry","flu","Low Test Expectancy",0.0833333333333333
+"261","Henry","flu","Low Test Expectancy",0.166666666666667
 "262","Henry","SF","Low Test Expectancy",0.25
 "263","j","flu","High Test Expectancy",0.416666666666667
 "264","j","SF","High Test Expectancy",0.25
-"265","j1","flu","High Test Expectancy",0.416666666666667
+"265","j1","flu","High Test Expectancy",0.5
 "266","j1","SF","High Test Expectancy",0.25
 "267","J3","flu","Low Test Expectancy",0.0833333333333333
 "268","J3","SF","Low Test Expectancy",0.583333333333333
 "269","Jen","flu","Low Test Expectancy",0.166666666666667
 "270","Jen","SF","Low Test Expectancy",0.0833333333333333
-"271","jennifer","flu","High Test Expectancy",0.25
+"271","jennifer","flu","High Test Expectancy",0.333333333333333
 "272","jennifer","SF","High Test Expectancy",0.166666666666667
 "273","Jennifer","flu","Low Test Expectancy",0.25
-"274","Jennifer","SF","Low Test Expectancy",0.333333333333333
+"274","Jennifer","SF","Low Test Expectancy",0.416666666666667
 "275","Jennifer Tunnell","flu","High Test Expectancy",0.666666666666667
-"276","Jennifer Tunnell","SF","High Test Expectancy",0.666666666666667
+"276","Jennifer Tunnell","SF","High Test Expectancy",0.75
 "277","Jesse Harris","flu","High Test Expectancy",0.666666666666667
-"278","Jesse Harris","SF","High Test Expectancy",0.416666666666667
-"279","Jewel Julian","flu","Low Test Expectancy",0.166666666666667
+"278","Jesse Harris","SF","High Test Expectancy",0.5
+"279","Jewel Julian","flu","Low Test Expectancy",0.25
 "280","Jewel Julian","SF","Low Test Expectancy",0.25
 "281","jim","flu","High Test Expectancy",0.583333333333333
 "282","jim","SF","High Test Expectancy",0.25
-"283","Jim","flu","High Test Expectancy",0.583333333333333
+"283","Jim","flu","High Test Expectancy",0.5
 "284","Jim","SF","High Test Expectancy",0.5
-"285","jl","flu","Low Test Expectancy",0
+"285","jl","flu","Low Test Expectancy",0.0833333333333333
 "286","jl","SF","Low Test Expectancy",0.0833333333333333
-"287","JM","flu","High Test Expectancy",0.5
+"287","JM","flu","High Test Expectancy",0.666666666666667
 "288","JM","SF","High Test Expectancy",0.916666666666667
 "289","jmm","flu","Low Test Expectancy",0.416666666666667
-"290","jmm","SF","Low Test Expectancy",0.416666666666667
+"290","jmm","SF","Low Test Expectancy",0.583333333333333
 "291","jocelyn","flu","High Test Expectancy",0.333333333333333
 "292","jocelyn","SF","High Test Expectancy",0.583333333333333
 "293","joe","flu","High Test Expectancy",0.166666666666667
 "294","joe","SF","High Test Expectancy",0.0833333333333333
 "295","Joel","flu","High Test Expectancy",0.833333333333333
-"296","Joel","SF","High Test Expectancy",0.833333333333333
-"297","john","flu","High Test Expectancy",0.0833333333333333
+"296","Joel","SF","High Test Expectancy",0.916666666666667
+"297","john","flu","High Test Expectancy",0.166666666666667
 "298","john","SF","High Test Expectancy",0.5
 "299","Johnathan","flu","High Test Expectancy",0.583333333333333
 "300","Johnathan","SF","High Test Expectancy",0.416666666666667
@@ -307,7 +307,7 @@
 "306","juliastelter","SF","High Test Expectancy",0.583333333333333
 "307","Julie","flu","Low Test Expectancy",0.5
 "308","Julie","SF","Low Test Expectancy",0.25
-"309","Justin","flu","High Test Expectancy",0.5
+"309","Justin","flu","High Test Expectancy",0.583333333333333
 "310","Justin","SF","High Test Expectancy",0.25
 "311","Karl","flu","Low Test Expectancy",0.166666666666667
 "312","Karl","SF","Low Test Expectancy",0
@@ -316,8 +316,8 @@
 "315","Kaylee","flu","High Test Expectancy",0.583333333333333
 "316","Kaylee","SF","High Test Expectancy",0.416666666666667
 "317","Keith","flu","High Test Expectancy",0.416666666666667
-"318","Keith","SF","High Test Expectancy",0.25
-"319","Kristine","flu","Low Test Expectancy",0
+"318","Keith","SF","High Test Expectancy",0.333333333333333
+"319","Kristine","flu","Low Test Expectancy",0.0833333333333333
 "320","Kristine","SF","Low Test Expectancy",0.416666666666667
 "321","ky","flu","High Test Expectancy",0.333333333333333
 "322","ky","SF","High Test Expectancy",0.5
@@ -337,7 +337,7 @@
 "336","M","SF","High Test Expectancy",0.416666666666667
 "337","Madeline","flu","Low Test Expectancy",0.333333333333333
 "338","Madeline","SF","Low Test Expectancy",0.666666666666667
-"339","Male","flu","High Test Expectancy",0.333333333333333
+"339","Male","flu","High Test Expectancy",0.416666666666667
 "340","Male","SF","High Test Expectancy",0.25
 "341","marcia","flu","High Test Expectancy",1
 "342","marcia","SF","High Test Expectancy",0.75
@@ -346,7 +346,7 @@
 "345","MD","flu","Low Test Expectancy",0.0833333333333333
 "346","MD","SF","Low Test Expectancy",0.416666666666667
 "347","me","flu","Low Test Expectancy",0
-"348","me","SF","Low Test Expectancy",0.166666666666667
+"348","me","SF","Low Test Expectancy",0.25
 "349","me1","flu","Low Test Expectancy",0.166666666666667
 "350","me1","SF","Low Test Expectancy",0.166666666666667
 "351","Mel","flu","Low Test Expectancy",0.25
@@ -361,105 +361,105 @@
 "360","MJB","SF","Low Test Expectancy",0.416666666666667
 "361","Moe","flu","High Test Expectancy",0
 "362","Moe","SF","High Test Expectancy",0
-"363","Mona","flu","Low Test Expectancy",0.166666666666667
+"363","Mona","flu","Low Test Expectancy",0.25
 "364","Mona","SF","Low Test Expectancy",0.333333333333333
 "365","N","flu","High Test Expectancy",0.583333333333333
 "366","N","SF","High Test Expectancy",0.333333333333333
-"367","Nobody Important","flu","Low Test Expectancy",0
-"368","Nobody Important","SF","Low Test Expectancy",0.25
-"369","Nola Nola","flu","Low Test Expectancy",0
-"370","Nola Nola","SF","Low Test Expectancy",0.666666666666667
-"371","noname2","flu","Low Test Expectancy",0
-"372","noname2","SF","Low Test Expectancy",0.166666666666667
-"373","noname3","flu","Low Test Expectancy",0.416666666666667
-"374","noname3","SF","Low Test Expectancy",0.416666666666667
-"375","noname4","flu","Low Test Expectancy",0.333333333333333
-"376","noname4","SF","Low Test Expectancy",0.416666666666667
-"377","Participant","flu","High Test Expectancy",1
-"378","Participant","SF","High Test Expectancy",1
-"379","Pat","flu","High Test Expectancy",0.166666666666667
-"380","Pat","SF","High Test Expectancy",0.166666666666667
-"381","penguincatcher123","flu","High Test Expectancy",1
-"382","penguincatcher123","SF","High Test Expectancy",0.75
-"383","promi","flu","Low Test Expectancy",0.25
-"384","promi","SF","Low Test Expectancy",0.416666666666667
-"385","r","flu","Low Test Expectancy",0.0833333333333333
-"386","r","SF","Low Test Expectancy",0.416666666666667
-"387","randal","flu","High Test Expectancy",0.666666666666667
-"388","randal","SF","High Test Expectancy",0.75
-"389","Raul","flu","Low Test Expectancy",0.5
-"390","Raul","SF","Low Test Expectancy",0.416666666666667
-"391","Ray","flu","Low Test Expectancy",0
-"392","Ray","SF","Low Test Expectancy",0
-"393","Reagan","flu","High Test Expectancy",0.0833333333333333
-"394","Reagan","SF","High Test Expectancy",0.5
-"395","Rema","flu","Low Test Expectancy",0.25
-"396","Rema","SF","Low Test Expectancy",0.25
-"397","RF","flu","High Test Expectancy",0.25
-"398","RF","SF","High Test Expectancy",0.416666666666667
-"399","Robin","flu","High Test Expectancy",0.583333333333333
-"400","Robin","SF","High Test Expectancy",0.583333333333333
-"401","RR","flu","High Test Expectancy",0.75
-"402","RR","SF","High Test Expectancy",0.833333333333333
-"403","RT","flu","High Test Expectancy",0.583333333333333
-"404","RT","SF","High Test Expectancy",0.5
-"405","rusong","flu","High Test Expectancy",0.0833333333333333
-"406","rusong","SF","High Test Expectancy",0.0833333333333333
-"407","Saber","flu","High Test Expectancy",0
-"408","Saber","SF","High Test Expectancy",0
-"409","Sam","flu","High Test Expectancy",0.333333333333333
-"410","Sam","SF","High Test Expectancy",0.25
-"411","sb","flu","Low Test Expectancy",0.166666666666667
-"412","sb","SF","Low Test Expectancy",0.0833333333333333
-"413","SD","flu","Low Test Expectancy",0
-"414","SD","SF","Low Test Expectancy",0
-"415","sean","flu","Low Test Expectancy",0
-"416","sean","SF","Low Test Expectancy",0
-"417","shawn","flu","High Test Expectancy",0.333333333333333
-"418","shawn","SF","High Test Expectancy",0.25
-"419","sherri sanders","flu","High Test Expectancy",1
-"420","sherri sanders","SF","High Test Expectancy",1
-"421","stacey schmeidel","flu","Low Test Expectancy",0
-"422","stacey schmeidel","SF","Low Test Expectancy",0.333333333333333
-"423","Steffi","flu","High Test Expectancy",0.916666666666667
-"424","Steffi","SF","High Test Expectancy",1
-"425","stephanie hatfield","flu","Low Test Expectancy",0
-"426","stephanie hatfield","SF","Low Test Expectancy",0
-"427","Steve","flu","Low Test Expectancy",0.333333333333333
-"428","Steve","SF","Low Test Expectancy",0.166666666666667
-"429","Swetha","flu","High Test Expectancy",0.916666666666667
-"430","Swetha","SF","High Test Expectancy",1
-"431","T","flu","High Test Expectancy",0.583333333333333
-"432","T","SF","High Test Expectancy",0.666666666666667
-"433","tacophopia","flu","Low Test Expectancy",0.583333333333333
-"434","tacophopia","SF","Low Test Expectancy",0.416666666666667
-"435","TARA","flu","Low Test Expectancy",0
-"436","TARA","SF","Low Test Expectancy",0
-"437","Taylor Many","flu","Low Test Expectancy",0
-"438","Taylor Many","SF","Low Test Expectancy",0.25
-"439","TB","flu","Low Test Expectancy",0
-"440","TB","SF","Low Test Expectancy",0.0833333333333333
-"441","thy","flu","High Test Expectancy",0.25
-"442","thy","SF","High Test Expectancy",0.5
-"443","Timothy Buchanan","flu","Low Test Expectancy",0.0833333333333333
-"444","Timothy Buchanan","SF","Low Test Expectancy",0.166666666666667
-"445","TT","flu","Low Test Expectancy",0.166666666666667
-"446","TT","SF","Low Test Expectancy",0.416666666666667
-"447","VB","flu","High Test Expectancy",0.666666666666667
-"448","VB","SF","High Test Expectancy",0.5
-"449","Virginia Sorto","flu","Low Test Expectancy",0
-"450","Virginia Sorto","SF","Low Test Expectancy",0
-"451","viv","flu","High Test Expectancy",0.25
-"452","viv","SF","High Test Expectancy",0.333333333333333
-"453","Walter Tressler","flu","High Test Expectancy",0.416666666666667
-"454","Walter Tressler","SF","High Test Expectancy",0.333333333333333
-"455","weerd","flu","High Test Expectancy",0.75
-"456","weerd","SF","High Test Expectancy",0.333333333333333
-"457","WORKER","flu","High Test Expectancy",1
-"458","WORKER","SF","High Test Expectancy",0.583333333333333
-"459","y","flu","High Test Expectancy",0.666666666666667
-"460","y","SF","High Test Expectancy",0.5
-"461","yhh","flu","High Test Expectancy",0.333333333333333
-"462","yhh","SF","High Test Expectancy",0.25
-"463",NA,"flu","Low Test Expectancy",0.25
-"464",NA,"SF","Low Test Expectancy",0.5
+"367","NA1","flu","Low Test Expectancy",0.25
+"368","NA1","SF","Low Test Expectancy",0.416666666666667
+"369","Nobody Important","flu","Low Test Expectancy",0
+"370","Nobody Important","SF","Low Test Expectancy",0.25
+"371","Nola Nola","flu","Low Test Expectancy",0.166666666666667
+"372","Nola Nola","SF","Low Test Expectancy",0.666666666666667
+"373","noname2","flu","Low Test Expectancy",0
+"374","noname2","SF","Low Test Expectancy",0.166666666666667
+"375","noname3","flu","Low Test Expectancy",0.416666666666667
+"376","noname3","SF","Low Test Expectancy",0.416666666666667
+"377","noname4","flu","Low Test Expectancy",0.333333333333333
+"378","noname4","SF","Low Test Expectancy",0.416666666666667
+"379","Participant","flu","High Test Expectancy",1
+"380","Participant","SF","High Test Expectancy",1
+"381","Pat","flu","High Test Expectancy",0.166666666666667
+"382","Pat","SF","High Test Expectancy",0.166666666666667
+"383","penguincatcher123","flu","High Test Expectancy",1
+"384","penguincatcher123","SF","High Test Expectancy",0.75
+"385","promi","flu","Low Test Expectancy",0.25
+"386","promi","SF","Low Test Expectancy",0.416666666666667
+"387","r","flu","Low Test Expectancy",0.166666666666667
+"388","r","SF","Low Test Expectancy",0.416666666666667
+"389","randal","flu","High Test Expectancy",0.666666666666667
+"390","randal","SF","High Test Expectancy",0.75
+"391","Raul","flu","Low Test Expectancy",0.583333333333333
+"392","Raul","SF","Low Test Expectancy",0.416666666666667
+"393","Ray","flu","Low Test Expectancy",0
+"394","Ray","SF","Low Test Expectancy",0.0833333333333333
+"395","Reagan","flu","High Test Expectancy",0.0833333333333333
+"396","Reagan","SF","High Test Expectancy",0.5
+"397","Rema","flu","Low Test Expectancy",0.25
+"398","Rema","SF","Low Test Expectancy",0.25
+"399","RF","flu","High Test Expectancy",0.25
+"400","RF","SF","High Test Expectancy",0.416666666666667
+"401","Robin","flu","High Test Expectancy",0.583333333333333
+"402","Robin","SF","High Test Expectancy",0.666666666666667
+"403","RR","flu","High Test Expectancy",0.75
+"404","RR","SF","High Test Expectancy",0.833333333333333
+"405","RT","flu","High Test Expectancy",0.583333333333333
+"406","RT","SF","High Test Expectancy",0.583333333333333
+"407","rusong","flu","High Test Expectancy",0.0833333333333333
+"408","rusong","SF","High Test Expectancy",0.0833333333333333
+"409","Saber","flu","High Test Expectancy",0
+"410","Saber","SF","High Test Expectancy",0
+"411","Sam","flu","High Test Expectancy",0.333333333333333
+"412","Sam","SF","High Test Expectancy",0.25
+"413","sb","flu","Low Test Expectancy",0.166666666666667
+"414","sb","SF","Low Test Expectancy",0.166666666666667
+"415","SD","flu","Low Test Expectancy",0
+"416","SD","SF","Low Test Expectancy",0
+"417","sean","flu","Low Test Expectancy",0
+"418","sean","SF","Low Test Expectancy",0
+"419","shawn","flu","High Test Expectancy",0.333333333333333
+"420","shawn","SF","High Test Expectancy",0.25
+"421","sherri sanders","flu","High Test Expectancy",1
+"422","sherri sanders","SF","High Test Expectancy",1
+"423","stacey schmeidel","flu","Low Test Expectancy",0.0833333333333333
+"424","stacey schmeidel","SF","Low Test Expectancy",0.333333333333333
+"425","Steffi","flu","High Test Expectancy",0.916666666666667
+"426","Steffi","SF","High Test Expectancy",1
+"427","stephanie hatfield","flu","Low Test Expectancy",0
+"428","stephanie hatfield","SF","Low Test Expectancy",0
+"429","Steve","flu","Low Test Expectancy",0.333333333333333
+"430","Steve","SF","Low Test Expectancy",0.166666666666667
+"431","Swetha","flu","High Test Expectancy",0.916666666666667
+"432","Swetha","SF","High Test Expectancy",1
+"433","T","flu","High Test Expectancy",0.583333333333333
+"434","T","SF","High Test Expectancy",0.666666666666667
+"435","tacophopia","flu","Low Test Expectancy",0.583333333333333
+"436","tacophopia","SF","Low Test Expectancy",0.5
+"437","TARA","flu","Low Test Expectancy",0
+"438","TARA","SF","Low Test Expectancy",0
+"439","Taylor Many","flu","Low Test Expectancy",0
+"440","Taylor Many","SF","Low Test Expectancy",0.25
+"441","TB","flu","Low Test Expectancy",0
+"442","TB","SF","Low Test Expectancy",0.0833333333333333
+"443","thy","flu","High Test Expectancy",0.333333333333333
+"444","thy","SF","High Test Expectancy",0.5
+"445","Timothy Buchanan","flu","Low Test Expectancy",0.0833333333333333
+"446","Timothy Buchanan","SF","Low Test Expectancy",0.166666666666667
+"447","TT","flu","Low Test Expectancy",0.166666666666667
+"448","TT","SF","Low Test Expectancy",0.416666666666667
+"449","VB","flu","High Test Expectancy",0.666666666666667
+"450","VB","SF","High Test Expectancy",0.5
+"451","Virginia Sorto","flu","Low Test Expectancy",0
+"452","Virginia Sorto","SF","Low Test Expectancy",0
+"453","viv","flu","High Test Expectancy",0.25
+"454","viv","SF","High Test Expectancy",0.416666666666667
+"455","Walter Tressler","flu","High Test Expectancy",0.416666666666667
+"456","Walter Tressler","SF","High Test Expectancy",0.416666666666667
+"457","weerd","flu","High Test Expectancy",0.75
+"458","weerd","SF","High Test Expectancy",0.333333333333333
+"459","WORKER","flu","High Test Expectancy",1
+"460","WORKER","SF","High Test Expectancy",0.583333333333333
+"461","y","flu","High Test Expectancy",0.666666666666667
+"462","y","SF","High Test Expectancy",0.5
+"463","yhh","flu","High Test Expectancy",0.333333333333333
+"464","yhh","SF","High Test Expectancy",0.25

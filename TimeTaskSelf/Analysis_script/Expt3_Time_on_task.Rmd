@@ -219,13 +219,43 @@ jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
 
 ## Cued Recall
 
-### Scoring
+### Read in Scored file
 
-The LRD package scores cued response data. The data is loaded into a shiny application and then brought back in to R. The R code has some issues which is why we cant run it from here.
+Takes data from Shiny LRD package.
 
-Next, we get the mean across all participants as a function of Typeface and Time on task.
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+setwd(here::here('TimeTaskSelf', "scored_recall")) # folder to find Ps in
 
-```{r}
+recall_time<-read.csv(here::here('TimeTaskSelf', "scored_recall", "experiment3_times_recall80.csv"))  # path to data files
+
+recall_all1_diff <- recall_time %>% 
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored)) %>%
+  tidyr::pivot_wider(names_from="font", values_from="acc") %>%
+  mutate(Difference=SF-flu, cond=ifelse(cond=="self-paced","Self-paced", "Timed(3s)"))
+
+recall_all_mean <- recall_all1_diff %>% 
+  dplyr::group_by(cond)%>%
+  dplyr::summarise(mean=mean(Difference))
+
+#write.csv(recall_all1, file="wide_recall_timed.csv")
+
+recall_all1 <- recall_time %>% 
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored))
+
+#write.csv(recall_all1, file="long_recall_timed.csv")
+
+
+
+```
+
+
+### Cued Response Scoring
+
+The LRD package scores cued response data. The data is loaded into a shiny application and then brought back in to R. Below you can get proprotion correct by participant or the the trial-level Scored data, 
+
+```{r, eval=FALSE}
 
 #devtools::install_github("npm27/lrd") # load the package
 #library(lrd)
@@ -245,12 +275,10 @@ scored_cued = prop_correct_cued(all_c,
                                 cutoff = 3, 
                                 group.by = c("font", "cond"))
 
-recall_time<-scored_cued$DF_Participant
+recall_time<-scored_cued$DF_Participant # Prop by participant
 
+recall_time<-scored_cued$Scored # trial-level (0,1)
 
-# Analysis
-
-## Cued Recall
 ```
 
 ### Difference
@@ -258,16 +286,16 @@ recall_time<-scored_cued$DF_Participant
 ```{r}
 
 recall_all1_diff <- recall_time %>% 
-  dplyr::group_by(Sub.ID, font, cond)%>% 
-  #dplyr::summarise(acc=mean(Scored)) %>%
-  tidyr::pivot_wider(names_from="font", values_from="Proportion.Correct") %>%
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored)) %>%
+  tidyr::pivot_wider(names_from="font", values_from="acc") %>%
   mutate(Difference=SF-flu, cond=ifelse(cond=="self-paced","Self-paced", "Timed(3s)"))
 
 recall_all_mean <- recall_all1_diff %>% 
   dplyr::group_by(cond)%>%
   dplyr::summarise(mean=mean(Difference))
 
-#write.csv(recall_all1, file="wide_recall_timed.csv")
+write.csv(recall_all1, file="wide_recall_timed.csv")
 
 
 #write.csv(recall_all1, file="long_recall_timed.csv")
@@ -281,7 +309,7 @@ recall_all_mean <- recall_all1_diff %>%
 #ANOVA
 
 
-a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_time, 
+a1 <- aov_ez("id", "acc", recall_all1, 
             within=c("font"), between=c("cond")) # mixed
 
 a1
@@ -317,20 +345,20 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 ### Effect sizes
 
 ```{r}
-recall_sp <- recall_time %>% 
-  dplyr::group_by(Sub.ID, font, cond) %>%
- # dplyr::summarise(mean_acc=mean(acc))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
+recall_sp <- recall_all1 %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(acc))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
 dplyr::filter(cond=="self-paced")%>%
   ungroup() %>%
   summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
 sp_recall=d.dep.t.avg(m1 = recall_sp$mean1, m2 = recall_sp$mean2, sd1 = recall_sp$sd1,
                 sd2 = recall_sp$sd2, n = 116, a = .05)
   
-recall_timed <- recall_time %>% 
-  dplyr::group_by(Sub.ID, font, cond) %>%
-  #dplyr::summarise(mean_acc=mean(acc))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
+recall_timed <- recall_all1 %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(acc))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
 dplyr::filter(cond=="timed")%>%
   ungroup() %>%
   summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
@@ -348,19 +376,13 @@ time_recall
 Run the 2 x 2 Bayesian Analyis
 ```{r, eval=FALSE}
 
-recall_time$new_id1<-rep(1:232, each=2)
-recall_time$new_id1<-as.factor(recall_time$Sub.ID)
-recall_time$cond<-as.factor(recall_time$cond)
-recall_time$font<-as.factor(recall_time$font)
-bfcue = anovaBF(Proportion.Correct ~ cond*font + new_id1, recall_time, 
-          whichRandom=c("new_id1")
+recall_all1$new_id<-rep(1:232, each=2)
+recall_all1$new_id<-as.factor(recall_all1$new_id)
+recall_all1$cond<-as.factor(recall_all1$cond)
+recall_all1$font<-as.factor(recall_all1$font)
 
-bfcue[3]/bfcue[4]
-
-#Bayes factor analysis
-#--------------
-#[1] font + cond : 4.825198 ±6.76%
-
+bfcue = anovaBF(acc ~ cond*font + new_id, recall_all1, 
+          whichRandom=c("new_id"))
 ```
 
 ## JOLS
@@ -427,17 +449,16 @@ bftimed = anovaBF(jols ~ cond*Typeface, jol_all,
           whichRandom="new_id1")
 ```
 
-## Plot 
+# Plot 
 
-### Cued recall
+## Cued recall
 
 ```{r,fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=4, fig.width=10, results="asis", eval=TRUE}
 
-source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
 
 bold <- element_text(face = "bold", color = "black", size = 14) 
 
-recall_all1 <- recall_time %>%
+recall_all1 <- recall_all1 %>%
   mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", ifelse(font=="flu", "Arial", "Difference"))) %>%
   mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
 
@@ -446,23 +467,23 @@ recall_all1 <- recall_time %>%
  # dplyr::summarise(mean=mean(acc))
 
 
-sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "Proportion.Correct",
-                       withinvars = "Typeface", betweenvars = "timed", idvar = "Sub.ID")
+sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "id")
 
-fig3a <- ggplot(recall_all1,aes(x=Typeface,y=Proportion.Correct,fill=Typeface))+ 
+fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
   facet_grid(~timed) + 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = Proportion.Correct ),outlier.shape = NA,
+  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgen_wsci,aes(y=Proportion.Correct, group=1), size=1)+ 
-  geom_pointrange(data=sfgen_wsci, aes(y=Proportion.Correct, ymin=Proportion.Correct, ymax=Proportion.Correct), size=.8, color="darkred")+ 
+  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
+  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc, ymax=acc), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + 
   theme(legend.position = "none") + 
-   geom_label_repel(data=sfgen_wsci, aes(y=Proportion.Correct, label=round(Proportion.Correct, 2)),seed = 42, box.padding = 0.8) + 
+   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
@@ -493,7 +514,7 @@ fig3a_diff
 ```
 
 
-### JOLS
+## JOLS
 
 ```{r, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=8, fig.width=10, results="asis"}
 
@@ -569,7 +590,7 @@ fig3b_diff
 
 ```
 
-## Combine Plots
+### Combine Plots
 
 ```{r fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=8, fig.width=6, results="asis", eval=TRUE}
 

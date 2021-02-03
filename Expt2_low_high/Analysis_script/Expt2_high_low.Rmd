@@ -321,7 +321,6 @@ as.data.frame(dplyr::count(dataset4_rt, new_id1))
 ```{r}
 all_c<- rbind(dataset1, dataset2, dataset3, dataset4)
 
-all_c %>% group_by(cb) %>% dplyr::summarise(count = n()) # make sure equal number of Ps in cbs
 all_c<-mutate(all_c, new_id=ifelse(is.na(new_id), "NA1", new_id))
 
 
@@ -382,7 +381,7 @@ We employed 2 x 2 MIXED ANOVA.
 
 ### LRD
 
-LRD can be used as a shiny application or as a package. Below shows how to score cued recall automatically using the lrd package. I used the Shiny application for this due to the R package not being ready for use. 
+LRD can be used as a shiny application or as a package. Below shows how to score cued recall automatically using the lrd package. We take the trial level data and then aggregate across fonts to get proportion correct for Sans Forgetica and Arial, seperately. 
 
 ```{r}
 
@@ -403,18 +402,22 @@ scored_cued = prop_correct_cued(all_c,
                                 cutoff = 3, 
                                 group.by = c("font"))
 
-recall_highlow<-scored_cued$DF_Participant
+#recall_highlow<-scored_cued$DF_Participant #if you want total proportion
+
+recall_highlow<-scored_cued$DF_Scored
 
 write.csv(recall_highlow, file="expt2_long_lrd.csv")
 
 
 ```
 
+### Aggregate
+
 ```{r}
 
 recall_highlow_agg_wide <- recall_highlow %>% 
   dplyr::group_by(Sub.ID, font, cond) %>%
-  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  dplyr::summarise(Proportion.Correct=mean(Scored))%>%
   tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct") %>%
   dplyr::mutate(Difference=SF - flu)
 
@@ -423,33 +426,28 @@ recall_means_wide <- recall_highlow_agg_wide %>%
   dplyr::summarise(mean=mean(Difference))
 
 
-#write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
+write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
 
 
-#recall_highlow_agg <- recall_highlow %>% 
- # dplyr::group_by(id, font, cond) %>%
- # dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
-  #dplyr::summarise(mean_acc=mean(Scored))
+recall_highlow_agg <- recall_highlow %>% 
+ dplyr::group_by(Sub.ID, font, cond) %>%
+  dplyr::summarise(Proportion.Correct=mean(Scored))
 
-#write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
+write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
 
   
 ```
-## ANOVA
+### ANOVA
 
 ```{r}
 #ANOVA
 
-a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_highlow, 
+a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_highlow_agg, 
             within=c("font"), between=c("cond")) # mixed
 
 summary(a1)
 
 a1
-
-
-
-
 
 ```
 ### Main Effects
@@ -461,7 +459,7 @@ font <- emmeans(a1, ~ font)
 font
 
 ```
-### Testing Effect
+#### Testing Effect
 
 ```{r}
 cond <- emmeans(a1, ~ cond)
@@ -470,7 +468,7 @@ cond
 
 ```
 
-### Testing Interaction
+#### Testing Interaction
 
 ```{r}
 Within_Fitted_Interaction <- emmeans(a1, ~ font|cond)
@@ -487,13 +485,13 @@ pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
 
 ```
 
-#### Effect sizes
+### Effect sizes
 ```{r}
 ### get d_avg for high
 
-recall_high <- recall_highlow %>% 
-  dplyr::group_by(Sub.ID, font, cond) %>%
-  #dplyr::summarise(mean_acc=mean(Scored))%>%
+recall_high <- recall_highlow_agg%>% 
+  #dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(Proportion.Correct=mean(Scored))%>%
   tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
 dplyr::filter(cond=="High Test Expectancy")%>%
   dplyr::ungroup() %>%
@@ -509,9 +507,9 @@ h=d.dep.t.avg(m1 = recall_high$mean1, m2 = recall_high$mean2, sd1 = recall_high$
 #### get d_avg for low
 
 
-recall_low <- recall_highlow %>% 
-  dplyr::group_by(Sub.ID, font, cond) %>%
-  #dplyr::summarise(mean_acc=mean(Scored))%>%
+recall_low <- recall_highlow_agg %>% 
+  #dplyr::group_by(Sub.ID, font, cond) %>%
+ # dplyr::summarise(mean_acc=mean(Scored))%>%
   tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
 dplyr::filter(cond=="Low Test Expectancy")%>%
   ungroup() %>%
@@ -670,7 +668,7 @@ source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/f
 
 bold <- element_text(face = "bold", color = "black", size = 14) 
 
-recall_highlow_agg <- recall_highlow%>%
+recall_highlow_agg <- recall_highlow_agg%>%
   dplyr::mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial"))
 
 #means by test and typeface 
