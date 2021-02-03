@@ -406,8 +406,26 @@ scored_cued = prop_correct_cued(all_c,
 
 recall_highlow<-scored_cued$DF_Scored
 
-write.csv(recall_highlow, file="expt2_long_lrd.csv")
 
+### get total counts for Ps
+#recall_highlow_score<- recall_highlow %>%
+ # group_by(new_id)%>%
+  #summarise(totalCorrect=sum(Scored)) %>%
+  #ungroup()
+
+
+#recall_highlow_score_font<- recall_highlow %>%
+  #dplyr::group_by(Sub.ID, font, cond)%>%
+ # dplyr::summarise(correct=sum(Scored)) %>%
+  #dplyr::ungroup() %>%
+  #pivot_wider(names_from = "font", values_from = "correct") %>%
+  #right_join(., recall_highlow_score) %>%
+  #dplyr::mutate(ArialProp=flu/12, SFProp=SF/12, totalProp=totalCorrect/24, totalArialProp=flu/24, totalSFProp=SF/24)
+
+#write.csv(recall_highlow_score_font, file="expt2_wife_prop_total.csv")
+#write.csv(recall_highlow, file="expt2_long_lrd.csv")
+
+#write.csv(recall_highlow_score_font, file="expt2_wide_counts_prop_summary.csv")
 
 ```
 
