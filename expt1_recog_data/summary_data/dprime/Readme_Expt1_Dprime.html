@@ -411,6 +411,92 @@ Sans.Forgetica
 <li>Sans.Foretica - d prime Sans Forgetica</li>
 <li>Arial - d prime Sans Forgetica</li>
 </ul>
+<pre class="r"><code>recall_d_hit&lt;-read.csv(here::here(&#39;expt1_recog_data&#39;, &quot;summary_data&quot;, &quot;dprime&quot;, &quot;hitcrmissfadprime.csv&quot;))  # path to data files
+
+kable(names(recall_d_hit))</code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+x
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+X
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+participant_private_id
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+condition1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+testexpect
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hit
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+miss
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zhr
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+zfa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dprime
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>participant_private_id - participant ID</li>
+<li>condition1 - SF or Arial</li>
+<li>testexpt- High or Low Expectancy group</li>
+<li>cr - count of correct rejections</li>
+<li>fa - false alarm rate</li>
+<li>hit - count of hits</li>
+<li>miss - count of misses</li>
+<li>hr - hit rate</li>
+<li>zhr - normalized hit rate</li>
+<li>zfa - normalized false alarm rate -dprime - dprime score</li>
+</ul>
 
 
 
