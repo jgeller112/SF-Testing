@@ -1,0 +1,1920 @@
+---
+title: "Is This Going to Be on The Test? Test Expectancy Moderates the Disfluency Effect with Sans Forgetica"
+shorttitle: "Testing Expectancy and Sans Forgetica"
+author: 
+  - name          : "Jason Geller"
+    affiliation   : "1,2"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Rutgers University Center for Cognitive Science (RuCCS), 152 Frelinghuysen Road, Busch Campus, piscataway, New Jersey 08854"
+    email         : "jason.geller@ruccs.rutgers.edu"
+    
+  - name          : "Daniel Peterson"
+    affiliation   : "3"
+affiliation:
+  - id            : "1"
+    institution   : "University of Iowa"
+  - id            : "2"
+    institution   : "Rutgers University Center for Cognitive Science"
+  - id            : "3"
+    institution   : "Skidmore College"
+
+
+abstract:
+  "Presenting information in a perceptually disfluent format sometimes enhances memory. Recent work examining one type of perceptual disfluency manipulation, Sans Forgetica typeface, has yielded discrepant findings; some studies find support for the idea that the novel, disfluent typeface improves memory while others do not. To explore this discrepancy, the current study examined a boundary condition that determines when disfluency is and is not beneficial to learning. Specifically, we investigated whether knowledge about an upcoming test (high test expectancy) versus not (low test expectancy) helps clarify when mnemonic benefits arise for perceptually disfluent stimuli. In Experiment 1 (preregistered, *N* = 231), we found that Sans Forgetica is a memory-improving desirable difficulty, but only when there was no expectation of a final test. In Experiment 2 (preregistered *N* = 232), we conceptually replicated these results using a cued recall test. In Experiment 3 (preregistered, *N* = 232), we ruled out a time-on-task explanation for these outcomes while replicating the results of Experiment 2. Though these data provide some evidence of San Forgetica’s mnemonic benefits, caution should be taken in interpreting these results. Not only were the effect sizes moderate in size, but low testing expectancy may not be realistically achievable in actual educational contexts. Though more research is warranted, we echo our prior arguments that students wanting to remember more and forget less should stick to other, more empirically supported desirable difficulties shown to enhance memory. "
+  
+keywords          : ["Disfluency", "Desirable Difficuties", "Recognition", "Recall"]
+wordcount         : "9875"
+
+bibliography      : ["ref.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+csl               : "apa.csl"
+documentclass     : "apa7"
+classoption       : "jou"
+output            : "papaja::apa6_word"
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+Imagine if you could remember more and forget less just by making the perceptual features of to-be-learned material harder. While this runs counter to the widely held belief that learning should be fluent (easy) and errorless [@Pan2020], the concept of *desirable difficulties* [@Bjork2011] indicates that making encoding more disfluent (hard) and error-prone can sometimes help learners process the information more deeply and make it more likely they will retrieve the information at a later time. This general finding has been shown across a wide variety of encoding contexts [e.g., spacing and interleaving, @Carpenter2014]. One provocative line of research that has piqued the interest of researchers and the media is the influence of extraneous factors, such as the perceptual format of to-be-learned material (e.g., size, font/typeface, or clarity), on memory. In some cases, making to-be-learned material perceptually disfluent (hard to read) has been shown to be desirable for memory—a phenomenon dubbed the perceptual interference effect [@Nairne1988], or as it will be called henceforth, the perceptual disfluency effect [@Geller2018].  While perceptual disfluency has the potential to be valuable (and easy to implement), a recent meta-analysis has called into question whether perceptual disfluency is really desirable for learning [@Xie2018, c.f., Weissgerber et al., in press]. The current research aims to investigate under what conditions disfluency is and is not beneficial for learning using Sans Forgetica as a proxy for perceptual disfluency.  
+
+## Sans Forgetica 
+A typeface known as Sans Forgetica has garnered increased attention in the media as a way to stave off forgetting and enhance memory. A typeface developed by a team of psychologists, graphic designers, and marketers, Sans Forgetica consists of intermittent gaps and back-slanted letters [see Figure 1 for an example; @Earp2018]. The disfluent perceptual characteristics are thought to provide the optimal level of disfluency to produce a desirable effect on memory. This has led to extensive press coverage from major news outlets (e.g., NpR, Washington post), and to the development of browser extensions and OS applications that allow users to place content in the novel typeface. The question, of course, is whether Sans Forgetica merits such attention. As Carl Sagan famously said, "Extraordinary claims require extraordinary evidence” [@Sagan1980]. 
+
+```{r, fig.caption="An example of a normal (Arial) typeface (on the right) compared to Sans Forgetica (on the left). Sans Forgetica is licensed under the Creative Commons Attribution-NonCommercial License (CC BY-NC; https:// creativecommons.org/licenses/by-nc/3.0/"}
+
+```
+Two recent studies provide some initial evidence against the aforementioned claim. @Taylor2020 and @Geller2020 set out to examine whether Sans Forgetica is really desirable for learning. In one of the first studies to look at the mnemonic benefits of Sans Forgetica (N = 882 across 4 experiments), @Taylor2020 found that while Sans Forgetica was perceived as more disfluent by participants (Experiment 1) there was no evidence that it yielded a mnemonic boost in cued recall with strongly related cue-target pairs (Experiment 2) compared to a fluent (Arial) typeface, or when learning simple prose passages (Experiments 3-4). Shortly after the publication of this paper, @Geller2020 contributed to the debate with three preregistered experiments (N = 820) finding, similar to Taylor[2020], Sans Forgetica did not enhance memory for weakly related cue-target pairs (Experiment 1), a complex prose passage (Experiment 2), or a yes/no recognition memory test (Experiment 3). Taken together, two independent laboratories conducting seven experiments with well over 1500 participants make for a compelling argument that there is little, if any, evidence that Sans Forgetica qualifies as a desirable difficulty. 
+
+## Effects of Perceptual Disfluency on Learning 
+While there is evidence that Sans Forgetica does not enhance memory, there is a growing literature suggesting that other types of perceptual disfluency can improve learning. In a seminal study, @Diemand-Yauman2011 used difficult-to-read fonts (i.e., Comic Sans, Bodoni MT, Haettenschweiler, Monotype Corsiva) and found those fonts enhanced learning and retention in both the laboratory (Experiment 1) when learning about space aliens, and in the classroom (Experiment 2) where students studied powerpoints in difficult fonts across several different content areas (i.e., Ap English, Honors English, Honors physics, Regular physics, Honors US History, and Honors Chemistry). Since then, there have been a number of follow-up studies showing a positive effect of disfluency with a wide array of perceptual manipulations such as high-level blurring [@Rosner2015), inversion (@Sungkhasettee2011], handwritten cursive [@Geller2018], and other unusual or difficult-to-read fonts [@Weissgerber2017; @Weltman2014].  
+
+However, there is not uniform support for this idea. For instance, @Rhodes2008 showed that words in a smaller-sized font (18 point) were judged as being more disfluent compared to words printed in a larger-sized font (48 point), but the smaller font did not lead to better memory —recall differences between the smaller and larger size fonts were negligible [see @HunterBall2014;  @Kornell2011; @Mueller2014; @Susser2013, for similar failures to replicate the font size effect; but see @Halamish2018 for moderating conditions of the font size effect]. In another study, @Yue2013 examined the perceptual disfluency effect using a low-level (minimal) blur manipulation. They examined the effect of blurring across several factors: type of task (recall vs. recognition), study duration (500 ms vs. 2 s), and design (within- vs. between-item lists). None of their experiments revealed a memory benefit for low-level blurring [but see @Rosner2015, for evidence with a high-level blurring manipulation]. Failures to replicate the disfluency effect also extend to many other types of perceptual manipulations [e.g., hard-to-read fonts, @Magreehan2016; hard-to-hear auditory information, @Rhodes2009]  and more complex learning situations (e.g., in the classroom, @Carpenter2013; longer learning materials; @Rummer2016; @Strukelj2016].  
+
+Complicating matters even further, in some instances, perceptual disfluency can harm learning. Yue et al.[2103, Experient 1a and 1b], found that a low-level blurring manipulation hurt recall compared to a clear, normal, font. Similarly, in the aforementioned Taylor et al. (2020) exploration of Sans Forgetica, outcomes from Experiment 2 suggested not only was the novel typeface not beneficial for learning, it actually impaired memory for briefly presented (500 ms) cue-target pairs. 
+
+Because of these mixed findings, a number of studies have begun to more specifically investigate those conditions under which perceptual disfluency does and does not enhance learning. @Lehmann2016, for example, observed perpetually disfluent fonts only improved learning for individuals with high working memory capacity. Further, @Geller2018 demonstrated that the level of perceptual disfluency matters. Using handwritten cursive, they varied the disfluency level of cursive (i.e., easy-to-read and hard-to-read). They found that cursive stimuli (overall) produced better memory (this memory benefit occurred in blocked and mixed designs and over a 24-hour retention interval). However, in a small-scale meta-analysis they observed an inverted U-shaped pattern wherein easy-to-read cursive produced better memory than type-print and hard-to-read cursive, despite the hard-to-read cursive being more disfluent. This suggests that not all disfluency manipulations are created equal; there is an optimal level of disfluency [also see @Seufert2017]. Finally, @Weissgerber2017 found that time of test influences whether disfluency enhances memory. They used hard-to-read fonts and tested participants at two time points spaced two weeks apart. On the immediate test, hard-to-read font did not produce better memory compared to transposed-letter (e.g., jugde for judge) and normal font conditions. At the second time point, however, material in a hard-to-read font produced less forgetting than the other two conditions suggesting that there might be a disfluency sleeper effect of sorts, where the benefits of perceptual disfluency are seen only after a longer retention interval [@Oppenheimer2013]. 
+
+## Theoretical Accounts of Perceptual Disfluency 
+Despite these null (and sometimes negative) effects, the positive findings reported suggest that under some conditions perpetual disfluency can be desirable for learning. What is the proposed mechanism underlying such an effect? The perceptual disfluency effect can be explained against the backdrop of traditional dual process [e.g., System 1 and System 2; @Evans2016], depth of processing [@Craik1972], and metacognition models. The most popular account is the metacognitive account of perpetual disfluency [@Alter2013; @Alter2007; @Diemand-Yauman2011). This account refers to the idea that the difficulty encountered during encoding, as a result of perceptual disfluency, forces more System 2 processing, which is slow, effortful, and deep. What is critical here is not the objective disfluency of the material, but the subjective disfluency—that is, the experience of disfluency. It is the experience of disfluency that is hypothesized to stimulate metacognitive processes (monitoring and control) which serves to strengthen memory. It is also important to note that this account does not differentiate between disfluency manipulations (see Weissgerber et al., 2017). That is, anything that is perceived as disfluent should engender better memory.  
+
+An alternative account is the compensatory processing account [@Hirshman1994; @Mulligan1996]. The compensatory processing account is heavily influenced by a classic model of word recognition—the interactive activation model [@McClelland1981]. Within the compensatory processing account, the disfluency effect is tied to processes occurring during the word identification process. Specifically, difficulty in identifying a stimulus increases the amount of top-down feedback from a higher-level (i.e., lexical/semantic) to a lower-level (i.e., features and orthography). Strong evidence for this account comes from studies using masking to impede word recognition. Masking involves presenting a word very quickly (100 ms) and masking it with either forward or backward hashmarks [@Nairne1988]. The rapid presentation of the word along with the presentation of the mask renders visual information insufficient to recognize the word correctly, leading to greater higher-level processing. It is this feedback that results in better memory for stimuli. While more research is needed on the mechanism(s) of perceptual disfluency, it is clear that both the metacognitive account and compensatory processing account emphasize the importance of higher-level semantic or metacognitive processes in producing the positive effects of perceptual disfluency on memory.  
+
+## Disfluency and Sans Forgetica: A Potential Moderator 
+The literature reviewed above provides ample evidence that presenting materials in perceptually degraded formats can enhance memory and learning outcomes and act as a desirable difficulty, but also that the effect may be fickle.  This has led to the exploration of different moderating or boundary conditions of the perceptual disfluency effect.  
+
+Related to the current research, a recent publication demonstrated that Sans Forgetica may indeed be optimal for learning, but only when spelling ability is taken into account. @Eskenazi2020 had participants learn the spelling and meaning for low-frequency words presented in sentences while their eye movements were being recorded. For half the participants, the to-be-learned material was presented in Sans Forgetica while for the other half, it was presented in a more fluent (Courier) typeface. During the test phase, orthographic discriminability (i.e., choosing the correct spelling of a word) and semantic acquisition (i.e., retrieving the definition of a word) were assessed. Critically, the authors reported that Sans Forgetica was indeed perceptual disfluent (i.e., the gaze duration was longer in the Sans Forgetica condition) and that it had a positive effect on memory for words and their meanings. However, spelling ability moderated this effect: only good spellers benefited from Sans Forgetica.  
+
+While spelling ability could moderate the mnemonic benefit of Sans Forgetica,  there is another possibility. Probing into the design features of @Eskenazi2020, one critical difference between their design and a recent failure to replicate [@Geller2020] was testing expectancy. @Eskenazi2020 surprised participants with the orthographic and semantic tests whereas participants in @Geller2020 were explicitly told their memory was going to be assessed. In fact, one common feature of studies showing a desirable effect of perceptual disfluency on memory is low testing expectancy [e.g., @Geller2018; @Hirshman1991; @Mulligan1996; @Hirshman1994, @Westerman1997; but see @Rosner2015, Experiment 3A; @Sungkhasettee2011). Accordingly, it is important to examine the role of testing expectancy in relation to the perceptual disfluency effect and Sans Forgetica.  
+
+Testing expectancy is known to exert a positive influence on memory. Expecting a test of any kind can lead to enhanced processing of studied material, by either reducing learners’ mind-wandering during studying [@Szpunar2007] or by reducing interference from previously studied information [@Weinstein2014]. In the context of perceptual disfluency effects, @Eitel2016 reasoned that if the disfluency effect arises because of deeper, more effortful, processing, telling participants about a memory test should eliminate the effect. This occurs because testing expectancy countervails the effects of perceptual disfluency by eliciting enhanced processing for both fluent and disfluent stimuli. In contrast, low testing expectancy is less likely to impact processing of individual items, leaving effects of processing difficulty intact. While @Eitel2016 found evidence for a general testing expectancy effect (better memory for high vs. low testing expectancy), they were unable to find an overall disfluency effect, nor did they find evidence that test expectancy moderated the disfluency effect. Following up on this, @cogsci18-Geller, with a stronger perceptually disfluent manipulation (i.e., masking), demonstrated that testing expectancy can moderate the disfluency effect. Looking at the impact of item-by-item judgments of learning (JOLs) and list-wide JOLs, which are normally confounded with test expectancy, they found that under conditions where there was low testing expectancy and list-wide JOLs were used, a disfluency effect appeared. Given this, it is possible, then, the failure to find some disfluency effects (such as with Sans Forgetica) might only arise under low test expectancy. The proposed experiments more directly test this hypothesis.   
+
+## The Current Experiments 
+The empirical work reported here was designed to investigate the effect of Sans Forgetica on memory for words and whether observation of a perceptual disfluency effect depends on testing expectancy. To this end, the present article focused on the procedures used by Geller et al. (2020) and Eskenazi and Nix (2020) with an eye towards those features on which the two studies methodologically differed. Namely, the present studies attempted to examine if perceptual disfluency is really a desirable difficulty, but is countervailed by other memory influences, such as testing expectancy, which might negate the effect. If testing expectancy is found to moderate the disfluency effect, it would have important theoretical implications as it would provide an important moderating factor for researchers doing work in this domain. Further, it would support accounts suggesting that encoding difficulty brought forth by perceptual disfluency arises from an attentional mechanism that leads to deeper, more effortful, processing. Conversely, if we do not find a disfluency effect with Sans Forgetica that would also be useful from a theoretical perspective. The failure to find a disfluency effect would further drive the nail into the coffin of perceptual disfluency as a desirable difficulty. To this end, the current research aims to examine testing expectancy as a potential boundary condition of the disfluency effect in recognition memory and cued recall using Sans Foregtica.  
+
+# Experiment 1
+In Experiment 1 we examined whether the impact of Sans Forgetica on memory is moderated by test expectancy. Using an old/new recognition test we manipulated testing expectancy by alerting only half the participants that their memory was to be assessed. In addition, we collected list-wide JOLs (a subjective general prediction for each typeface that assesses future memory performance)  and study times as a manipulation check to ensure Sans Forgetica is perceptually disfluent. The choice to use list-wide JOLs was largely influenced by recent findings suggesting a reactive effect of JOLs on memory [@Janes2018; @Myers2020; @Soderstrom2015]. The very act of making a JOL for each world mitigates the beneficial effects of perceptual disfluency on memory [@Besken2013].  
+
+In our preregistration, we predicted an interaction between Typeface (Arial vs. Sans Forgetica) and Test Expectancy. Specifically, we anticipated seeing a memory boost for Sans Forgetica, but only under low test expectancy (vs. high test expectancy). This was based on previous studies demonstrating perceptual disfluency effects under low test expectancy [e.g., @Geller2018; @Hirshman1991; @Mulligan1996], but not under high test expectancy [e.g.,@Geller2020]. Finding a null effect of perceptual disfluency in the high test expectancy group would replicate the findings from Geller et al. (2020; Experiment 3). Further, we predicted that we would not see JOL differences as a function of Typeface or Testing Expectancy. Finally, with respect to study times, we predicted we would see longer study times for Sans Forgetica, but only in the low test expectancy group. 
+
+## Method
+
+The preregistered analysis plan for Experiment 1 can be found here: https://osf.io/wgp9d. All raw and summary data, materials, and R scripts for pre-processing, analysis, and plotting for Experiments 1 can be found at https://osf.io/cqp6s/. 
+
+### Participants
+
+We preregistered a sample size of 230. All participants were recruited through prolific (prolific.co) and completed the study on the Gorilla platform [www.gorilla.sc; @Anwyl-Irvine2020]. The targeted sample size was based off a previous experiment (Geller et al., 2020), Experiment 1), wherein we calculated power to detect a medium sized interaction effect (d = 0.35) using a similar design to the current study. Data collection resulted in the collection of 231 participants. participants were compensated for their time. We used prolific’s costume prescreening measures and included participants that were native English speakers, from the United States, had an approval rating between 80% and 100%, and did not participate in any prior studies conducted by the researchers.
+### Materials
+
+Stimuli included 188 single-word nouns taken from Geller et al. (2018). All words were from the English Lexicon project database [@Balota2007]. We controlled for both word frequency (all words were high frequency; mean log HAL frequency = 9.2) and length (all words were four letters). The full set of stimuli can be found at https://osf.io/dsxrc/.
+
+### Design
+
+per our pre-registration, d', JOLs, and study times were analyzed with a 2 (Typeface: Arial vs. Sans Forgetica) × 2 (Testing Expectancy: High vs. Low) mixed analysis of variance (ANOVA).
+
+### Procedure
+
+Similar to Geller et al. (2020; Experiment 3), a total of 188 words were divided across four lists (94 words each; 47 in each typeface condition). This was done so each word appeared in each 2 (old/new) x 2 (Arial/Sans Forgetica) condition. This ensured that each word served equally often as a target and a foil in both typefaces across participants. In the first two lists, 94 words were chosen to be “old” (47 in Arial and 47 in Sans Forgetica) and 94 words were chosen to be “new” (47 presented in Arial and 47 presented in Sans Forgetica) and were only presented during the test phase. In the other two lists, items presented as “new” were presented as “old” and vice versa. Word order was completely randomized, such that Arial and Sans Forgetica words were randomly intermixed in the study phase, and Arial and Sans Forgetica old and new words were randomly intermixed in the test phase, with old words always presented in the same typeface at test as they were at study.
+
+Participants were randomly assigned to one of two groups: the high test expectancy group,  or the low test expectancy group. Interested readers can view the entire task including instructions for each condition by following these links (high test expectancy experiment: https://gorilla.sc/openmaterials/72765; Low test expectancy experiment: https://gorilla.sc/openmaterials/116227). Specifically, those in the high test expectancy group received the following study description: “In this study your memory will be tested for words in different typefaces. In the first part, you will study words. In the second part, your memory will be tested for the words you studied.” They were also explicitly told before the experiment that their memory for the words were going to be assessed. In the low test expectancy group, participants received a different study description: “In this study you will be reading words in different typefaces.” Further, the experiment instructions before the experiment made no mention of any memory test. 
+
+The experiment consisted of four phases: encoding phase, JOL phase, distractor phase, and test phase. During the encoding phase, a fixation cross appeared at the center of the screen for 500 ms. The fixation cross was immediately replaced by a word in the same location. To continue to the next trial, participants pressed the continue button at the bottom of the screen. Each trial was self-paced. Though the presentation of the words was a single, heterogeneous mix of Arial and Sans Forgetica words, the JOL phase required them to provide two list-wide JOLs wherein they retrospectively judged on a scale from 0 (not at all likely)-100 (most likely) how successful they would be recalling, as a whole, words presented in Arial and Sans Forgetica. Then, during a three-minute distractor, participants wrote down as many US state capitals as possible. Finally, participants were given an old/new recognition memory test. During the test phase, a word appeared in the center of the screen that either had been presented during study (“old”) or had not been presented during study (“new”). Old words occurred in their original typeface, and following the counterbalancing procedure, each of the new words was presented in either Arial typeface or Sans Forgetica typeface. All words were individually randomized for each participant during both the study and test phases and progress was self-paced. After the experiment, participants were debriefed. The entire experiment lasted approximately 15 minutes. 
+
+### Analysis Plan
+
+For all experiments reported in this paper, we employed a 2 × 2 mixed analysis of variance (ANOVA). We report a variation of Cohen’s d [*d*~avg~; @Buchanan2019] and generalized eta-squared [$\eta_{g}^{2}$; @Olejnik2003] as measures of effect size. Alongside traditional analyses that utilize null hypothesis significance testing (NHST), we also report the Bayes Factor (BF) for reported null effects. As a rule of thumb, BFs greater than or equal to  3 provide substantial evidence, while BFs greater than or equal to 10 provide strong evidence for one model over another model [@Jarosz2014]. All data were analyzed in R (vers. 4.0.2; R Core Team, 2020), with models fit using the afex [vers. 0.27-2; @Singmann2020] and BayesFactor packages [vers. 0.9.12-4.2; @Morey2018]. All figures were generated using ggplot2 [vers. 3.3.0; @Wickham2016]. See the appendix for a list of all R packages used. 
+
+## Results and Discussion
+
+### Recognition Memory
+
+Performance was examined with d', a memory sensitivity measure derived from signal detection theory [@Macmillan2005]. Hits or false alarms at the ceiling or floor were changed to .99 or .01. Figure 1a presents d' values along with difference scores (Figure 1b). The analysis revealed that when told about a memory test, participants had better discriminatory ability than those not told about a memory test, *M*~diff~ = 0.16, *F*(1, 229) = 4.11, *p* = .04, $\eta_{g}^{2}$ = .014. Individuals were better at discriminating target words presented in Sans Forgetica than Arial, *M*~diff~ = 0.12, *F*(1, 229) = 10.73, *p* = .001, $\eta_{g}^{2}$ =.010. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 229) = 4.34, , *p* = .038, $\eta_{g}^{2}$ = .004.  planned comparisons showed that individuals in the low test expectancy group had better recognition memory for words presented in Sans Forgetica compared to Arial, *F*(1, 229) = 14.297, *p* < .001, *d*~avg~ = 0.31. In the high test expectancy group, there was substantial evidence for no difference between typefaces, *F*(1, 229) = 0.716, *p* = .398, *d*~avg~ = 0.07, BF~01~ = 5.83.
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(janitor)
+library(tidyverse)
+library(here)
+library(afex)
+library(data.table)
+library(cowplot)
+library(knitr)
+library(ggrepel)
+library(MOTE)
+library(BayesFactor)
+library(emmeans)
+library(Rmisc)
+library(report)
+library(see)
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('expt1_recog_data', 'Gorilla_data_low'))
+
+data=here::here('expt1_recog_data', 'Gorilla_data_low')  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)})) #fread makes reading in files quick
+#
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+library(lubridate)
+# clean up data! Select data from after the pre-registation! 
+
+
+low<-datasetlow %>% 
+  janitor::clean_names(.) %>% 
+  dplyr::mutate(date=as.Date(utc_date)) %>%
+  dplyr::filter(date=="08/06/2020" |date=="09/06/2020" , zone_type=="response_button_text")
+
+#response as character
+low$response<-as.character(low$response)
+
+#assign column to denot low test expect
+low$testexpect<-"low"
+
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+
+# high test expect
+setwd(here::here('expt1_recog_data', 'Gorilla_data_high'))
+
+data=here::here('expt1_recog_data', 'Gorilla_data_high')  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+highdata <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)})) #fread makes reading in files quick
+#
+
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, echo=FALSE}
+library(lubridate)
+# a batch of Ss we run before preregistration that should not be included in the analysis
+high <-highdata %>% 
+  janitor::clean_names(.) %>% 
+  dplyr::mutate(date=as.Date(utc_date)) %>%
+  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020" |date=="0010/07/2020" | date=="09/06/2020", zone_type=="response_button_text")
+
+#response as character
+high$response<-as.character(high$response)
+
+# assign column to denot high test expect
+high$testexpect<-"high"
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+# bind low and high datasets
+high_low<-rbind(high, low)
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, echo=FALSE}
+#response as character
+#calculate hit rate and far and compute dprime and other measures
+ex4=high_low %>% dplyr::mutate(condition1= dplyr::case_when( 
+  condition == "SF" ~ "Sans Forgetica", 
+  condition =="normal" ~  "Arial", 
+), isold= dplyr::case_when (
+  old_new== "old" ~ 1, 
+  old_new== "new" ~ 0), 
+sayold=dplyr::case_when( 
+  response=="old"~ 1, 
+  response=="new" ~ 0, 
+  ))
+
+
+#classic SDT
+sdt <- ex4 %>% 
+  dplyr::mutate(type = "hit",
+         type = ifelse(isold==1 & sayold==0, "miss", type),
+         type = ifelse(isold==0 & sayold==0, "cr", type),  # Correct rejection
+         type = ifelse(isold==0 & sayold==1, "fa", type))  # False alarm
+sdt <- sdt %>% 
+  dplyr::group_by(participant_private_id, type, condition1, testexpect) %>% 
+  dplyr::summarise(count = n()) %>% 
+  tidyr::spread(type, count)  # Format data to one row per person
+
+sdt <- sdt %>% 
+  dplyr::group_by(participant_private_id, condition1, testexpect)%>%
+  dplyr::mutate(hr = hit / (hit+miss),
+         fa = fa / (fa+cr)) %>%
+  dplyr::mutate(hr=case_when(
+    is.na(hr) ~ 0.99,
+    TRUE ~ hr), 
+    fa=case_when(
+      is.na(fa)  ~ 0.01,
+    TRUE ~ fa),
+     zhr=qnorm(hr), 
+     zfa=qnorm(fa), 
+    dprime = zhr-zfa) %>%
+  ungroup()
+```
+
+
+```{r eval=FALSE, echo=FALSE, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), fig.width=10, message=FALSE, warning=FALSE, box plots, and half violin kernel desntiy plots, with mean (red dot). proportion of “old” responses as a function of Test Expectancy for Experiment 1.", fig.height=12, results="asis"}
+
+
+#fig HR and FAR 
+
+
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+sdt1=sdt  %>% select(participant_private_id, condition1, testexpect, hr, fa) %>% 
+  pivot_longer(hr:fa, names_to="type") %>%
+  dplyr::mutate(isold=case_when(type=="hr" ~ "Old", type=="fa" ~ "New"))
+
+sdt1$isold<-factor(sdt1$isold, levels=c("Old", "New"))
+
+sdt1$Condition<-factor(sdt1$condition1, levels=c("Arial", "Sans Forgetica"))
+
+
+highlowaov=sdt  %>% select(participant_private_id, condition1, testexpect, dprime) %>%
+  mutate(testexpect=ifelse(testexpect=="low", "Low Test Expectancy", "High Test Expectancy"))
+
+
+sdt1 <- sdt1 %>%
+    mutate(testexpect=ifelse(testexpect=="low", "Low Test Expectancy", "High Test Expectancy"))
+
+
+fig1b <- ggplot(sdt1,aes(x=condition1,y=value,fill=condition1))+ facet_grid(~testexpect + isold) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
+  geom_boxplot(aes(x = condition1, y = value),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    stat_summary(fun=mean, geom="point", colour="darkred", size=5)+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "pr Saying Old", x = "Typeface") + theme(legend.position = "none")
+
+
+#oldnew=brm(glmm2, data=ex3, family=bernoulli(link="identity"), prior=priors, sample_prior = TRUE,  cores=6, inits = 0, control = list(adapt_delta = .9), iter=3000)
+#fig1b
+
+
+```
+
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, echo=FALSE}
+
+#set up raincloud params
+# fig for dprime
+
+highlowaov=sdt  %>% select(participant_private_id, condition1, testexpect, dprime) %>%
+  mutate(testexpect=ifelse(testexpect=="low", "Low Test Expectancy", "High Test Expectancy"))
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#plot
+bold <- element_text(face = "bold", color = "black", size = 14)
+
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+sdtmean= highlowaov %>%
+  dplyr::group_by(testexpect, condition1) %>%
+  dplyr::summarise(mean1=mean(dprime))
+
+sdt1=sdt  %>% select(participant_private_id, condition1, testexpect, hr, fa) %>% 
+  pivot_longer(hr:fa, names_to="type") %>%
+  dplyr::mutate(isold=case_when(type=="hr" ~ "Old", type=="fa" ~ "New"))
+
+sdt1$isold<-factor(sdt1$isold, levels=c("Old", "New"))
+
+sdt1$Condition<-factor(sdt1$condition1, levels=c("Arial", "Sans Forgetica"))
+
+
+highlowaov=sdt  %>% select(participant_private_id, condition1, testexpect, dprime) %>%
+  mutate(testexpect=ifelse(testexpect=="low", "Low Test Expectancy", "High Test Expectancy"))
+
+highlowaov_wide<- highlowaov %>% 
+  tidyr::pivot_wider(names_from = "condition1", values_from = "dprime") %>%
+  dplyr::mutate(Difference=`Sans Forgetica` - Arial)
+
+highlowwide_mean <- highlowaov_wide %>%
+  dplyr::group_by(testexpect) %>%
+  dplyr::summarise(mean=mean(Difference))
+
+
+# get withinsubject CIs
+sfgend_wsci= Rmisc::summarySEwithin(data = highlowaov, measurevar = "dprime",
+                       withinvars = "condition1", betweenvars = "testexpect", idvar = "participant_private_id")
+#plot
+
+fig1a <- ggplot(highlowaov,aes(x=condition1,y=dprime,fill=condition1))+ facet_grid(~testexpect) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
+  geom_boxplot(aes(x = condition1, y = dprime),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    geom_line(data=sfgend_wsci,aes(y=dprime, group=1), size=1)+ 
+  #stat_summary(fun="mean", geom="point", colour="darkred", size=3) + 
+    geom_pointrange(data=sfgend_wsci, aes(y=dprime, ymin=dprime, ymax=dprime), size=.8, color="darkred")+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Sensitivity(d')", x = "Typeface") + theme(legend.position = "none") + 
+    geom_label_repel(data=sfgend_wsci, aes(y=dprime, label=round(dprime, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) +
+  theme_cowplot(font_size = 14) + 
+ theme(axis.title=bold, legend.position = "none")
+ 
+fig1a_diff <- ggplot(highlowaov_wide,aes(x=testexpect,y=Difference, fill=testexpect)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = testexpect, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+  #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
+  #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Test Difference (Sans Forgetica - Arial", x = "Test Expectancy")+
+     theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title =bold) + 
+  geom_hline(yintercept = 0, linetype="dotted") + 
+   geom_label_repel(data=highlowwide_mean, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE}
+
+#ANOVA
+
+
+a1 <- aov_ez("participant_private_id", "dprime", highlowaov, 
+             between = c("testexpect"), within=c("condition1")) # mixed
+
+
+
+#kable(summary(a1))
+
+
+
+```
+
+### JOLs
+
+JOL responses are presented in Figure 1c along with difference scores (Figure 1d). We excluded seven participants for not providing JOLs to each typeface.Using the same model as above, participants in the high testing expectancy group gave higher JOLs than the low testing group, *M*~diff~ = 16.2,  *F*(1,221) = 16.01, *p* < .001, $\eta_{g}^{2}$ = .065. Arial elicited higher JOLs than Sans Forgetica, *M*~diff~ = 4.0, *F*(1,221) = 27.05, *p* < .001, $\eta_{g}^{2}$ = .004. There was no interaction between Testing Expectancy and Typeface, *F*(1,221) = 0.13, *p* = .715, $\eta_{g}^{2}$ < .001. Compared to a main effects-only model, there was substantial evidence for no interaction (BF = 7.28). 
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# get JOls from raw data
+
+#high
+jol_high<- highdata %>% 
+  mutate(testexpect="high")
+#low
+jol_low<-datasetlow %>%
+  mutate(testexpect="low")
+jol_high_low <- rbind(jol_high, jol_low)
+
+#bind high and low
+jols<-jol_high_low %>% janitor::clean_names(.) %>% dplyr::mutate(date=as.Date(utc_date)) %>%  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020"|date=="0010/07/2020" | date=="09/06/2020",  zone_type=="response_slider_endValue" | zone_type=="response_text_entry")
+
+
+jols$response<-as.numeric(jols$response)
+
+
+jols1<- jols %>%
+  dplyr::select(participant_private_id, response, testexpect) %>%
+  dplyr::mutate(cond=rep(1:2, 231), font=ifelse(cond==1, "SF", "A")) %>%
+  tidyr::drop_na() %>% 
+  dplyr::mutate(testexpect=ifelse(testexpect=="low", "Low Test Expectancy", "High Test Expectancy"), font=ifelse(font=="A", "Arial", "Sans Forgetica"))
+  
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# plot JOLs
+
+# get withinsubject CIs
+sfgenjol_wsci= Rmisc::summarySEwithin(data = jols1, measurevar = "response",
+                       withinvars = "font", betweenvars = "testexpect", idvar = "participant_private_id")
+  
+jols1mean <- jols1 %>%
+  dplyr::group_by(testexpect, font) %>%
+  dplyr::summarise(mean1=mean(response))
+
+
+JOL_wide<- jols1 %>% 
+  dplyr::select(participant_private_id, response, testexpect, font) %>%
+  tidyr::pivot_wider(names_from = "font", values_from = "response") %>%
+  dplyr::mutate(Difference=`Sans Forgetica` - Arial)
+
+JOL_mean <- JOL_wide %>%
+  dplyr::group_by(testexpect) %>%
+  dplyr::summarise(mean=mean(Difference, na.rm=TRUE))
+
+
+figjol <- ggplot(jols1,aes(x=font,y=response,fill=font))+ facet_grid(~testexpect) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
+  geom_boxplot(aes(x = font, y = response),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+      geom_line(data=sfgenjol_wsci,aes(y=response, group=1), size=1)+ 
+
+    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_pointrange(data=sfgenjol_wsci, aes(y=response, ymin=response, ymax=response), size=.8, color="darkred")+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") +
+   geom_label_repel(data=sfgenjol_wsci, aes(y=response, label=round(response, 2)), seed = 42, box.padding = 0.8)+
+  theme_cowplot() +
+theme(axis.title=bold, legend.position = "none")
+
+
+fig2b_diff <- ggplot(JOL_wide,aes(x=testexpect,y=Difference,fill=testexpect)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = testexpect, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+ # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "JOL Difference (Sans Forgetica - Arial)", x = "Test Expectancy") +  theme(legend.position = "none")+ 
+  geom_label_repel(data=JOL_mean, aes(y=mean , label=round(mean, 2)), seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(axis.title = bold)
+
+
+#figjol
+
+#6.67
+
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+#anova JOLs
+a1 <- aov_ez("participant_private_id", "response", jols1, 
+             between = c("testexpect"), within=c("font")) # mixed
+
+#summary(a1)
+
+```
+
+### Study Times
+
+Although not preregistered, study times less than 150 ms and reaction times greater than 2.5 SD above the mean per condition for each participant were removed. This outlier procedure removed ~3 % of the data.^[The decision to omit these observations did not meaningfully impact any of the conclusions reported here.] Given the heavy positive skew of the data, we log-transformed study times to better approximate a normal distribution (see Fig.1e). Evidence for testing expectancy effects on log-transformed study times were inconclusive, *F*(1,229) = 1.97, *p* = .162, $\eta_{g}^{2}$ = .008, BF = 1.822. Typeface did influence study times: study times were slower for Sans Forgetica than Arial, *F*(1,229) = 30.91, *p* < .001, $\eta_{g}^{2}$ = .001. There was no interaction between Testing Expectancy and Typeface, *F*(1,229) = 1.10, *p* = .296, $\eta_{g}^{2}$ < .001. Compared to a main effects-only model, there was substantial evidence that there was no interaction between Testing Expectancy and Typeface (BF = 5.25). 
+
+As predicted, memory sensitivity for Sans Forgetica was higher when testing expectancy was low, but not when testing expectancy was high. High test expectancy could explain why Geller et al. (2020; Experiment 1) failed to find a disfluency effect with Sans Forgetica. We also found subjective and objective evidence that Sans Forgetica is in fact perceptually disfluent. Participants gave lower JOLs to stimuli studied in the Sans Forgetica typeface, regardless of test expectancy. That is, not only did the novel typeface improve recognition memory, but participants also subjectively rated it as an inferior context for word learning. These findings are inconsistent with the predictions preregistered and contradict the findings of Geller et al. (2020) (Experiment 2) and Taylor et al. (2020) (Experiment 1). One reason for this is that in the current experiment, we used a within-subject manipulation of typeface, whereas Geller et al. (2020) (Experiment 2) and Taylor et al. (2020; Experiment 1) used a between-subjects typeface manipulation. The finding of lower JOLs to disfluent stimuli is in line with other studies using a within-participant manipulation of fluency [@Besken2013; @Geller2018; @Rhodes2008; @Rhodes2009). In relation to study times, participants studied Sans Forgetica stimuli longer than Arial, regardless of test expectancy. This contradicts the null finding of Geller et al. (2020; Experiment 3). It is important to note, however, that the examination of study times in Geller et al. (2020) were unplanned and purely exploratory, making it hard to draw firm conclusions about the effect of Sans Forgetica on study times. It is quite possible that not correcting for the skew of raw data or omitting outliers lead to the null effect of study time observed in Geller et al. (2020, Experiment 3). Indeed, reanalyzing the study time data from Geller et al., (2020, Experiment 3) with a similar procedure outlined above showed larger study times for Sans Forgetica (*p* = .049, one-tailed). 
+
+The finding that test expectancy moderates the disfluency effect in recognition contradicts a finding from @Rosner2015 (Experiment 3a). In that particular experiment, they used a high-level blurring manipulation and manipulated test expectancy, but did not find the critical interaction. Given the novelty of the current findings, in Experiment 2, we attempted to replicate this pattern of results using a different criterion test: cued recall
+
+
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#raw gorilla data and extract RTs
+
+datasetlow$testexpt<-"low"
+highdata$testexpt<-"high"
+
+rt_high_low <- rbind(datasetlow, highdata)
+
+rt<-rt_high_low %>% janitor::clean_names(.) %>% mutate(date=as.Date(utc_date)) %>%  dplyr::filter(date=="08/06/2020" | date=="0009/07/2020"|date=="0010/07/2020" | date=="09/06/2020", zone_type=="continue_button", display=="study") 
+
+# get RT and make numeric (Gorilla does not do this)
+rt$reaction_time<-as.numeric(rt$reaction_time)
+
+rt1<- rt %>% 
+  dplyr::group_by(participant_private_id, condition, testexpt) %>% 
+  dplyr::select(participant_private_id, condition, testexpt, reaction_time) %>%
+  dplyr::mutate(sdabove = mean(reaction_time, na.rm=TRUE) +  2.5*sd(reaction_time, na.rm=TRUE)) %>%
+    dplyr::filter(reaction_time > 150, reaction_time < sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(reaction_time))) %>%
+   mutate(testexpt=ifelse(testexpt=="low", "Low Test Expectancy", "High Test Expectancy"), font=ifelse(condition=="normal", "Arial", "Sans Forgetica")) %>%
+  select(-condition) %>%
+  ungroup()
+  
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+rt_wide <- rt1 %>%
+  dplyr::select(-condition)%>%
+  tidyr::pivot_wider(names_from="font", values_from = "mean_rt")%>%
+  dplyr::mutate(Difference=`Sans Forgetica` - Arial)
+
+
+rt_wide_mean <- rt_wide %>% 
+  dplyr::group_by(testexpt) %>%
+  dplyr::summarise(mean=mean(Difference))
+
+# get withinsubject CIs
+sfgenrt_wsci= Rmisc::summarySEwithin(data = rt1, measurevar = "mean_rt",
+                       withinvars = "font", betweenvars = "testexpt", idvar = "participant_private_id")
+#plot fig
+
+figrt <- ggplot(rt1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~testexpt) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
+  geom_boxplot(aes(x = font, y = mean_rt),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+        geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+
+   geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt), size=.8, color="darkred")+
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "log(Study Times)", x = "Typeface") + theme(legend.position = "none")+
+   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+  theme_cowplot(font_size=14) + 
+  theme(legend.position = "none", axis.title = bold)
+
+
+
+figrt_diff <- ggplot(rt_wide,aes(x=testexpt,y=Difference,fill=testexpt)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = testexpt , y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  #geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+  #geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci),size=.3, color="red") + 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Time Difference (Sans Forgetica - Arial)", x = "Test Expectancy") + theme(legend.position = "none") + 
+   geom_label_repel(data=rt_wide_mean, aes(y=mean, label=round(mean, 2)), seed = 42, box.padding = 0.5) + 
+theme_cowplot(font_size=14) + 
+    geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(legend.position = "none", axis.title = bold)
+
+
+
+#ggsave("figrt.png", width=8, height=4, dpi=300)
+
+#figrt
+
+#figrt_diff
+
+#write.csv(rt2, file="rt_high_low.csv")
+
+#ttestBF(x=rt2$normal, y=rt
+```
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+#anova RTs
+
+a1 <- aov_ez("participant_private_id", "mean_rt", rt1, 
+             between = c("testexpt"), within=c("condition")) # 
+
+#summary(a1)
+
+#kable(summary(a1))
+
+```
+
+
+```{r, fig.align="center", fig.cap="A. Participant accuracy (dots), box plots (medians and interquartile ranges), and label means for memory sensitivity (d') as a function of Typeface and Testing Expectancy in Experiment 1. B. Raincloud plots (Allen et al., 2019) for difference scores, with labeled means and bootstrapped 95\\% CIs, as a function of Test Expectancy in Experiment 1. C. Participant accuracy (dots), box plots (medians and interquartile ranges), and labeled means for JOLs as a function of Typeface and Testing Expectancy in Experimenr 1. D. Raincloud plots (Allen et al., 2019) for JOL difference scores, with labeled means and bootstrapped 95\\%CIs, as a function of Test Expectancy in Experiment 1. E. Participant accuracy (dots), box plots (medians and interquartile ranges), and labeled means for study times (log-transformed) as a function of Typeface and Testing Expectancy in Experiment 1. F. Raincloud plots (Allen et al., 2019) for study time difference scores, with labeled means and bootstrapped 95\\% CIs, as a function of Test Expectancy in Experiment 1", fig.height=14, fig.width=12, message=FALSE, warning=FALSE, results="asis"}
+
+fig1_plot <- plot_grid(
+  fig1a, figjol, figrt,
+  labels = "AUTO", ncol= 1, nrow = 3
+)
+
+ggsave("figexpt1.png", width=10, height=14, dpi=500)
+
+fig1_diff <- plot_grid(fig1a_diff, fig2b_diff, figrt_diff, labels = "AUTO", ncol=, nrow=3)
+
+ggsave("figexpt1_diff.png", width=10, height=14, dpi=500) 
+
+fig1_diff_all <- plot_grid(fig1a, fig1a_diff, figjol, fig2b_diff,figrt, figrt_diff, labels = "AUTO", ncol=2, nrow=3)
+
+#ggsave("figexpt1_diff_all.png", width=12, height=14, dpi=500) 
+
+fig1_diff_all
+
+```
+
+# Experiment 2
+
+In Experiment 2, we used weakly related cue-target pairs from Geller et al. (2020; Experiment 1). In that experiment, participants were told about the upcoming memory test, and there was strong evidence against there being a Sans Forgetica effect (BF > 100). In the present experiment, we set out to examine whether this null effect persists regardless of test expectancy. That is, when test expectancy is low, will we again observe a Sans Forgetica effect with cued recall?
+
+## Methods
+
+The preregistered analysis plan for Experiment 2 can be found here: https://osf.io/3xak9. All raw and summary data, materials, and R scripts for pre-processing, analysis, and plotting for Experiment 2 can be found at https://osf.io/cqp6s/.
+
+### Participants
+
+We preregistered and collected a sample size of 232 participants. Participants were recruited on Amazon’s Mechanical Turk (MTurk) platform, all of whom completed the experiment through Pavlovia (Pavolvia.org). In order to participate in the study, participants had to be native-English speakers, live in the United States, and no record of participating in previous studied offered by the researcher. 
+
+### Design
+
+Per our pre-registration, accuracy, JOLs, and study times were analyzed with a mixed factorial design with typeface (Arial vs. Sans Forgetica) manipulated within-participants and test expectancy (High vs. Low) manipulated between participants.
+
+### Materials and procedure 
+
+Materials and Procedure 
+Experiment 2 was programmed in PsychoPy [@Peirce2019] and hosted on Pavoliva (Pavolvia.org). The materials were adopted from Geller et al. [2020, Experiment 1; also see @Carpenter2006). Participants were presented with 24 weakly related cue-target pairs. The pairs were all nouns, 5–7 letters and 1–3 syllables in length, high in concreteness (400–700), high in frequency (at least 30 per million), and had similar forward (*M* = 0.031) and backward (*M* = 0.033) association strengths. Two counterbalanced lists were created for each testing condition (high and low-test expectancies) so that each target could be presented in each typeface condition (Arial vs. Sans Forgetica) without repeating any items for an individual participant. 
+
+A version of the experiment can be run by following the following link: https://run.pavlovia.org/Jgeller112/sf_low_cb1. The experiment consisted of four phases: encoding phase, JOL phase, distractor phase, and test phase. Similar to Experiment 1, some participants were told about an upcoming memory test while others were not. During the encoding phase, each participant was presented with a series of word pairs randomly, one at time with the cue always presented in Arial on the left hand side and the target word presented in either a disfluent typeface (Sans Forgetica) or a fluent typeface (Arial), on the right hand side. Typefaces of the target words were randomly intermixed. The encoding phase was self-paced: Participants were instructed to press a button of the screen after reading each word. Like Experiment 1, participants then made two list-wide JOLs. Following a short distractor task (3 min), participants were given a cued recall test which began with instructions for the test. Each trial started with the presentation of a cue from the encoding phase, in lowercase letters, to participants one at a time. Participants were instructed to type in the corresponding target (or guess if they could not remember). The test phase was self-paced. All cues were presented in Arial font. The entire experiment lasted approximately 10 minutes. 
+
+### Scoring
+
+Typed responses were scored with the lrd package in R [@Maxwell2020]. The lrd package provides an automated way to score word responses. A partial match threshold of 80% was used to determine whether a typed response was correct or not.
+
+## Results and Discussion
+
+### Cued Recall
+
+Similar to @Taylor2020, we were interested in to what extent Sans Forgetica enhances memory. To answer this question, we calculated the percentage of targets participants correctly recalled that they had seen in Sans Forgetica, and the percentage of targets they had correctly recalled that they had seen in Arial. Figures 3a shows performance in the cued-recall test (Figure 3a) along with difference scores (Figure 3b). Participants in the high test expectancy group performed better than participants in the low test expectancy group, *M*~diff~ = 20%, *F*(1, 230) = 38.26, *p* < .001,$\eta_{g}^{2}$ = .126. Participants recalled more target words in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 13.57, *p* < .001, $\eta_{g}^{2}$ =.008. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 230) = 10.74, *p* = .001, $\eta_{g}^{2}$ = .006.  A Bayesian analysis revealed that the interaction model was strongly preferred to the full model (BF = 21.77). Planned comparisons showed that individuals in the low test expectancy group recalled more words presented in Sans Forgetica than Arial, *t* =4.92, *p* < .001, *d*~avg~= 0.38; In the high test expectancy group, there was substantial evidence that there was no difference between Sans Forgetica and Arial, *t* = 0.287, *p* = .778, *d*~avg~ = 0.02, BF~01~ = 9.31. 
+
+### JOLs
+
+Figures 3c and 3d show JOLs (Figure 3b) as well as difference scores (Figure 4c). Using the same model as above, participants in the high test expectancy group gave higher JOLs than the low test expectancy group, *M*~diff~ = 5.91, *F*(1,229) = 13.57, *p* < .001, $\eta_{g}^{2}$ = .028. Arial elicited higher JOLs than Sans Forgetica, *M*~diff~ = 15.15, *F*(1,229) = 87.05, *p* < .001, $\eta_{g}^{2}$ = .161. There was an interaction between Testing Expectancy and Typeface, *F*(1,229) = 13.65, *p* < .001, $\eta_{g}^{2}$ < .029. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF > 100). Planned comparisons revealed that the JOL effect was larger in the low test expectancy group (*d*~avg~ = 1.21) than in the high test expectancy group (*d*~avg~ = 0.72). 
+
+### Study Times
+
+Figures 3e and 3f show log-transformed RTs (Figure 3e) and difference scores (Figure 4f). Like Experiment 1, we excluded study times less than 150 ms and study times greater than 2.5 SD above the mean per condition for each participant. The outlier procedure removed ~ 2% of the data. Study times were overall larger for the high test expectancy group compared to the low test expectancy group, *M*~diff~ = 0.34, *F*(1,230) = 17.02, *p* < .001, $\eta_{g}^{2}$ = .068. Cue-target pairs yielded larger study times for Sans Forgetica compared to Arial, *M*~diff~ = 0.06, *F*(1,230) = 27.74, *p* < .001, $\eta_{g}^{2}$ = .002. There was no interaction between Testing Expectancy and Typeface, F(1,230) = 0.39, *p* = .533, $\eta_{g}^{2}$ < .001. A main effects-only model was strongly preferred over the interaction model (BF = 6.03). 
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('Expt2_low_high', "mturk_cue_recall_low")) # folder to find Ps in
+
+data=here::here("Expt2_low_high", "mturk_cue_recall_low")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow1 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+dataset1 <- datasetlow1 %>% 
+    dplyr::group_by(participant, turkid)%>% # polygon_2 is a unqiue value for the test phase
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text)) %>% # some folks capitalzied words
+  dplyr::mutate(cond="Low Test Expectancy", cb="low1") %>%
+ dplyr::mutate(new_id=ifelse(is.na(participant)| participant=="J", turkid,participant)) #Mturkers used "me" for participant name so we need to extract unique id
+#s.data.frame(dplyr::count(dataset1, new_id))
+
+
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+dataset1_jol <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, atypic_slider.response, normal_slider.response) %>%
+  mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  mutate(cond="Low Test Expectancy")%>%
+  ungroup() %>%
+  select(new_id1,  cond, atypic_slider.response, normal_slider.response) %>%
+  na.omit(.)%>%
+  tidyr::pivot_longer(atypic_slider.response:normal_slider.response, names_to = "TypeFace", values_to = "jols")
+
+#as.data.frame(dplyr::count(dataset1_jol, new_id1))
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+dataset1_rt <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, mouse_4.time, font) %>%
+  dplyr::mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  dplyr::mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  dplyr::mutate(cond="Low Test Expectancy")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(new_id1, cond, font, mouse_4.time)
+
+#as.data.frame(dplyr::count(dataset1_rt, new_id1))
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('Expt2_low_high', "mturk_cue_recall_low2")) # folder to find Ps in
+
+data=here::here("Expt2_low_high", "mturk_cue_recall_low2")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow2 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]}))
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+dataset2 <- datasetlow2 %>% 
+    dplyr::group_by(participant, turkid)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+  dplyr::mutate(textbox.text=tolower(textbox.text)) %>% 
+  dplyr::mutate(cond="Low Test Expectancy", cb="low2") %>%
+ dplyr::mutate(new_id=ifelse(is.na(participant),turkid,participant))
+#Mturkers used "me" for participant name so we need to extract unique id
+#check number of Ps in each CB and make sure names are unqiue 
+#as.data.frame(dplyr::count(dataset2, new_id))
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+dataset2_jol <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, atypic_slider.response, normal_slider.response) %>%
+  mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  mutate(cond="Low Test Expectancy")%>%
+  ungroup() %>%
+  select(new_id1,  cond, atypic_slider.response, normal_slider.response) %>%
+  na.omit(.)%>%
+  tidyr::pivot_longer(atypic_slider.response:normal_slider.response, names_to = "TypeFace", values_to = "jols")
+
+#as.data.frame(dplyr::count(dataset2_jol, new_id1))
+```
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+dataset2_rt <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, mouse_4.time, font) %>%
+  dplyr::mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  dplyr::mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  dplyr::mutate(cond="Low Test Expectancy")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(new_id1, cond, font, mouse_4.time)
+
+#as.data.frame(dplyr::count(dataset2_rt, new_id1))
+
+```
+
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('Expt2_low_high', "mturk_cue_recall_high")) # folder to find Ps in
+
+data=here::here("Expt2_low_high", "mturk_cue_recall_high")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasethigh3 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:70]})) #fread makes reading in f
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+dataset3 <- datasethigh3 %>% 
+    dplyr::group_by(participant, turkid)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+  dplyr::mutate(textbox.text=tolower(textbox.text)) %>% 
+  dplyr::mutate(cond="High Test Expectancy", cb="high1") %>%
+ dplyr::mutate(new_id=ifelse(is.na(participant),turkid,participant))
+#Mturkers used "me" for participant name so we need to extract unique id
+#check number of Ps in each CB and make sure names are unqiue 
+#as.data.frame(dplyr::count(dataset2, new_id))
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+dataset3_jol <- datasethigh3 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, atypic_slider.response, normal_slider.response) %>%
+  mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  mutate(cond="High Test Expectancy")%>%
+  ungroup() %>%
+  select(new_id1,  cond, atypic_slider.response, normal_slider.response) %>%
+  na.omit(.)%>%
+  tidyr::pivot_longer(atypic_slider.response:normal_slider.response, names_to = "TypeFace", values_to = "jols")
+
+#as.data.frame(dplyr::count(dataset3_jol, new_id1))
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+dataset3_rt <- datasethigh3 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, mouse_4.time, font) %>%
+  dplyr::mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  dplyr::mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  dplyr::mutate(cond="High Test Expectancy")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(new_id1, cond, font, mouse_4.time)
+
+#as.data.frame(dplyr::count(dataset3_rt, new_id1))
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('Expt2_low_high', "mturk_cue_recall_high2")) # folder to find Ps in
+
+data=here::here("Expt2_low_high", "mturk_cue_recall_high2")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasethigh4 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:70]})) #fread makes reading in f
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+dataset4 <- datasethigh4 %>% 
+    dplyr::group_by(participant, turkid)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+  dplyr::mutate(textbox.text=tolower(textbox.text)) %>% 
+  dplyr::mutate(cond="High Test Expectancy", cb="high2") %>%
+ dplyr::mutate(new_id=ifelse(is.na(participant),turkid,participant))
+#Mturkers used "me" for participant name so we need to extract unique id
+#check number of Ps in each CB and make sure names are unqiue 
+#as.data.frame(dplyr::count(dataset2, new_id))
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+dataset4_jol <- datasethigh4 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, atypic_slider.response, normal_slider.response) %>%
+  mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  mutate(cond="High Test Expectancy")%>%
+  ungroup() %>%
+  select(new_id1,  cond, atypic_slider.response, normal_slider.response) %>%
+  na.omit(.)%>%
+  tidyr::pivot_longer(atypic_slider.response:normal_slider.response, names_to = "TypeFace", values_to = "jols")
+
+#as.data.frame(dplyr::count(dataset3_jol, new_id1))
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+dataset4_rt <- datasethigh4 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant,turkid, mouse_4.time, font) %>%
+  dplyr::mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  dplyr::mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  dplyr::mutate(cond="High Test Expectancy")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(new_id1, cond, font, mouse_4.time)
+
+#as.data.frame(dplyr::count(dataset4_rt, new_id1))
+
+```
+ 
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=FALSE}
+all_c<- rbind(dataset1, dataset2, dataset3, dataset4)
+
+all_c %>% group_by(cb) %>% dplyr::summarise(count = n()) # make sure equal number of Ps in cbs
+
+
+#as.data.frame(dplyr::count(all_c, new_id))
+
+
+#write.csv(all_c, file="test_expect.csv")
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+all_jol <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
+
+all_jol_wide= all_jol %>%
+  tidyr::pivot_wider(names_from = "TypeFace", values_from = "jols") %>%
+  dplyr::mutate(Difference=atypic_slider.response-normal_slider.response)
+  
+all_jol_mean_wide <- all_jol_wide %>% 
+  dplyr::group_by(cond) %>% 
+  dplyr::summarise(mean=mean(Difference))
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+rt_all <- rbind(dataset1_rt, dataset2_rt, dataset3_rt, dataset4_rt)
+
+rt_all1<- rt_all %>% 
+  dplyr::group_by(new_id1, font, cond) %>% 
+  dplyr::mutate(rt=mouse_4.time*1000) %>% 
+dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
+    dplyr::filter(rt > 150 || rt > sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt), na.rm=TRUE)) %>%
+   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica")) %>%
+  mutate(new_id1=ifelse(is.na(new_id1), "na1", new_id1)) %>%
+  ungroup()
+
+rt_all_wide <- rt_all1 %>% 
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_rt")%>% 
+  dplyr::mutate(Difference= `Sans Forgetica` - Arial)
+
+
+rt_all_wide_mean <- rt_all_wide %>%
+  dplyr::group_by(cond) %>% 
+  dplyr::summarise(mean=mean(Difference))
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+setwd(here::here('Expt2_low_high', "Summary", "cued")) # folder to find Ps in
+
+recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","cued", "Expt2_scored_recall.csv")) # folder to find Ps in)
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+recall_highlow_agg_wide <- recall_highlow %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc") %>%
+  dplyr::mutate(Difference=SF - flu)
+
+recall_means_wide <- recall_highlow_agg_wide %>%
+  dplyr::group_by(cond) %>%
+  dplyr::summarise(mean=mean(Difference))
+
+
+write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
+
+
+recall_highlow_agg <- recall_highlow %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
+  dplyr::summarise(mean_acc=mean(Scored))
+
+write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
+
+  
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+#ANOVA
+
+a1 <- aov_ez("id", "mean_acc", recall_highlow_agg, 
+            within=c("font"), between=c("cond")) # mixed
+
+#summary(a1)
+
+#a1
+
+
+
+
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Within_Fitted_Interaction <- emmeans(a1, ~ font|cond)
+
+#Within_Fitted_Interaction
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+#pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+### get d_avg for high
+
+recall_high <- recall_highlow %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+dplyr::filter(cond=="High Test Expectancy")%>%
+  dplyr::ungroup() %>%
+  summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
+
+                   
+                   
+
+
+h=d.dep.t.avg(m1 = recall_high$mean1, m2 = recall_high$mean2, sd1 = recall_high$sd1,
+                sd2 = recall_high$sd2, n = 116, a = .05)
+  
+  
+#### get d_avg for low
+
+
+recall_low <- recall_highlow %>% 
+  dplyr::group_by(id, font, cond) %>%
+  dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+dplyr::filter(cond=="Low Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
+
+
+l=d.dep.t.avg(m1 = recall_low$mean1, m2 = recall_low$mean2, sd1 = recall_low$sd1,
+                sd2 = recall_low$sd2, n = 116, a = .05)
+
+
+#h
+
+#l 
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+#ANOVA
+
+jol_a <- aov_ez("new_id1", "jols", all_jol, 
+            within=c("TypeFace"), between=c("cond")) # mixed
+
+#summary(jol_a)
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Within_Fitted_Interaction <- emmeans(jol_a, ~ TypeFace|cond)
+
+#Within_Fitted_Interaction
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+recall_highjol <- all_jol %>% 
+  dplyr::group_by(new_id1, TypeFace, cond) %>%
+  dplyr::summarise(mean_jol=mean(jols))%>%
+  tidyr::pivot_wider(names_from = "TypeFace", values_from = "mean_jol")%>%
+dplyr::filter(cond=="High Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(normal_slider.response ), sd1=sd(normal_slider.response), mean2=mean(atypic_slider.response ), sd2=sd(atypic_slider.response ))
+
+h_jol=d.dep.t.avg(m1 = recall_highjol$mean1, m2 = recall_highjol$mean2, sd1 = recall_highjol$sd1,
+                sd2 = recall_highjol$sd2, n = 116, a = .05)
+  
+recall_lowjol <- all_jol %>% 
+  dplyr::group_by(new_id1, TypeFace, cond) %>%
+  dplyr::summarise(mean_jol=mean(jols))%>%
+  tidyr::pivot_wider(names_from = "TypeFace", values_from = "mean_jol")%>%
+dplyr::filter(cond=="Low Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(normal_slider.response ), sd1=sd(normal_slider.response), mean2=mean(atypic_slider.response ), sd2=sd(atypic_slider.response ))
+
+
+
+l_jol=d.dep.t.avg(m1 = recall_lowjol$mean1, m2 = recall_lowjol$mean2, sd1 = recall_lowjol$sd1,
+                sd2 = recall_lowjol$sd2, n = 115, a = .05)
+
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+
+#pairs(Within_Fitted_Interaction) ## pairwise comparison with no correction
+
+
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+#ANOVA
+
+rt_a <- aov_ez("new_id1", "mean_rt",rt_all1, 
+            within=c("font"), between=c("cond")) # mixed
+
+#summary(rt_a)
+
+#rt_a
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+Within_font <- emmeans(rt_a, ~ font)
+
+#Within_font
+
+Within_cond <- emmeans(rt_a, ~ cond)
+
+#Within_cond
+
+```
+
+
+```{r eval=FALSE, echo=FALSE, warning=FALSE}
+
+rt_all1$new_id1<-rep(1:232, each=2)
+
+rt_all1$new_id1<-as.factor(rt_all1$new_id1)
+
+rt_all1$cond<-as.factor(rt_all1$cond)
+
+rt_all1$font<-as.factor(rt_all1$font)
+
+bfrt = anovaBF(mean_rt ~ cond*font + new_id1, rt_all1, 
+          whichRandom="new_id1")
+
+#Bayes factor analysis
+#--------------
+#[1] font + cond + new_id1 : 4.322303 ±4.6%
+
+##Against denominator:
+#  mean_rt ~ font + cond + font:cond + new_id1 
+#---
+#Bayes factor type: BFlinearModel, JZS
+
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+bold <- element_text(face = "bold", color = "black", size = 14) 
+
+recall_highlow_agg <- recall_highlow_agg %>%
+  dplyr::mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial"))
+
+#means by test and typeface 
+means = recall_highlow_agg %>%
+  dplyr::group_by(cond, Typeface)%>% 
+  dplyr::summarise(mean=mean(mean_acc))
+
+# get withinsub CIs
+sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "mean_acc",
+                       withinvars = "Typeface", betweenvars = "cond", idvar = "id")
+
+
+
+```
+
+```{r eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+
+fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
+  facet_grid(~cond) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = mean_acc ),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
+  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc, ymax=mean_acc), size=.8, color="darkred")+ 
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
+   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)),seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title = bold)
+
+# plot difference plots 
+fig2adiff <- ggplot(recall_highlow_agg_wide,aes(x=cond,y=Difference, fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+  #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
+  #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Test Difference (Sans Forgetica - Arial", x = "Test Expectancy")+
+     theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title =bold) + 
+  geom_hline(yintercept = 0, linetype="dotted") + 
+   geom_label_repel(data=recall_means_wide, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
+
+```
+
+```{r eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+
+jol_rename <- all_jol %>%
+  mutate(Typeface=ifelse(TypeFace=="atypic_slider.response", "Sans Forgetica", "Arial"))
+
+means = jol_rename %>%
+  dplyr::group_by(cond, Typeface)%>% 
+  dplyr::summarise(mean=mean(jols))
+
+# get withinsubject CIs
+sfgenjol_wsci= Rmisc::summarySEwithin(data = jol_rename, measurevar = "jols",
+                       withinvars = "Typeface", betweenvars = "cond", idvar = "new_id1")
+
+
+fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ 
+  facet_grid(~cond) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Judgements of Learning", x = "Typeface") +  theme(legend.position = "none")+ 
+  geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title = bold)
+
+
+fig2b_diff <- ggplot(all_jol_wide,aes(x=cond,y=Difference,fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+ # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "JOL Difference (Sans Forgetica - Arial)", x = "Test Expectancy") +  theme(legend.position = "none")+ 
+  geom_label_repel(data=all_jol_mean_wide, aes(y=mean , label=round(mean, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(axis.title = bold)
+
+```
+
+
+```{r eval=TRUE, echo=FALSE, fig.height=8, fig.width=6, message=FALSE, warning=FALSE, results="asis", echo=FALSE}
+
+means = rt_all1 %>%
+  dplyr::group_by(cond, font)%>% 
+  dplyr::summarise(mean=mean(font))
+
+# get withinsubject CIs
+sfgenrt_wsci= Rmisc::summarySEwithin(data = rt_all1, measurevar = "mean_rt",
+                       withinvars = "font", betweenvars = "cond", idvar = "new_id1")
+
+
+fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = font , y = mean_rt),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt),size=.8, color="darkred") + 
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "log(Study Time)", x = "Typeface") + theme(legend.position = "none") + 
+   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
+theme_cowplot(font_size=14) + 
+  theme(legend.position = "none", axis.title = bold)
+
+
+fig2c_diff <- ggplot(rt_all_wide,aes(x=cond,y=Difference,fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond , y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  #geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+  #geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt-ci, ymax=mean_rt+ci),size=.3, color="red") + 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Time Difference (Sans Forgetica - Arial)", x = "Test Expectancy") + theme(legend.position = "none") + 
+   geom_label_repel(data=rt_all_wide_mean, aes(y=mean, label=round(mean, 2)), seed = 42, box.padding = 0.5) + 
+theme_cowplot(font_size=14) + 
+    geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(legend.position = "none", axis.title = bold)
+
+
+```
+
+
+
+```{r, fig.align="center", fig.caption="A. Participant accuracy (dots), box plots (with medians and interquartile ranges), and labeled means for cued recall as a function of Typeface and Testing Expectancy in Experiment 2. B. Raincloud plots (Allen et al., 2019) for cued recall difference scores, with labeled means and bootstrapped 95\\% CIs, as a function of Test Expectancy in Experiment 2. C. Participant accuracy(dots), box plots (with medians and interquartile ranges), and labeled means for JOLs as a function of Typeface and Testing Expectancy in Experiment 2. D. Raincloud plots (Allen et al., 2019) for JOL difference scores, with the labeled means and bootstrapped 95\\% CIs, as a function of Test Expectancy in Experiment 2. E. Participant accuracy (dots), box plots (with medians and interquartile ranges), and labeled means for study times (log-transformed) as a function of Typeface and Testing Expectancy in Experiment 2. F. Raincloud plots (Allen et al., 2019) for study time difference scores, with the labeled means and bootstrapped 95\\% CIs, as a function of Test Expectancy in Experiment 2", fig.height=16, fig.width=12, results="asis", eval=TRUE, message=FALSE, warning=FALSE}
+
+fig2 <- plot_grid(
+  fig2a,fig2b,fig2c,
+  labels = "AUTO", ncol= 1, nrow = 3
+)
+
+ggsave("figexpt2.png", width=10, height=14, dpi=500)
+
+
+fig2_diff <- plot_grid(
+  fig2adiff,fig2b_diff,fig2c_diff,
+  labels = "AUTO", ncol= 1, nrow = 3
+)
+
+ggsave("figexpt2b.png", width=10, height=14, dpi=500)
+
+
+fig2 <- plot_grid(
+  fig2a,fig2adiff, fig2b, fig2b_diff, fig2c, fig2c_diff,
+  labels = "AUTO", ncol= 2, nrow = 3
+)
+
+ggsave("figexpt2b_all.png", width=12, height=14, dpi=500)
+
+
+fig2
+
+
+```
+
+The results complement those from Experiment 1 well and suggest the disfluency effect with Sans Forgetica is not unique to a particular criterion test. Using cued recall, we once again demonstrated that Sans Forgetica can constitute a desirable difficulty, but only when test expectancy is low. Importantly, the effect we observed was rather modest; Sans Forgetica conferred roughly a 5% increase in cued recall performance above and beyond Arial, a more fluent typeface. When looking at the low test expectancy group alone we observed a 9% increase. Furthermore, we once again showed longer study times and lower JOLs for words studied in Sans Forgetica. There are, however, a couple points of divergence that merit mention. Compared to Experiment 1, JOLs for the Sans Forgetica condition were tightly bunched around the middle of the response scale.^[Experiments 2 and 3 used a slider scale that ranged from 0-100 in increments of 10 while Experiment 1 had participants type in a number between 0-100.] This could reflect uncertainty around how well participants remember Sans Forgetica target words. Additionally, study times for Sans Forgetica were longer for the high test expectancy group compared to the low test expectancy group. This most likely reflects participants studying word pairs longer in preparation for an upcoming test.
+
+# Experiment 3 
+
+In Experiments 1 and 2, we observed a benefit for Sans Forgetica under low test expectancy. Although this result constitutes an example of a desirable difficulty effect as a result of perceptual disfluency, the mechanisms underlying such effects remain an open issue. Our preferred interpretation is that encoding difficulty from the typeface is an attentional response eliciting deeper processing that in turn leads to better remembering. However, another possible explanation is that Sans Forgetica is remembered better simply because participants spend more time processing them, as indexed by slower study times during encoding in both Experiments 1 and 2.^[A simple time-on-task account does a poor job of explaining the lack of a Sans Forgetica effect we observed in Experiments 1 and 2 when participants were told about a memory test.].  
+
+To examine if time-on-task can account for the desirable effect of Sans Forgetica on recall, we manipulated time spent encoding by having participants either encode stimuli at their own pace (self-paced), or by removing control over how long the stimuli were studied for. If time-on-task moderates the Sans Forgetica effect, we expect there to be no effect on memory when time is constrained to be equal between Arial and Sans Forgetica. However, when encoding is self-paced, we would expect there to be better memory for Sans Forgetica compared to Arial. Corroborating this, @Kuhl2014 showed that self-paced study produced better learning outcomes compared to constrained study time. Because of this, we hypothesized that we would observe a disfluency effect for Sans Forgetica only when study time was self-paced. 
+
+In Experiment 3 we choose to keep testing expectancy low and manipulate time-on-task (self-paced vs. 3 s)^[Three seconds was chosen by looking at overall study times for Experiment 2 (M =  2,192 ms). Given this, we thought 3 s would be more than sufficient to allow identification of the cue-target pairs]. This design also served to replicate the novel findings from Experiment 2 showing that low test expectancy is essential for the Sans Forgetica memory effect. In addition, we examine list-wide JOLs. Due to the experiment design, we could not analyze study times as they could only be collected in the self-paced group. 
+
+## Methods 
+
+The preregistration for this experiment can be found here: https://osf.io/hjnk5.  All raw and summary data, materials, and R scripts for pre-processing, analysis, and plotting for Experiment 3 can be found at https://osf.io/cqp6s/.
+
+### Participants
+
+We preregistered and collected a sample size of 232 participants. Participants were recruited on Prolific , all of whom completed the experiment through Pavlovia (Pavolvia.org). Using prescreening questionnaires on Prolific, we limited our sample to participants to those residing in the USA, native English speakers, and had no record of participating in previous studies by the first author. 
+	
+### Design, Materials, and Procedure 
+
+The design, materials, and procedure are identical to Experiment 2, with one exception—instead of manipulating test expectancy (no participants were informed of the impending memory test in Experiment 3), study time was manipulated (Self-paced vs. 3 s) between participants. In the self-paced group (like in Experiment 2), participants were given as long as they wanted to process the cue-target pairs. In the 3 s group, cue-target pairs were presented for 3 seconds. 
+
+## Results and Discussion
+
+### Cued Recall
+
+Figures 4a shows performance on the cued recall test (Fig. 4a) along with difference scores (Figure 4b). The analysis revealed that there was no reliable difference between the Self-paced and Timed groups on cued recall, *M*~diff~ = 2%, *F*(1, 230) = 0.369, *p* < .544, $\eta_{g}^{2}$ = .055. Individuals were better at recalling target words presented in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 15.03, *p* < .001, $\eta_{g}^{2}$ =.013. This was no interaction between Time on Task and Typeface, *F*(1, 230) = 1.13,*p* = .289, $\eta_{g}^{2}$ < .001. A Bayesian analysis revealed that a main effects-only model was preferred to the interaction (BF = 5.50). 
+
+## JOLs 
+
+Figures 4c and 4d show participant-level JOLs (Figure 4c) and difference scores (Figure 4d). Using the same model as above, participants in the Timed group gave higher JOLs than in the Self-paced group, *M*~diff~  = 5.91,  *F*(1,230) = 17.43, *p* < .001, $\eta_{g}^{2}$ = .055. Arial typeface elicited higher JOLs than Sans Forgetica typeface, *M*~diff~ = 9.7, F(1,230) = 48.81, p < .001, $\eta_{g}^{2}$ = .048. There was an interaction between Time on Task and Typeface, *F*(1,230) = 27.17, *p* < .001, $\eta_{g}^{2}$ < .027. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF = 57.24). Simple effects revealed that the JOL effect (Arial < Sans Forgetica) was larger in the self-paced group (*d*~avg~ = 1.22) than in the timed group (*d*~avg~ = 0.10; BF~01~ = 1.466). 
+	
+Taken together, the results from Experiment 3 are clear. Cued recall performance was better overall for Sans Forgetica—it did not matter if encoding was self-paced or timed. This contradicts a study by Kühl et al. (2014) showing that self-paced study produces better learning outcomes compared to constrained study time. It is important to note that our study used simple learning materials whereas Kühl et al., used more complex materials (i.e., multimedia slides about lightening construction). With more complex materials, a time limit might hurt rather than help recall. Despite this, the findings from Experiment 3 nicely replicated the findings from Experiment 2 under low test expectancy. From this, it is clear that a simple time-on-task account cannot explain these findings. A time on task account would predict better memory in the self-paced group because they can spend longer encoding each pair. While the interaction was not significant, looking at the effect sizes between groups, the disfluency effect was larger in the timed group (*d*~avg~ = 0.32) than the self-paced group (*d*~avg~ = 0.15). We return to this issue in the general discussion. 
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb1")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb1")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow1 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+dataset1 <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="self-paced")
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb2")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb2")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow2 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+dataset2 <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="self-paced")
+
+```
+
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb31")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb31")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow3 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+dataset3 <- datasetlow3 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="timed")
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE} 
+# read in low test expect data exported from gorilla
+setwd(here::here('TimeTaskSelf', "cb32")) # folder to find Ps in
+
+data=here::here('TimeTaskSelf', "cb32")  # path to data files
+
+file_list=list.files(data, pattern=".csv") # list of data files
+ 
+# read in all files
+datasetlow4 <-
+  do.call("rbind", lapply(file_list, FUN=function(files){
+    
+    for (i in 1:length(files)){ 
+      if(file.exists(files[i])){
+        message( "now processing:", files[i])
+      }
+    }
+    fread(files, header=TRUE, sep=",", na.strings = "", fill=TRUE)[,1:60]})) #fread makes reading in f
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+dataset4 <- datasetlow4 %>% 
+    dplyr::group_by(participant)%>%
+    dplyr::filter(mouse_5.clicked_name=="polygon_2") %>% dplyr::select(textbox.text, cue1, targ1, font) %>%
+    mutate(textbox.text=tolower(textbox.text), acc=ifelse(textbox.text==cue1, 1, 0)) %>% 
+  mutate(cond="timed")
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+all<-rbind(dataset1, dataset2, dataset3, dataset4)
+
+#write.csv(all, file="all.csv")
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+
+dataset1_jol <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="self-paced") %>% 
+  na.omit(.) %>%
+  pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+dataset2_jol <- datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="self-paced") %>% 
+  na.omit(.) %>%  pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+
+dataset3_jol <- datasetlow3 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="timed") %>% 
+  na.omit(.) %>%
+pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+dataset4_jol <- datasetlow4 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, atypic_slider.response, normal_slider.response) %>%
+  mutate(cond="timed") %>% 
+  na.omit(.) %>%
+  pivot_longer(atypic_slider.response:normal_slider.response, names_to = "Typeface", values_to = "jols")
+
+jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+setwd(here::here('TimeTaskSelf', "scored_recall")) # folder to find Ps in
+
+recall_all<-read.csv(here::here('TimeTaskSelf', "scored_recall", "experiment3_times_recall80.csv"))  # path to data files
+
+recall_all1_diff <- recall_all %>% 
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored)) %>%
+  tidyr::pivot_wider(names_from="font", values_from="acc") %>%
+  mutate(Difference=SF-flu, cond=ifelse(cond=="self-paced","Self-paced", "Timed(3s)"))
+
+recall_all_mean <- recall_all1_diff %>% 
+  dplyr::group_by(cond)%>%
+  dplyr::summarise(mean=mean(Difference))
+
+#write.csv(recall_all1, file="wide_recall_timed.csv")
+
+recall_all1 <- recall_all %>% 
+  dplyr::group_by(id, font, cond)%>% 
+  dplyr::summarise(acc=mean(Scored))
+
+#write.csv(recall_all1, file="long_recall_timed.csv")
+
+
+
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#ANOVA
+
+
+a1 <- aov_ez("id", "acc", recall_all1, 
+            within=c("font"), between=c("cond")) # mixed
+
+#s#ummary(a1)
+
+aov=aov(acc ~ (font*cond) +
+            Error(id/(font)), recall_all1)
+
+#a1
+
+```
+
+```{r, eval=FALSE}
+#aov_sum=report(aov)
+
+#aov_sum
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+#ANOVA
+
+a1 <- aov_ez("participant", "jols", jol_all, 
+            within=c("Typeface"), between=c("cond")) # mixed
+
+#summary(a1)
+
+aov=aov(jols ~ (Typeface*cond) +
+            Error(participant/(Typeface)), jol_all)
+
+
+```
+
+```{r, eval=FALSE}
+
+#aov_sum <- report(aov)
+
+#aov_sum
+
+```
+
+
+```{r eval=TRUE, echo=FALSE, fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), fig.width=10, message=FALSE, warning=FALSE, box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=4, results="asis"}
+
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+
+bold <- element_text(face = "bold", color = "black", size = 14) 
+
+recall_all1 <- recall_all1 %>%
+  mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", ifelse(font=="flu", "Arial", "Difference"))) %>%
+  mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
+
+means = recall_all1 %>%
+  dplyr::group_by(timed, Typeface)%>% 
+  dplyr::summarise(mean=mean(acc))
+
+
+sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "id")
+
+fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
+  facet_grid(~timed) + 
+  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
+  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc, ymax=acc), size=.8, color="darkred")+ 
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Porportion Correct on Final Test", x = "Typeface") + 
+  theme(legend.position = "none") + 
+   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)),seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title = bold)
+
+# plot difference plots 
+fig3a_diff <- ggplot(recall_all1_diff,aes(x=cond,y=Difference, fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+  #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
+  #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "Test Difference (Sans Forgetica - Arial", x = "Time on Task")+
+     theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title =bold) + 
+  geom_hline(yintercept = 0, linetype="dotted") + 
+   geom_label_repel(data=recall_all_mean, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
+
+
+#fig3a
+#fig3a_diff
+
+
+```
+
+
+```{r echo=FALSE, fig.align="center", fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), fig.width=10, message=FALSE, warning=FALSE, box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=8, results="asis"}
+
+jol_rename <- jol_all %>%
+  mutate(Typeface=ifelse(Typeface=="atypic_slider.response", "Sans Forgetica", "Arial")) %>%
+  mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
+
+
+jol_diff <- jol_rename %>%
+  pivot_wider(names_from="Typeface", values_from = "jols")%>%
+  dplyr::mutate(Difference=`Sans Forgetica`- Arial) %>% 
+  dplyr::mutate(cond=ifelse(cond=="self-paced", "Self-paced", "Timed(3s)"))
+
+jol_diff_mean <- jol_diff %>% 
+  dplyr::group_by(cond) %>% 
+  dplyr::summarise(mean=mean(Difference))
+
+means = jol_rename %>%
+  dplyr::group_by(timed, Typeface)%>% 
+  dplyr::summarise(mean=mean(jols))%>%
+  dplyr::mutate(timed=as.factor(timed), Typeface=as.factor(Typeface))
+
+# get withinsubject CIs
+sfgenjol_wsci=summarySEwithin(data = jol_rename, measurevar = "jols",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "participant")
+
+
+fig3b <- ggplot(jol_rename,aes(x=Typeface,y=round(jols,2),fill=Typeface))+ 
+  facet_grid(~timed) + 
+  #geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
+  #geom_violinhalf(fill_dots = "black") + 
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = Typeface, y = jols ),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+  geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
+  theme_cowplot() +
+  scale_colour_brewer(palette = "Dark2")+
+  scale_fill_brewer(palette = "Dark2") +
+  labs(y = "Judgements of Learning", x = "Typeface") + 
+  theme(legend.position = "none") + 
+   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)),seed = 42, box.padding = 0.8) + 
+  theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  theme(axis.title = bold)
+
+  
+
+fig3b_diff <- ggplot(jol_diff,aes(x=cond,y=Difference,fill=cond)) + 
+  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
+  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+               alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
+ # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
+  scale_colour_brewer(palette = "Accent")+
+  scale_fill_brewer(palette = "Accent") +
+  labs(y = "JOL Difference (Sans Forgetica - Arial)", x = "Time on Task") +  theme(legend.position = "none")+ 
+  geom_label_repel(data=jol_diff_mean, aes(y=mean , label=round(mean, 2)), seed = 42, box.padding = 0.8) + 
+   theme_cowplot(font_size=14)+ 
+  theme(legend.position = "none") +
+  geom_hline(yintercept = 0, linetype="dotted") + 
+  theme(axis.title = bold)
+
+
+#fig3b
+
+#fig3b_diff
+
+
+```
+
+
+```{r fig.align="center", fig.cap="A. Participant accuracy (dots), box plots (with medians and interquartile ranges), and labeled means for cued recall as a function of Typeface and Time-on-Task in Experiment 3. B. Raincloud plots (Allen et al., 2019) for cued recall difference scores, with labeled means and bootstrapped 95\\% CIs, as a function of Time-on-Task in Experiment 3. C. Participant accuracy (dots), box plots (with medians and interquartile ranges), and labeled means for JOLs as a function of Typeface and Time-on-Task in Experiment 3. D. Raincloud plots (Allen et al., 2019) for JOL difference scores, with labeled means and bootstrapped 95\\% CIs as a function of Time-on-Task in Experiment 3", fig.height=14, fig.width=12, results="asis", eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
+
+fig3 <- plot_grid(
+  fig3a, fig3b,
+  labels = "AUTO", ncol= 1, nrow = 2
+)
+
+ggsave("fig3experiment3.png", width=10, height=12, dpi=500)
+
+#fig3_diff <- plot_grid(fig3a_diff, fig3b_diff, ncol=, nrow=2)
+
+#$ggsave("fig3_diff.png", width=10, height=12, dpi=500)
+
+fig3_diff <- plot_grid(fig3a, fig3a_diff, fig3b, fig3b_diff, ncol=2, nrow=2)
+
+ggsave("fig3_diff_all.png", width=12, height=14, dpi=500)
+
+fig3_diff
+
+```
+
+Turning to JOLs, we replicated the outcomes from Experiments 1 and 2 showing that participants judged Sans Forgetica as less memorable (lower JOLs). This difference was larger in the self-paced group than in the timed group. While the reason for this is not clear, one possible explanation could be that during self-paced encoding, individuals are more uncertain about whether they will remember disfluent targets because they were not restricted by a time limit and could advance at their own pace. This fact is highlighted by JOLs in that condition clustering around the middle point of the scale. 
+
+# General Discussion
+
+Sans Forgetica has garnered substantial attention from both the media and the scientific community as of late. The present experiments attempted to reconcile the mixed findings in the literature as it relates to Sans Forgetica and more broadly, perceptual disfluency. Following up on recent calls to examine boundary conditions of the perceptual disfluency effect [@Bjork2016; @Dunlosky2016], we focused on one boundary condition: testing expectancy. To summarize, we found evidence that testing expectancy moderates the perceptual disfluency effect. Sans Forgetica produced lower JOLs and longer study times across (Experiments 1 and 2) and enhanced memory in recognition (Experiment 1) and cued recall (Experiment 2) only when participants were not told an upcoming memory test. Experiment 3 revealed this effect does not seem to be a solely mediated by time-on-task.
+
+These outcomes conflict with some recent findings. First, Rosner et al. (2015, experiment, 3A)  did not find a moderating role for test expectancy in recognition memory using a high-level blurring manipulation—low and high test expectancy elicited a similar benefit.  Despite this, those findings have not been replicated, closely or conceptually. In the current set of experiments, we demonstrated a robust effect of test expectancy across different test formats (Experiments 1 and 2), and replicated the basic disfluency effect with low test expectancy (Experiment 3). One interesting possibility is that disfluency manipulations can have differential effects on memory. For instance, in Rosner et al., (2015; Experiment 4a), they were only able to show a desirable effect of blurring using a high-level blurring manipulation—they could not find a recognition benefit using a low-level blurring manipulation. Similarly, Geller et al. (2018) showed that easy-to-read cursive words produced stronger memory effects than hard-to-read cursive words. Thus, the blurring manipulation used by Rosner et al. might have been a stronger cue than Sans Forgetica. An important avenue for future research would be examine different levels and types of perceptual disfluency and their role on memory. 
+
+Additionally, while we found a general benefit of Sans Forgetica under low test expectancy, @Eskenazi2020 only found a memory benefit for Sans Forgetica among those participants who were stronger spellers. Better spellers are thought to have a more precise mental lexicon which allows for more efficient processing at multiple levels of representation [i.e., orthographic, phonological, and semantic; @Perfetti2007]. When confronted with perceptual degradation, better spellers would be able to process a stimulus at a deeper level, which could give rise to better memory. The disparate findings can be reconciled by the fact that we used high frequency words in all three experiments. Presumably, these words were well known to the participant therefore allowing perceptual disfluency to be desirable for learning. 
+
+## Perceptual Desirable Difficulty: A Time on Task Effect?
+
+The result of primary interest here is that Sans Forgetica, a perceptually disfluent typeface, was associated with better recognition and recall, but only when test expectancy was low. It has been proposed that perceptual disfluency enhances memory as a result of deeper, more effortful, processing. A rather uninteresting alternative explanation is that an extended period of time dedicated to encoding is sufficient to enhance memory encoding. While a time on task account can explain the Sans Forgetica effect under low test expectancy, it is not adequate to explain some of the other findings. In both Experiments 1 and 2, Sans Forgetica produced longer study times, yet there was strong evidence that there was no perceptual disfluency effect in the high test expectancy group. Furthermore, in Experiment 3, where we directly tested time-on-task by having participants either encode cue-target pairs with a time-limit, or have encoding be self-paced, we found robust effects of perceptual disfluency on cued recall regardless of pacing. In addition, we found that the perceptual disfluency effect were larger under a time constraint than it was when encoding was self-paced. It is not clear how a time-on-task account would explain these findings. 
+
+In addition, a simple time-on-task account has been refuted in other studies. In Geller et al. (2018), for example, the authors showed that while hard-to-read cursive words engendered longer naming latencies, they did not enhance memory at test compared to an easy-to-read cursive manipulation. Similarly, Rosner et al. (2015), showed that while a low-level blurring condition produced longer naming latencies, it did not enhance memory at test . In contrast, a higher level of perceptual blur slowed naming latencies and enhanced recognition memory at test. These results suggest that perceptual degradation affects naming times in the study phase in a continuous manner, but that perceptual degradation at study must surpass some threshold to induce processing that enhances memory encoding.
+
+## Theoretical Mechanisms of the Perceptual Disfluency Effect
+
+If perceptual disfluency is not driven by time-on-task, what then? The current findings add to our understanding of the mechanism(s) underlying the desirable effects of perceptual disfluency on memory. @Eitel2016 postulated that if Sans Forgetica is a desirable difficulty, it fosters learning by increasing mental effort and by stimulating deeper processing. When preparing for an upcoming test (high testing expectancy), there is a high investment of effort allocated to the material, regardless of whether the to-be-learned information is fluent or disfluent—which would attenuate the effects of disfluency. Looking at both testing expectancy groups (see Figures 2b and 3b), there is some evidence for this. In both groups, recognition memory and cued recall was generally higher for Sans Forgetica, suggesting those stimuli received deeper processing, while the processing of Arial words appear to be shallower in the low test expectancy group. This suggests that with high test expectancy all words get deeper processing resulting in a smaller difference in the high test expectancy group. 
+
+Given that high testing expectancy eradicated the mnemonic benefit of Sans Forgetica, this points to a similar mechanism of action—that is, deeper, more effortful, processing at encoding. Just how this processing is carried out is still subject to debate. Geller et al. (2018) recently provided a potential answer to this question. They presented participants with varying levels of handwritten cursive stimuli (easy-to-read and hard-to-read) in order to adjudicate between current accounts of perpetual disfluency (i.e., metacognitive and compensatory processing accounts). From a metacognitive perspective, the memory benefit should be equal for easy-to-read and hard-to-read cursive words—within that account, all disfluency types are created equal (Weissgerber et al., 2017). However, the compensatory processing account suggests that the memory benefit should be greater for hard-to-read cursive stimuli. This is because during word identification hard-to-read cursive are harder and therefore should elicit more lexical/semantic processing [@Perea2016]. In contrast to both accounts, Geller et al. found that easy-to-read cursive were better remembered than hard-to-read cursive words, despite not being as hard. This pattern is hard for extant accounts to explain. This prompted Geller et al. to propose an alternative explanation for disfluency effects. Within their account, perceptual disfluency effects arise due to (1) increased processing difficulty during recognition (i.e., difficulty mapping letters to words) and (2) deeper processing that occurs after recognition, presumably as the result of some combination of semantic processing and metacognitive control and regulatory components. This account can explain the lack of disfluency effect in the high test expectancy group as a result of increased metacognitive monitoring and control processes eliciting attention to both types of stimuli.  
+
+A more general framework that invokes cognitive monitoring and control, such as the conflict monitoring framework [@Botvinick2001], might also explain the present findings [see @Geller2018; @Rosner2015]. Within this framework, the up- and down-regulation of monitoring and control are mediated by response ambiguity or conflict (in the current case, difficulty identifying the word). Under low test expectancy, Sans Forgetica would trigger greater control due to the difficulty associated with recognizing the stimulus—this serves to enhance memory. However, under high testing expectancy, the goal is switched to remember words for an upcoming memory test, and while Sans Forgetica is still harder, monitoring and control processes are directed to both types of stimuli, dampening/weakening the disfluency effect. The exact mechanisms underlying perceptual disfluency remain an open issue and more research is needed to better understand how perceptual disfluency enacts a desirable effect on memory.
+
+## Practical Implications
+
+The current findings have some educational significance. While it might be tempting to conclude from these findings that Sans Forgetica should be used as study tool, the current results need to be interpreted with caution. First, and most importantly, the conclusion that Sans Forgetica is only beneficial to memory under low test expectancy makes its use in the educational domain impractical. In the classroom, students rarely encode information incidentally; learning is always purposeful and goal directed.  Second, the experimental paradigms used involved simple list learning. It is not clear if Sans Forgetica would benefit learning under low test expectancy with more complex materials. Some evidence from Taylor et al. (2020, Experiments 3 and 4) suggests it might not. In those experiments, memory for factual and conceptual information was tested using more educationally realistic materials (prose passages) and displayed no mnemonic advantage for Sans Forgetica. Thus, even with low testing expectancy, Sans Forgetica did not enhance memory when the to-be-learned material was more educationally realistic. 
+Second, the effect sizes from all three experiments were  rather modest by conventional standards [@Cohen1977;  @Funder2019] (Experiment 1 -  *d*~avg~ = 0.31; Experiment 2 - *d*~avg~ = 0.38; Experiment 3 -  Timed:  *d*~avg~ = 0.32; Self-paced: *d*~avg~ = 0.15). It is unclear if the Sans Forgetica effect would replicate in educational settings where effect sizes are a known to be a smaller and more variable [@Butler2014]. 
+
+Finally, there is a fair amount of variability in the number of participants that benefited from perceptually disfluency. If you look at the difference scores presented in Figures 2, 3, and 4, positive effects are not seen consistently. In fact, some students are hurt by the presentation of Sans Forgetica. Before we start recommending perceptual disfluency as a potential study tool, it is critical we better understand the nature of these individual differences (i.e., why perceptual disfluency hurts some students while benefiting others).
+
+We do acknowledge, however, that Sans Forgetica might have some practical implications. Outside the classroom, information is largely acquired incidentally, without the goal of memorization [@Castel2015]. If this is the case, information presented in Sans Forgetica might serve to indirectly enhance memory.  For instance, one area where perceptual disfluency might be desirable is in advertising. We acquire visual information, incidentally, via billboards, online advertisements, magazines, etc. Placing this type of information in a perceptually disfluent typeface like Sans Forgetica might be helpful. However, before any definitive claims are made we need to have a better understanding of the conditions under perceptual disfluency is and is not desirable for learning. 
+
+## Conclusions
+
+Recent reports have recommended that teachers and students use perceptual disfluency to enhance learning. Although we have shown that a simple perceptual manipulation (i.e., placing material in Sans Forgetica) can enhance learning in a very simplified context (i.e., list learning), its efficacy as a potential learning technique is tempered by the finding that testing expectancy can nullify the effect. In educational settings, learning is explicitly goal-directed, and students accordingly encode information intentionally. Thus, Sans Forgetica (and perceptual disfluency manipulations in general) may not effectively enhance memory in ecologically valid settings. While a recent meta-analysis [@Xie2018] claimed the disfluency effect was null and void, what is clear from the current findings is that the impact of perceptual disfluency manipulations such as Sans Forgetica, is not straightforward. Researchers should heed the call to further examine the conditions under which perceptual disfluency is and not desirable for learning. 
+
+\newpage
+
+## Disclosures
+
+### Acknowledgements
+This research was supported by grant number 220020429 from the James S. McDonnell Foundation awarded to the second author. We would like to Gene Brewer and two anonymous reviewers for their helpful comments on an earlier draft of the paper.  
+
+### Conflicts of Interest
+The authors declare that they have no conflicts of interest with respect to the authorship or the publication of this article.
+\newline
+
+### Author Contributions
+JG wrote the manuscript, collected data, and conducted all statistical analyses.DJP edited the manuscript and provided feedback. 
+\newline
+
+### R and R package acknowledgements
+```{r r packages}
+my_citations <- cite_r(file = "ref.bib")
+
+```
+
+This paper was written in R-Markdown. In RMarkdown, the text and the code for analysis may
+be included in a single document. The document for this paper, with all text and code, can be found at: . The results were created using `r my_citations`. 
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "ref.bib")
+```
+
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
+
