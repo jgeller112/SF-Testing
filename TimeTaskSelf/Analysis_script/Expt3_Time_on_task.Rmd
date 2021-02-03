@@ -234,6 +234,15 @@ recall_all1_diff <- recall_time %>%
   tidyr::pivot_wider(names_from="font", values_from="acc") %>%
   mutate(Difference=SF-flu, cond=ifelse(cond=="self-paced","Self-paced", "Timed(3s)"))
 
+#recall_timed_score<- recall_time %>%
+ # dplyr::group_by(id)%>%
+ ## dplyr::summarise(totalCorrect=sum(Scored)) %>%
+ # dplyr::ungroup()
+
+
+#recall_timed_score_font<- recall_time %>%
+######write.csv(recall_timed_score_font, file="expt3_wide_prop_total.csv")
+
 recall_all_mean <- recall_all1_diff %>% 
   dplyr::group_by(cond)%>%
   dplyr::summarise(mean=mean(Difference))
@@ -245,8 +254,6 @@ recall_all1 <- recall_time %>%
   dplyr::summarise(acc=mean(Scored))
 
 #write.csv(recall_all1, file="long_recall_timed.csv")
-
-
 
 ```
 
@@ -278,6 +285,11 @@ scored_cued = prop_correct_cued(all_c,
 recall_time<-scored_cued$DF_Participant # Prop by participant
 
 recall_time<-scored_cued$Scored # trial-level (0,1)
+
+
+
+
+
 
 ```
 
