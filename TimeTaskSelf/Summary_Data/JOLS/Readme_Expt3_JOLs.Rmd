@@ -1,0 +1,40 @@
+---
+title: "README_EXPERIMENT3_JOL"
+author: "Jason Geller"
+date: "2/3/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Datasets
+
+Experiment 3 summary JOL data. 
+
+```{r cars, message=FALSE, echo=FALSE}
+library(knitr)
+library(kableExtra)
+```
+
+```{r}
+
+recall_timed<-read.csv(here::here('TimeTaskSelf', "Summary_Data", "JOLs", "expt3_jols_sum.csv"))  # path to data files
+
+kable(names(recall_timed))
+
+
+```
+
+- participant - participant ID
+- cond - Self-paced or Timed group
+- atypic_slider.response - JOL for Sans Forgetic 
+- normal_slider.response - JOL for Arial
+
+
+
+
+
+
+
