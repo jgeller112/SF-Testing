@@ -53,7 +53,7 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 Imagine if you could remember more and forget less just by making the perceptual features of to-be-learned material harder. While this runs counter to the widely held belief that learning should be fluent (easy) and errorless [@Pan2020], the concept of *desirable difficulties* [@Bjork2011] indicates that making encoding more disfluent (hard) and error-prone can sometimes help learners process the information more deeply and make it more likely they will retrieve the information at a later time. This general finding has been shown across a wide variety of encoding contexts [e.g., spacing and interleaving, @Carpenter2014]. One provocative line of research that has piqued the interest of researchers and the media is the influence of extraneous factors, such as the perceptual format of to-be-learned material (e.g., size, font/typeface, or clarity), on memory. In some cases, making to-be-learned material perceptually disfluent (hard to read) has been shown to be desirable for memory—a phenomenon dubbed the perceptual interference effect [@Nairne1988], or as it will be called henceforth, the perceptual disfluency effect [@Geller2018].  While perceptual disfluency has the potential to be valuable (and easy to implement), a recent meta-analysis has called into question whether perceptual disfluency is really desirable for learning [@Xie2018, c.f., Weissgerber et al., in press]. The current research aims to investigate under what conditions disfluency is and is not beneficial for learning using Sans Forgetica as a proxy for perceptual disfluency.  
 
 ## Sans Forgetica 
-A typeface known as Sans Forgetica has garnered increased attention in the media as a way to stave off forgetting and enhance memory. A typeface developed by a team of psychologists, graphic designers, and marketers, Sans Forgetica consists of intermittent gaps and back-slanted letters [see Figure 1 for an example; @Earp2018]. The disfluent perceptual characteristics are thought to provide the optimal level of disfluency to produce a desirable effect on memory. This has led to extensive press coverage from major news outlets (e.g., NpR, Washington post), and to the development of browser extensions and OS applications that allow users to place content in the novel typeface. The question, of course, is whether Sans Forgetica merits such attention. As Carl Sagan famously said, "Extraordinary claims require extraordinary evidence” [@Sagan1980]. 
+A typeface known as Sans Forgetica has garnered increased attention in the media as a way to stave off forgetting and enhance memory. A typeface developed by a team of psychologists, graphic designers, and marketers, Sans Forgetica consists of intermittent gaps and back-slanted letters [see Figure 1 for an example; @Earp2018]. The disfluent perceptual characteristics are thought to provide the optimal level of disfluency to produce a desirable effect on memory. This has led to extensive press coverage from major news outlets (e.g., *NPR*, *Washington post*), and to the development of browser extensions and OS applications that allow users to place content in the novel typeface. The question, of course, is whether Sans Forgetica merits such attention. As Carl Sagan famously said, "Extraordinary claims require extraordinary evidence” [@Sagan1980]. 
 
 ```{r, fig.caption="An example of a normal (Arial) typeface (on the right) compared to Sans Forgetica (on the left). Sans Forgetica is licensed under the Creative Commons Attribution-NonCommercial License (CC BY-NC; https:// creativecommons.org/licenses/by-nc/3.0/"}
 
@@ -74,7 +74,7 @@ Despite these null (and sometimes negative) effects, the positive findings repor
 
 An alternative account is the compensatory processing account [@Hirshman1994; @Mulligan1996]. The compensatory processing account is heavily influenced by a classic model of word recognition—the interactive activation model [@McClelland1981]. Within the compensatory processing account, the disfluency effect is tied to processes occurring during the word identification process. Specifically, difficulty in identifying a stimulus increases the amount of top-down feedback from a higher-level (i.e., lexical/semantic) to a lower-level (i.e., features and orthography). Strong evidence for this account comes from studies using masking to impede word recognition. Masking involves presenting a word very quickly (100 ms) and masking it with either forward or backward hashmarks [@Nairne1988]. The rapid presentation of the word along with the presentation of the mask renders visual information insufficient to recognize the word correctly, leading to greater higher-level processing. It is this feedback that results in better memory for stimuli. While more research is needed on the mechanism(s) of perceptual disfluency, it is clear that both the metacognitive account and compensatory processing account emphasize the importance of higher-level semantic or metacognitive processes in producing the positive effects of perceptual disfluency on memory.  
 
-## Disfluency and Sans Forgetica: A potential Moderator 
+## Disfluency and Sans Forgetica: A Potential Moderator 
 The literature reviewed above provides ample evidence that presenting materials in perceptually degraded formats can enhance memory and learning outcomes and act as a desirable difficulty, but also that the effect may be fickle.  This has led to the exploration of different moderating or boundary conditions of the perceptual disfluency effect.  
 
 Related to the current research, a recent publication demonstrated that Sans Forgetica may indeed be optimal for learning, but only when spelling ability is taken into account. @Eskenazi2020 had participants learn the spelling and meaning for low-frequency words presented in sentences while their eye movements were being recorded. For half the participants, the to-be-learned material was presented in Sans Forgetica while for the other half, it was presented in a more fluent (Courier) typeface. During the test phase, orthographic discriminability (i.e., choosing the correct spelling of a word) and semantic acquisition (i.e., retrieving the definition of a word) were assessed. Critically, the authors reported that Sans Forgetica was indeed perceptual disfluent (i.e., the gaze duration was longer in the Sans Forgetica condition) and that it had a positive effect on memory for words and their meanings. However, spelling ability moderated this effect: only good spellers benefited from Sans Forgetica.  
@@ -139,6 +139,7 @@ library(BayesFactor)
 library(emmeans)
 library(Rmisc)
 library(report)
+library(lrd)
 ```
 
 
@@ -403,10 +404,6 @@ fig1a_diff <- ggplot(highlowaov_wide,aes(x=testexpect,y=Difference, fill=testexp
 
 a1 <- aov_ez("participant_private_id", "dprime", highlowaov, 
              between = c("testexpect"), within=c("condition1")) # mixed
-
-
-
-#kable(summary(a1))
 
 
 
@@ -685,7 +682,7 @@ Typed responses were scored with the lrd package in R [@Maxwell2020]. The lrd pa
 
 ### Cued Recall
 
-Figures 3a shows performance in the cued-recall test (Figure 3a) along with difference scores (Figure 3b). Participants in the high test expectancy group performed better than participants in the low test expectancy group, *M*~diff~ = 20%, *F*(1, 230) = 38.26, *p* < .001,$\eta_{g}^{2}$ = .126. Participants recalled more target words in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 13.57, *p* < .001, $\eta_{g}^{2}$ =.008. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 230) = 10.74, *p* = .001, $\eta_{g}^{2}$ = .006.  A Bayesian analysis revealed that the interaction model was strongly preferred to the full model (BF = 21.77). Planned comparisons showed that individuals in the low test expectancy group recalled more words presented in Sans Forgetica than Arial, *t* =4.92, *p* < .001, *d*~avg~= 0.38; In the high test expectancy group, there was substantial evidence that there was no difference between Sans Forgetica and Arial, *t* = 0.287, *p* = .778, *d*~avg~ = 0.02, BF~01~ = 9.31. 
+Figures 3a shows performance in the cued-recall test (Figure 3a) along with difference scores (Figure 3b). Participants in the high test expectancy group performed better than participants in the low test expectancy group, *M*~diff~ = 9%, *F*(1, 230) = 35.61, *p* < .001,$\eta_{g}^{2}$ = .119. Participants recalled more target words in Sans Forgetica than Arial, *M*~diff~ = 3%, *F*(1, 230) = 14.53, *p* < .002, $\eta_{g}^{2}$ =.008. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 230) = 10.28, *p* = .002, $\eta_{g}^{2}$ = .006.  A Bayesian analysis revealed that the interaction model was strongly preferred to the full model (BF = 19.14). Planned comparisons showed that individuals in the low test expectancy group recalled more words presented in Sans Forgetica than Arial, *t* =4.96, *p* < .001, *d*~avg~= 0.36; In the high test expectancy group, there was substantial evidence that there was no difference between Sans Forgetica and Arial, *t* = 0.428, *p* = .669, *d*~avg~ = 0.03, BF~01~ = 8.86. 
 
 ### JOLs
 
@@ -958,11 +955,12 @@ dataset4_rt <- datasethigh4 %>%
  
 
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=FALSE}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, eval=TRUE}
 all_c<- rbind(dataset1, dataset2, dataset3, dataset4)
 
-all_c %>% group_by(cb) %>% dplyr::summarise(count = n()) # make sure equal number of Ps in cbs
+#all_c %>% group_by(cb) %>% dplyr::summarise(count = n()) # make sure equal number of Ps in cbs
 
+all_c<-mutate(all_c, new_id=ifelse(is.na(new_id), "NA1", new_id))
 
 #as.data.frame(dplyr::count(all_c, new_id))
 
@@ -1010,17 +1008,38 @@ rt_all_wide_mean <- rt_all_wide %>%
 ```
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
-setwd(here::here('Expt2_low_high', "Summary", "cued")) # folder to find Ps in
 
-recall_highlow<-read.csv(here::here('Expt2_low_high', "Summary","cued", "Expt2_scored_recall.csv")) # folder to find Ps in)
+#devtools::install_github("npm27/lrd") # load the package
+#library(lrd)
+
+all_c$textbox.text[is.na(all_c$textbox.text)] <- "" # does not work if NAs exists
+
+all_c<-as.data.frame(all_c) # needs to be data frame
+
+all_c$trial_id<-rep(1:5568) # needs to have unique rows for some reason 
+# run lrd 
+scored_cued = prop_correct_cued(all_c, 
+                                responses = "textbox.text",
+                                id = "new_id",
+                                id.trial = "trial_id",
+                                key = "targ1", 
+                                key.trial =  "trial_id",
+                                cutoff = 3, 
+                                group.by = c("font"))
+
+recall_highlow<-scored_cued$DF_Participant
+
+write.csv(recall_highlow, file="expt2_long_lrd.csv")
+
 ```
+
 
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 recall_highlow_agg_wide <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc") %>%
+  dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct") %>%
   dplyr::mutate(Difference=SF - flu)
 
 recall_means_wide <- recall_highlow_agg_wide %>%
@@ -1031,12 +1050,13 @@ recall_means_wide <- recall_highlow_agg_wide %>%
 write.csv(recall_highlow_agg_wide, file="recall_expt2_summary.csv")
 
 
-recall_highlow_agg <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
-  dplyr::summarise(mean_acc=mean(Scored))
+#recall_highlow_agg <- recall_highlow %>% 
+ # dplyr::group_by(id, font, cond) %>%
+ # dplyr::mutate(id=ifelse(is.na(id), "na1", id))%>%
+  #dplyr::summarise(mean_acc=mean(Scored))
 
-write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
+#write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
+
 
   
 ```
@@ -1044,10 +1064,15 @@ write.csv(recall_highlow_agg, file="expt2_long_summary.csv")
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 #ANOVA
 
-a1 <- aov_ez("id", "mean_acc", recall_highlow_agg, 
+
+a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_highlow, 
             within=c("font"), between=c("cond")) # mixed
 
 #summary(a1)
+
+#a1
+
+
 
 #a1
 
@@ -1076,14 +1101,13 @@ Within_Fitted_Interaction <- emmeans(a1, ~ font|cond)
 ### get d_avg for high
 
 recall_high <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+  dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
 dplyr::filter(cond=="High Test Expectancy")%>%
   dplyr::ungroup() %>%
   summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
 
-                   
                    
 
 
@@ -1095,9 +1119,9 @@ h=d.dep.t.avg(m1 = recall_high$mean1, m2 = recall_high$mean2, sd1 = recall_high$
 
 
 recall_low <- recall_highlow %>% 
-  dplyr::group_by(id, font, cond) %>%
-  dplyr::summarise(mean_acc=mean(Scored))%>%
-  tidyr::pivot_wider(names_from = "font", values_from = "mean_acc")%>%
+  dplyr::group_by(Sub.ID, font, cond) %>%
+  #dplyr::summarise(mean_acc=mean(Scored))%>%
+  tidyr::pivot_wider(names_from = "font", values_from = "Proportion.Correct")%>%
 dplyr::filter(cond=="Low Test Expectancy")%>%
   ungroup() %>%
   summarise(mean1=mean(flu), sd1=sd(flu), mean2=mean(SF), sd2=sd(SF))
@@ -1105,6 +1129,7 @@ dplyr::filter(cond=="Low Test Expectancy")%>%
 
 l=d.dep.t.avg(m1 = recall_low$mean1, m2 = recall_low$mean2, sd1 = recall_low$sd1,
                 sd2 = recall_low$sd2, n = 116, a = .05)
+
 
 
 #h
@@ -1219,25 +1244,21 @@ bfrt = anovaBF(mean_rt ~ cond*font + new_id1, rt_all1,
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 
-library(see)
-library(ggrepel)
-
-#load in violin plot code
-source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
-
 bold <- element_text(face = "bold", color = "black", size = 14) 
 
-recall_highlow_agg <- recall_highlow_agg %>%
+recall_highlow_agg <- recall_highlow%>%
   dplyr::mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", "Arial"))
 
 #means by test and typeface 
 means = recall_highlow_agg %>%
   dplyr::group_by(cond, Typeface)%>% 
-  dplyr::summarise(mean=mean(mean_acc))
+  dplyr::summarise(mean=mean(Proportion.Correct))
 
 # get withinsub CIs
-sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "mean_acc",
-                       withinvars = "Typeface", betweenvars = "cond", idvar = "id")
+sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "Proportion.Correct",
+                       withinvars = "Typeface", betweenvars = "cond", idvar = "Sub.ID")
+
+#recall_highlow_agg
 
 
 
@@ -1245,19 +1266,19 @@ sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "mean_acc",
 
 ```{r eval=TRUE, message=FALSE, warning=FALSE, echo=FALSE}
 
-fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
+fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=Proportion.Correct,fill=Typeface))+ 
   facet_grid(~cond) + 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = mean_acc ),outlier.shape = NA,
+  geom_boxplot(aes(x = Typeface, y = Proportion.Correct ),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
-  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc, ymax=mean_acc), size=.8, color="darkred")+ 
+  geom_line(data=sfarial_wsci,aes(y=Proportion.Correct, group=1), size=1)+ 
+  geom_pointrange(data=sfarial_wsci, aes(y=Proportion.Correct, ymin=Proportion.Correct, ymax=Proportion.Correct), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)),seed = 42, box.padding = 0.8) + 
+   geom_label_repel(data=sfarial_wsci, aes(y=Proportion.Correct, label=round(Proportion.Correct, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
@@ -1279,6 +1300,11 @@ fig2adiff <- ggplot(recall_highlow_agg_wide,aes(x=cond,y=Difference, fill=cond))
   theme(axis.title =bold) + 
   geom_hline(yintercept = 0, linetype="dotted") + 
    geom_label_repel(data=recall_means_wide, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
+
+
+#fig2a
+
+#fig2adiff
 
 ```
 
@@ -1415,7 +1441,7 @@ fig2
 
 ```
 
-The results complement those from Experiment 1 well and suggest the disfluency effect with Sans Forgetica is not unique to a particular criterion test. Using cued recall, we once again demonstrated that Sans Forgetica can constitute a desirable difficulty, but only when test expectancy is low. Importantly, the effect we observed was rather modest; Sans Forgetica conferred roughly a 5% increase in cued recall performance above and beyond Arial, a more fluent typeface. When looking at the low test expectancy group alone we observed a 9% increase. Furthermore, we once again showed longer study times and lower JOLs for words studied in Sans Forgetica. There are, however, a couple points of divergence that merit mention. Compared to Experiment 1, JOLs for the Sans Forgetica condition were tightly bunched around the middle of the response scale.^[Experiments 2 and 3 used a slider scale that ranged from 0-100 in increments of 10 while Experiment 1 had participants type in a number between 0-100.] This could reflect uncertainty around how well participants remember Sans Forgetica target words. Additionally, study times for Sans Forgetica were longer for the high test expectancy group compared to the low test expectancy group. This most likely reflects participants studying word pairs longer in preparation for an upcoming test.
+The results complement those from Experiment 1 well and suggest the disfluency effect with Sans Forgetica is not unique to a particular criterion test. Using cued recall, we once again demonstrated that Sans Forgetica can constitute a desirable difficulty, but only when test expectancy is low. Importantly, the effect we observed was rather modest; Sans Forgetica conferred roughly a 3% increase in cued recall performance above and beyond Arial, a more fluent typeface. There are, however, a couple points of divergence that merit mention. Compared to Experiment 1, JOLs for the Sans Forgetica condition were tightly bunched around the middle of the response scale.^[Experiments 2 and 3 used a slider scale that ranged from 0-100 in increments of 10 while Experiment 1 had participants type in a number between 0-100.] This could reflect uncertainty around how well participants remember Sans Forgetica target words. Additionally, study times for Sans Forgetica were longer for the high test expectancy group compared to the low test expectancy group. This most likely reflects participants studying word pairs longer in preparation for an upcoming test.
 
 # Experiment 3 
 
@@ -1441,13 +1467,14 @@ The design, materials, and procedure are identical to Experiment 2, with one exc
 
 ### Cued Recall
 
-Figures 4a shows performance on the cued recall test (Fig. 4a) along with difference scores (Figure 4b). The analysis revealed that there was no reliable difference between the Self-paced and Timed groups on cued recall, *M*~diff~ = 2%, *F*(1, 230) = 0.369, *p* < .544, $\eta_{g}^{2}$ = .055. Individuals were better at recalling target words presented in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 15.03, *p* < .001, $\eta_{g}^{2}$ =.013. This was no interaction between Time on Task and Typeface, *F*(1, 230) = 1.13,*p* = .289, $\eta_{g}^{2}$ < .001. A Bayesian analysis revealed that a main effects-only model was preferred to the interaction (BF = 5.50). 
+
+Figures 4a shows performance on the cued recall test (Figure 4a) along with difference scores (Figure 4b). The analysis revealed that there was no reliable difference between the Self-paced and Timed groups on cued recall, *M*~diff~ = 2%, *F*(1, 230) = 0.49, *p* = .486, $\eta_{g}^{2}$ = .002. Individuals were better at recalling target words presented in Sans Forgetica than Arial, *M*~diff~ = 3%, *F*(1, 230) = 13.74, *p* < .001, $\eta_{g}^{2}$ =.011. This was no interaction between Time on Task and Typeface, *F*(1, 230) = 2.06,*p* = .153, $\eta_{g}^{2}$ < .002. A Bayesian analysis revealed that a main effects-only slightly preferred to the interaction (BF = 2.44).
 
 ## JOLs 
 
 Figures 4c and 4d show participant-level JOLs (Figure 4c) and difference scores (Figure 4d). Using the same model as above, participants in the Timed group gave higher JOLs than in the Self-paced group, *M*~diff~  = 5.91,  *F*(1,230) = 17.43, *p* < .001, $\eta_{g}^{2}$ = .055. Arial typeface elicited higher JOLs than Sans Forgetica typeface, *M*~diff~ = 9.7, F(1,230) = 48.81, p < .001, $\eta_{g}^{2}$ = .048. There was an interaction between Time on Task and Typeface, *F*(1,230) = 27.17, *p* < .001, $\eta_{g}^{2}$ < .027. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF = 57.24). Simple effects revealed that the JOL effect (Arial < Sans Forgetica) was larger in the self-paced group (*d*~avg~ = 1.22) than in the timed group (*d*~avg~ = 0.10; BF~01~ = 1.466). 
 	
-Taken together, the results from Experiment 3 are clear. Cued recall performance was better overall for Sans Forgetica—it did not matter if encoding was self-paced or timed. This contradicts a study by Kühl et al. (2014) showing that self-paced study produces better learning outcomes compared to constrained study time. It is important to note that our study used simple learning materials whereas Kühl et al., used more complex materials (i.e., multimedia slides about lightening construction). With more complex materials, a time limit might hurt rather than help recall. Despite this, the findings from Experiment 3 nicely replicated the findings from Experiment 2 under low test expectancy. From this, it is clear that a simple time-on-task account cannot explain these findings. A time on task account would predict better memory in the self-paced group because they can spend longer encoding each pair. While the interaction was not significant, looking at the effect sizes between groups, the disfluency effect was larger in the timed group (*d*~avg~ = 0.32) than the self-paced group (*d*~avg~ = 0.15). We return to this issue in the general discussion. 
+Taken together, the results from Experiment 3 are clear. Cued recall performance was better overall for Sans Forgetica—it did not matter if encoding was self-paced or timed. This contradicts a study by Kühl et al. (2014) showing that self-paced study produces better learning outcomes compared to constrained study time. It is important to note that our study used simple learning materials whereas Kühl et al., used more complex materials (i.e., multimedia slides about lightening construction). With more complex materials, a time limit might hurt rather than help recall. Despite this, the findings from Experiment 3 nicely replicated the findings from Experiment 2 under low test expectancy. From this, it is clear that a simple time-on-task account cannot explain these findings. A time on task account would predict better memory in the self-paced group because they can spend longer encoding each pair. While the interaction was not significant, looking at the effect sizes between groups, the disfluency effect was larger in the timed group (*d*~avg~ = 0.33) than the self-paced group (*d*~avg~ = 0.12). We return to this issue in the general discussion. 
 
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
@@ -1618,14 +1645,35 @@ jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
 
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
-setwd(here::here('TimeTaskSelf', "scored_recall")) # folder to find Ps in
+library(lrd)
 
-recall_all<-read.csv(here::here('TimeTaskSelf', "scored_recall", "experiment3_times_recall80.csv"))  # path to data files
+all$textbox.text[is.na(all$textbox.text)] <- "" # does not work if NAs exists
 
-recall_all1_diff <- recall_all %>% 
-  dplyr::group_by(id, font, cond)%>% 
-  dplyr::summarise(acc=mean(Scored)) %>%
-  tidyr::pivot_wider(names_from="font", values_from="acc") %>%
+all_c<-as.data.frame(all) # needs to be data frame
+
+all_c$trial_id<-rep(1:5568) # needs to have unique rows for some reason 
+# run lrd 
+scored_cued = prop_correct_cued(all_c, 
+                                responses = "textbox.text",
+                                id = "participant",
+                                id.trial = "trial_id",
+                                key = "targ1", 
+                                key.trial =  "trial_id",
+                                cutoff = 3, 
+                                group.by = c("font", "cond"))
+
+recall_time<-scored_cued$DF_Participant
+
+```
+
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+# Analysis
+
+recall_all1_diff <- recall_time %>% 
+  dplyr::group_by(Sub.ID, font, cond)%>% 
+  #dplyr::summarise(acc=mean(Scored)) %>%
+  tidyr::pivot_wider(names_from="font", values_from="Proportion.Correct") %>%
   mutate(Difference=SF-flu, cond=ifelse(cond=="self-paced","Self-paced", "Timed(3s)"))
 
 recall_all_mean <- recall_all1_diff %>% 
@@ -1634,11 +1682,10 @@ recall_all_mean <- recall_all1_diff %>%
 
 #write.csv(recall_all1, file="wide_recall_timed.csv")
 
-recall_all1 <- recall_all %>% 
-  dplyr::group_by(id, font, cond)%>% 
-  dplyr::summarise(acc=mean(Scored))
 
 #write.csv(recall_all1, file="long_recall_timed.csv")
+
+
 
 
 
@@ -1648,23 +1695,15 @@ recall_all1 <- recall_all %>%
 #ANOVA
 
 
-a1 <- aov_ez("id", "acc", recall_all1, 
+
+a1 <- aov_ez("Sub.ID", "Proportion.Correct", recall_time, 
             within=c("font"), between=c("cond")) # mixed
-
-#s#ummary(a1)
-
-aov=aov(acc ~ (font*cond) +
-            Error(id/(font)), recall_all1)
 
 #a1
 
+
 ```
 
-```{r, eval=FALSE}
-#aov_sum=report(aov)
-
-#aov_sum
-```
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 #ANOVA
@@ -1672,55 +1711,39 @@ aov=aov(acc ~ (font*cond) +
 a1 <- aov_ez("participant", "jols", jol_all, 
             within=c("Typeface"), between=c("cond")) # mixed
 
-#summary(a1)
-
-aov=aov(jols ~ (Typeface*cond) +
-            Error(participant/(Typeface)), jol_all)
-
-
-```
-
-```{r, eval=FALSE}
-
-#aov_sum <- report(aov)
-
-#aov_sum
-
 ```
 
 
 ```{r eval=TRUE, echo=FALSE, fig.cap="Raincloud plots (Allen et al., 2019) depicting raw data (dots), fig.width=10, message=FALSE, warning=FALSE, box plots, and half violin kernel desntiy plots, with mean (red dot) and within-participant 95 CIs. Cued recall accuracy as a function of Time on task for Experiment 3.", fig.height=4, results="asis"}
 
-source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
-
 bold <- element_text(face = "bold", color = "black", size = 14) 
 
-recall_all1 <- recall_all1 %>%
+recall_all1 <- recall_time %>%
   mutate(Typeface=ifelse(font=="SF", "Sans Forgetica", ifelse(font=="flu", "Arial", "Difference"))) %>%
   mutate(timed=ifelse(cond=="self-paced", "Self-paced", "Timed"))
 
-means = recall_all1 %>%
-  dplyr::group_by(timed, Typeface)%>% 
-  dplyr::summarise(mean=mean(acc))
+#means = recall_all1 %>%
+ # dplyr::group_by(timed, Typeface)%>% 
+ # dplyr::summarise(mean=mean(acc))
 
 
-sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
-                       withinvars = "Typeface", betweenvars = "timed", idvar = "id")
+sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "Proportion.Correct",
+                       withinvars = "Typeface", betweenvars = "timed", idvar = "Sub.ID")
 
-fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
+fig3a <- ggplot(recall_all1,aes(x=Typeface,y=Proportion.Correct,fill=Typeface))+ 
   facet_grid(~timed) + 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
+  geom_boxplot(aes(x = Typeface, y = Proportion.Correct ),outlier.shape = NA,
                alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
-  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc, ymax=acc), size=.8, color="darkred")+ 
+  geom_line(data=sfgen_wsci,aes(y=Proportion.Correct, group=1), size=1)+ 
+  geom_pointrange(data=sfgen_wsci, aes(y=Proportion.Correct, ymin=Proportion.Correct, ymax=Proportion.Correct), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + 
   theme(legend.position = "none") + 
-   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)),seed = 42, box.padding = 0.8) + 
+   geom_label_repel(data=sfgen_wsci, aes(y=Proportion.Correct, label=round(Proportion.Correct, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
@@ -1746,6 +1769,7 @@ fig3a_diff <- ggplot(recall_all1_diff,aes(x=cond,y=Difference, fill=cond)) +
 
 #fig3a
 #fig3a_diff
+
 
 
 ```
@@ -1874,7 +1898,7 @@ A more general framework that invokes cognitive monitoring and control, such as 
 ## Practical Implications
 
 The current findings have some educational significance. While it might be tempting to conclude from these findings that Sans Forgetica should be used as study tool, the current results need to be interpreted with caution. First, and most importantly, the conclusion that Sans Forgetica is only beneficial to memory under low test expectancy makes its use in the educational domain impractical. In the classroom, students rarely encode information incidentally; learning is always purposeful and goal directed.  Second, the experimental paradigms used involved simple list learning. It is not clear if Sans Forgetica would benefit learning under low test expectancy with more complex materials. Some evidence from Taylor et al. (2020, Experiments 3 and 4) suggests it might not. In those experiments, memory for factual and conceptual information was tested using more educationally realistic materials (prose passages) and displayed no mnemonic advantage for Sans Forgetica. Thus, even with low testing expectancy, Sans Forgetica did not enhance memory when the to-be-learned material was more educationally realistic. 
-Second, the effect sizes from all three experiments were  rather modest by conventional standards [@Cohen1977, @Funder2019] (Experiment 1 -  *d*~avg~ = 0.31; Experiment 2 - *d*~avg~ = 0.38; Experiment 3 -  Timed:  *d*~avg~ = 0.32; Self-paced: *d*~avg~ = 0.15). It is unclear if the Sans Forgetica effect would replicate in educational settings where effect sizes are a known to be a smaller and more variable [@Butler2014]. 
+Second, the effect sizes from all three experiments were  rather modest by conventional standards [@Cohen1977;  @Funder2019] (Experiment 1 -  *d*~avg~ = 0.31; Experiment 2 - *d*~avg~ = 0.36; Experiment 3 -  Timed:  *d*~avg~ = 0.33; Self-paced: *d*~avg~ = 0.12). It is unclear if the Sans Forgetica effect would replicate in educational settings where effect sizes are a known to be a smaller and more variable [@Butler2014]. 
 
 Finally, there is a fair amount of variability in the number of participants that benefited from perceptually disfluency. If you look at the difference scores presented in Figures 2, 3, and 4, positive effects are not seen consistently. In fact, some students are hurt by the presentation of Sans Forgetica. Before we start recommending perceptual disfluency as a potential study tool, it is critical we better understand the nature of these individual differences (i.e., why perceptual disfluency hurts some students while benefiting others).
 
