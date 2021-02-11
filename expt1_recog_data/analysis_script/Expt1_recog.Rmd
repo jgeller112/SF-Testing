@@ -21,6 +21,7 @@ library(data.table)
 library(cowplot)
 library(knitr)
 library(ggrepel)
+library(MOTE)
 ```
 
 # Read in raw groilla data
@@ -280,6 +281,10 @@ fig1a_diff <- ggplot(highlowaov_wide,aes(x=testexpect,y=Difference, fill=testexp
 
 ```
 ## Analysis
+
+### Dprime
+
+#### ANOVA
 ```{r echo=TRUE, message=FALSE, warning=FALSE, eval=TRUE}
 
 #ANOVA
@@ -292,6 +297,38 @@ summary(a1)
 
 #kable(summary(a1))
 
+
+
+```
+
+##### Effect size
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+#calculate effect size and 95%CIs
+
+recog_low <- highlowaov %>% 
+  tidyr::pivot_wider(names_from = "condition1", values_from = "dprime")%>%
+dplyr::filter(testexpect=="Low Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(`Sans Forgetica`), sd1=sd(`Sans Forgetica`), mean2=mean(Arial), sd2=sd(Arial))
+
+low_recog=d.dep.t.avg(m1 = recog_low$mean1, m2 = recog_low$mean2, sd1 = recog_low$sd1,
+                sd2 = recog_low$sd2, n = 115, a = .05)
+
+recog_high <- highlowaov %>% 
+  tidyr::pivot_wider(names_from = "condition1", values_from = "dprime")%>%
+dplyr::filter(testexpect=="High Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(`Sans Forgetica`), sd1=sd(`Sans Forgetica`), mean2=mean(Arial), sd2=sd(Arial))
+
+high_recog=d.dep.t.avg(m1 = recog_high$mean1, m2 = recog_high$mean2, sd1 = recog_high$sd1,
+                sd2 = recog_high$sd2, n = 116, a = .05)
+
+  
+low_recog
+
+high_recog
 
 
 ```

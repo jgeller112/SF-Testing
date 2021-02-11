@@ -36,7 +36,7 @@ mask              : no
 draft             : no
 csl               : "apa.csl"
 documentclass     : "apa7"
-classoption       : "jou"
+classoption       : "doc"
 output            : "papaja::apa6_word"
 ---
 
@@ -53,9 +53,11 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 Imagine if you could remember more and forget less just by making the perceptual features of to-be-learned material harder. While this runs counter to the widely held belief that learning should be fluent (easy) and errorless [@Pan2020], the concept of *desirable difficulties* [@Bjork2011] indicates that making encoding more disfluent (hard) and error-prone can sometimes help learners process the information more deeply and make it more likely they will retrieve the information at a later time. This general finding has been shown across a wide variety of encoding contexts [e.g., spacing and interleaving, @Carpenter2014]. One provocative line of research that has piqued the interest of researchers and the media is the influence of extraneous factors, such as the perceptual format of to-be-learned material (e.g., size, font/typeface, or clarity), on memory. In some cases, making to-be-learned material perceptually disfluent (hard to read) has been shown to be desirable for memory—a phenomenon dubbed the perceptual interference effect [@Nairne1988], or as it will be called henceforth, the perceptual disfluency effect [@Geller2018].  While perceptual disfluency has the potential to be valuable (and easy to implement), a recent meta-analysis has called into question whether perceptual disfluency is really desirable for learning [@Xie2018, c.f., Weissgerber et al., in press]. The current research aims to investigate under what conditions disfluency is and is not beneficial for learning using Sans Forgetica as a proxy for perceptual disfluency.  
 
 ## Sans Forgetica 
-A typeface known as Sans Forgetica has garnered increased attention in the media as a way to stave off forgetting and enhance memory. A typeface developed by a team of psychologists, graphic designers, and marketers, Sans Forgetica consists of intermittent gaps and back-slanted letters [see Figure 1 for an example; @Earp2018]. The disfluent perceptual characteristics are thought to provide the optimal level of disfluency to produce a desirable effect on memory. This has led to extensive press coverage from major news outlets (e.g., NpR, Washington post), and to the development of browser extensions and OS applications that allow users to place content in the novel typeface. The question, of course, is whether Sans Forgetica merits such attention. As Carl Sagan famously said, "Extraordinary claims require extraordinary evidence” [@Sagan1980]. 
+A typeface known as Sans Forgetica has garnered increased attention in the media as a way to stave off forgetting and enhance memory. A typeface developed by a team of psychologists, graphic designers, and marketers, Sans Forgetica consists of intermittent gaps and back-slanted letters [see Figure 1 for an example; @Earp2018]. The disfluent perceptual characteristics are thought to provide the optimal level of disfluency to produce a desirable effect on memory. This has led to extensive press coverage from major news outlets (e.g., *NPR*, *Washington post*), and to the development of browser extensions and OS applications that allow users to place content in the novel typeface. The question, of course, is whether Sans Forgetica merits such attention. As Carl Sagan famously said, "Extraordinary claims require extraordinary evidence” [@Sagan1980]. 
 
-```{r, fig.caption="An example of a normal (Arial) typeface (on the right) compared to Sans Forgetica (on the left). Sans Forgetica is licensed under the Creative Commons Attribution-NonCommercial License (CC BY-NC; https:// creativecommons.org/licenses/by-nc/3.0/"}
+```{r, fig.align="center",fig.cap=paste("Example of Sans Forgetica (right) and Arial (left). Sans Forgetica is licensed under the Creative Commons Attribution-NonCommercial License (CC BY-NC; https:// creativecommons.org/licenses/by-nc/3.0/)"), fig.height=4, fig.width=4, fig.height=4, fig.width=4, results="asis"}
+
+knitr::include_graphics(here::here("manuscript", 'engine-machine-sf.png'))
 
 ```
 Two recent studies provide some initial evidence against the aforementioned claim. @Taylor2020 and @Geller2020 set out to examine whether Sans Forgetica is really desirable for learning. In one of the first studies to look at the mnemonic benefits of Sans Forgetica (N = 882 across 4 experiments), @Taylor2020 found that while Sans Forgetica was perceived as more disfluent by participants (Experiment 1) there was no evidence that it yielded a mnemonic boost in cued recall with strongly related cue-target pairs (Experiment 2) compared to a fluent (Arial) typeface, or when learning simple prose passages (Experiments 3-4). Shortly after the publication of this paper, @Geller2020 contributed to the debate with three preregistered experiments (N = 820) finding, similar to Taylor[2020], Sans Forgetica did not enhance memory for weakly related cue-target pairs (Experiment 1), a complex prose passage (Experiment 2), or a yes/no recognition memory test (Experiment 3). Taken together, two independent laboratories conducting seven experiments with well over 1500 participants make for a compelling argument that there is little, if any, evidence that Sans Forgetica qualifies as a desirable difficulty. 
@@ -122,7 +124,7 @@ For all experiments reported in this paper, we employed a 2 × 2 mixed analysis 
 
 ### Recognition Memory
 
-Performance was examined with d', a memory sensitivity measure derived from signal detection theory [@Macmillan2005]. Hits or false alarms at the ceiling or floor were changed to .99 or .01. Figure 1a presents d' values along with difference scores (Figure 1b). The analysis revealed that when told about a memory test, participants had better discriminatory ability than those not told about a memory test, *M*~diff~ = 0.16, *F*(1, 229) = 4.11, *p* = .04, $\eta_{g}^{2}$ = .014. Individuals were better at discriminating target words presented in Sans Forgetica than Arial, *M*~diff~ = 0.12, *F*(1, 229) = 10.73, *p* = .001, $\eta_{g}^{2}$ =.010. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 229) = 4.34, , *p* = .038, $\eta_{g}^{2}$ = .004.  planned comparisons showed that individuals in the low test expectancy group had better recognition memory for words presented in Sans Forgetica compared to Arial, *F*(1, 229) = 14.297, *p* < .001, *d*~avg~ = 0.31. In the high test expectancy group, there was substantial evidence for no difference between typefaces, *F*(1, 229) = 0.716, *p* = .398, *d*~avg~ = 0.07, BF~01~ = 5.83.
+Performance was examined with d', a memory sensitivity measure derived from signal detection theory [@Macmillan2005]. Hits or false alarms at the ceiling or floor were changed to .99 or .01. Figure 1a presents d' values along with difference scores (Figure 1b). The analysis revealed that when told about a memory test, participants had better discriminatory ability than those not told about a memory test, *M*~diff~ = 0.16, *F*(1, 229) = 4.11, *p* = .04, $\eta_{g}^{2}$ = .014. Individuals were better at discriminating target words presented in Sans Forgetica than Arial, *M*~diff~ = 0.12, *F*(1, 229) = 10.73, *p* = .001, $\eta_{g}^{2}$ =.010. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 229) = 4.34, , *p* = .038, $\eta_{g}^{2}$ = .004.  planned comparisons showed that individuals in the low test expectancy group had better recognition memory for words presented in Sans Forgetica compared to Arial, *F*(1, 229) = 14.297, *p* < .001,$d_{av}$ = 0.30, 95 \% CI [0.12, 0.49]. In the high test expectancy group, there was substantial evidence for no difference between typefaces, *F*(1, 229) = 0.716, *p* = .398,$d_{avg}$ = 0.07, 95 \% CI [-0.11, 0.25], BF~01~ = 5.83.
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -414,6 +416,37 @@ a1 <- aov_ez("participant_private_id", "dprime", highlowaov,
 
 ```
 
+```{r echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
+#calculate effect size and 95%CIs
+
+recog_low <- highlowaov %>% 
+  tidyr::pivot_wider(names_from = "condition1", values_from = "dprime")%>%
+dplyr::filter(testexpect=="Low Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(`Sans Forgetica`), sd1=sd(`Sans Forgetica`), mean2=mean(Arial), sd2=sd(Arial))
+
+low_recog=d.dep.t.avg(m1 = recog_low$mean1, m2 = recog_low$mean2, sd1 = recog_low$sd1,
+                sd2 = recog_low$sd2, n = 115, a = .05)
+
+recog_high <- highlowaov %>% 
+  tidyr::pivot_wider(names_from = "condition1", values_from = "dprime")%>%
+dplyr::filter(testexpect=="High Test Expectancy")%>%
+  ungroup() %>%
+  summarise(mean1=mean(`Sans Forgetica`), sd1=sd(`Sans Forgetica`), mean2=mean(Arial), sd2=sd(Arial))
+
+high_recog=d.dep.t.avg(m1 = recog_high$mean1, m2 = recog_high$mean2, sd1 = recog_high$sd1,
+                sd2 = recog_high$sd2, n = 116, a = .05)
+
+  
+#low_recog
+
+#high_recog
+
+
+```
+
+
+
 ### JOLs
 
 JOL responses are presented in Figure 1c along with difference scores (Figure 1d). We excluded seven participants for not providing JOLs to each typeface.Using the same model as above, participants in the high testing expectancy group gave higher JOLs than the low testing group, *M*~diff~ = 16.2,  *F*(1,221) = 16.01, *p* < .001, $\eta_{g}^{2}$ = .065. Arial elicited higher JOLs than Sans Forgetica, *M*~diff~ = 4.0, *F*(1,221) = 27.05, *p* < .001, $\eta_{g}^{2}$ = .004. There was no interaction between Testing Expectancy and Typeface, *F*(1,221) = 0.13, *p* = .715, $\eta_{g}^{2}$ < .001. Compared to a main effects-only model, there was substantial evidence for no interaction (BF = 7.28). 
@@ -686,11 +719,11 @@ Typed responses were scored with the lrd package in R [@Maxwell2020]. The lrd pa
 
 ### Cued Recall
 
-Similar to @Taylor2020, we were interested in to what extent Sans Forgetica enhances memory. To answer this question, we calculated the percentage of targets participants correctly recalled that they had seen in Sans Forgetica, and the percentage of targets they had correctly recalled that they had seen in Arial. Figures 3a shows performance in the cued-recall test (Figure 3a) along with difference scores (Figure 3b). Participants in the high test expectancy group performed better than participants in the low test expectancy group, *M*~diff~ = 20%, *F*(1, 230) = 38.26, *p* < .001,$\eta_{g}^{2}$ = .126. Participants recalled more target words in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 13.57, *p* < .001, $\eta_{g}^{2}$ =.008. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 230) = 10.74, *p* = .001, $\eta_{g}^{2}$ = .006.  A Bayesian analysis revealed that the interaction model was strongly preferred to the full model (BF = 21.77). Planned comparisons showed that individuals in the low test expectancy group recalled more words presented in Sans Forgetica than Arial, *t* =4.92, *p* < .001, *d*~avg~= 0.38; In the high test expectancy group, there was substantial evidence that there was no difference between Sans Forgetica and Arial, *t* = 0.287, *p* = .778, *d*~avg~ = 0.02, BF~01~ = 9.31. 
+Similar to @Taylor2020, we were interested in to what extent Sans Forgetica enhances memory. To answer this question, we calculated the percentage of targets participants correctly recalled that they had seen in Sans Forgetica, and the percentage of targets they had correctly recalled that they had seen in Arial. Figures 3a shows performance in the cued-recall test (Figure 3a) along with difference scores (Figure 3b). Participants in the high test expectancy group performed better than participants in the low test expectancy group, *M*~diff~ = 20%, *F*(1, 230) = 38.26, *p* < .001,$\eta_{g}^{2}$ = .126. Participants recalled more target words in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 13.57, *p* < .001, $\eta_{g}^{2}$ =.008. This was qualified by an interaction between Test Expectancy and Typeface, *F*(1, 230) = 10.74, *p* = .001, $\eta_{g}^{2}$ = .006.  A Bayesian analysis revealed that the interaction model was strongly preferred to the full model (BF = 21.77). Planned comparisons showed that individuals in the low test expectancy group recalled more words presented in Sans Forgetica than Arial, *t* =4.92, *p* < .001, $d_{avg}$ = 0.36, 95 \% CI [-0.55, -0.18]; In the high test expectancy group, there was substantial evidence that there was no difference between Sans Forgetica and Arial, *t* = 0.287, *p* = .778, $d_{avg}$ = 0.03, 95 \% CI [-0.21, 0.16],BF~01~ = 9.31.
 
 ### JOLs
 
-Figures 3c and 3d show JOLs (Figure 3b) as well as difference scores (Figure 4c). Using the same model as above, participants in the high test expectancy group gave higher JOLs than the low test expectancy group, *M*~diff~ = 5.91, *F*(1,229) = 13.57, *p* < .001, $\eta_{g}^{2}$ = .028. Arial elicited higher JOLs than Sans Forgetica, *M*~diff~ = 15.15, *F*(1,229) = 87.05, *p* < .001, $\eta_{g}^{2}$ = .161. There was an interaction between Testing Expectancy and Typeface, *F*(1,229) = 13.65, *p* < .001, $\eta_{g}^{2}$ < .029. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF > 100). Planned comparisons revealed that the JOL effect was larger in the low test expectancy group (*d*~avg~ = 1.21) than in the high test expectancy group (*d*~avg~ = 0.72). 
+Figures 3c and 3d show JOLs (Figure 3b) as well as difference scores (Figure 4c). Using the same model as above, participants in the high test expectancy group gave higher JOLs than the low test expectancy group, *M*~diff~ = 5.91, *F*(1,229) = 13.57, *p* < .001, $\eta_{g}^{2}$ = .028. Arial elicited higher JOLs than Sans Forgetica, *M*~diff~ = 15.15, *F*(1,229) = 87.05, *p* < .001, $\eta_{g}^{2}$ = .161. There was an interaction between Testing Expectancy and Typeface, *F*(1,229) = 13.65, *p* < .001, $\eta_{g}^{2}$ < .029. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF > 100). Planned comparisons revealed that the JOL effect was larger in the low test expectancy group ($d_{avg}$ = 1.65, 95 \% CI [1.37, 1.93]) "than in the high test expectancy group ($d_{avg}$ = 0.72, 95 \% CI [0.51, 0.92]). 
 
 ### Study Times
 
@@ -1436,13 +1469,13 @@ The design, materials, and procedure are identical to Experiment 2, with one exc
 
 ### Cued Recall
 
-Figures 4a shows performance on the cued recall test (Fig. 4a) along with difference scores (Figure 4b). The analysis revealed that there was no reliable difference between the Self-paced and Timed groups on cued recall, *M*~diff~ = 2%, *F*(1, 230) = 0.369, *p* < .544, $\eta_{g}^{2}$ = .055. Individuals were better at recalling target words presented in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 15.03, *p* < .001, $\eta_{g}^{2}$ =.013. This was no interaction between Time on Task and Typeface, *F*(1, 230) = 1.13,*p* = .289, $\eta_{g}^{2}$ < .001. A Bayesian analysis revealed that a main effects-only model was preferred to the interaction (BF = 5.50). 
+Figures 4a shows performance on the cued recall test (Fig. 4a) along with difference scores (Figure 4b). The analysis revealed that there was no reliable difference between the Self-paced and Timed groups on cued recall, *M*~diff~ = 2%, *F*(1, 230) = 0.369, *p* < .544, $\eta_{g}^{2}$ = .055. Individuals were better at recalling target words presented in Sans Forgetica than Arial, *M*~diff~ = 5%, *F*(1, 230) = 15.03, *p* < .001, $\eta_{g}^{2}$ =.013. There was no interaction between Time on Task and Typeface, *F*(1, 230) = 1.13,*p* = .289, $\eta_{g}^{2}$ < .001. A Bayesian analysis revealed that a main effects-only model was preferred to the interaction (BF = 5.50). 
 
 ## JOLs 
 
-Figures 4c and 4d show participant-level JOLs (Figure 4c) and difference scores (Figure 4d). Using the same model as above, participants in the Timed group gave higher JOLs than in the Self-paced group, *M*~diff~  = 5.91,  *F*(1,230) = 17.43, *p* < .001, $\eta_{g}^{2}$ = .055. Arial typeface elicited higher JOLs than Sans Forgetica typeface, *M*~diff~ = 9.7, F(1,230) = 48.81, p < .001, $\eta_{g}^{2}$ = .048. There was an interaction between Time on Task and Typeface, *F*(1,230) = 27.17, *p* < .001, $\eta_{g}^{2}$ < .027. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF = 57.24). Simple effects revealed that the JOL effect (Arial < Sans Forgetica) was larger in the self-paced group (*d*~avg~ = 1.22) than in the timed group (*d*~avg~ = 0.10; BF~01~ = 1.466). 
+Figures 4c and 4d show participant-level JOLs (Figure 4c) and difference scores (Figure 4d). Using the same model as above, participants in the Timed group gave higher JOLs than in the Self-paced group, *M*~diff~  = 5.91,  *F*(1,230) = 17.43, *p* < .001, $\eta_{g}^{2}$ = .055. Arial typeface elicited higher JOLs than Sans Forgetica typeface, *M*~diff~ = 9.7, F(1,230) = 48.81, p < .001, $\eta_{g}^{2}$ = .048. There was an interaction between Time on Task and Typeface, *F*(1,230) = 27.17, *p* < .001, $\eta_{g}^{2}$ < .027. A Bayesian analysis revealed that the interaction model was strongly preferred to the main effects-only model (BF = 57.24). Simple effects revealed that the JOL effect (Arial < Sans Forgetica) was larger in the self-paced group ($d_{avg}$ = 1.22, 95 \% CI [0.98, 1.46]) than in the timed group ($d_{avg}$ = 0.10, 95 \% CI [-0.08, 0.28], BF~01~ = 1.466). 
 	
-Taken together, the results from Experiment 3 are clear. Cued recall performance was better overall for Sans Forgetica—it did not matter if encoding was self-paced or timed. This contradicts a study by Kühl et al. (2014) showing that self-paced study produces better learning outcomes compared to constrained study time. It is important to note that our study used simple learning materials whereas Kühl et al., used more complex materials (i.e., multimedia slides about lightening construction). With more complex materials, a time limit might hurt rather than help recall. Despite this, the findings from Experiment 3 nicely replicated the findings from Experiment 2 under low test expectancy. From this, it is clear that a simple time-on-task account cannot explain these findings. A time on task account would predict better memory in the self-paced group because they can spend longer encoding each pair. While the interaction was not significant, looking at the effect sizes between groups, the disfluency effect was larger in the timed group (*d*~avg~ = 0.32) than the self-paced group (*d*~avg~ = 0.15). We return to this issue in the general discussion. 
+Taken together, the results from Experiment 3 are clear. Cued recall performance was better overall for Sans Forgetica—it did not matter if encoding was self-paced or timed. This contradicts a study by Kühl et al. (2014) showing that self-paced study produces better learning outcomes compared to constrained study time. It is important to note that our study used simple learning materials whereas Kühl et al., used more complex materials (i.e., multimedia slides about lightening construction). With more complex materials, a time limit might hurt rather than help recall. Despite this, the findings from Experiment 3 nicely replicated the findings from Experiment 2 under low test expectancy. From this, it is clear that a simple time-on-task account cannot explain these findings. A time on task account would predict better memory in the self-paced group because they can spend longer encoding each pair. While the interaction was not significant, looking at the effect sizes between groups, the disfluency effect was larger in the timed group ($d_{avg}$ = 0.32, 95 \% CI [0.14, 0.51]) than the self-paced group ($d_{avg}$ = 0.15, 95 \% CI [-0.33, 0.03]). We return to this issue in the general discussion. 
 
 
 ```{r message=FALSE, warning=FALSE, echo=FALSE} 
