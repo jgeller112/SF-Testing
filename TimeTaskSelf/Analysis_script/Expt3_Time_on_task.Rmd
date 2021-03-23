@@ -1,9 +1,11 @@
 ---
-title: "Experiment 3: Time_on_task"
+title: 'Experiment 3: Time_on_task'
 output:
+  pdf_document:
+    toc: yes
   html_document:
     df_print: paged
-    toc: true
+    toc: yes
 ---
 
 # Introduction
@@ -28,6 +30,7 @@ library(lrd)
 library(emmeans)
 library(MOTE)
 library(BayesFactor)
+library(kableExtra)
 source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R") # violin graph source code
 
 ```
@@ -377,8 +380,8 @@ dplyr::filter(cond=="timed")%>%
 time_recall=d.dep.t.avg(m1 = recall_timed$mean1, m2 = recall_timed$mean2, sd1 = recall_timed$sd1,
                 sd2 = recall_timed$sd2, n = 116, a = .05)
   
-sp_recall
-time_recall
+kable(sp_recall)
+kable(time_recall)
 ```
 
 ## Bayesian Analyis
@@ -459,6 +462,71 @@ jol_all$cond<-as.factor(jol_all$cond)
 jol_all$Typeface<-as.factor(jol_all$Typeface)
 bftimed = anovaBF(jols ~ cond*Typeface, jol_all, 
           whichRandom="new_id1")
+```
+
+# Study Times
+
+Reviewers wanted to see study time data 
+
+## Dependent t test
+
+```{r}
+
+# RTs for self-paced group
+
+dataset1_rt <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, mouse_4.time, font) %>%
+  dplyr::mutate(cond="self-paced")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(participant, cond, font, mouse_4.time)
+
+
+dataset2_rt <-  datasetlow2 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, mouse_4.time, font) %>%
+  dplyr::mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  dplyr::mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  dplyr::mutate(cond="self_paced")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(participant, cond, font, mouse_4.time)
+
+#as.data.frame(dplyr::count(dataset3_rt, new_id1))
+
+dataset3_all<-rbind(dataset1_rt, dataset2_rt)
+
+dataset3_all <- na.omit(dataset3_all)
+
+rt_all_wide<- dataset3_all %>% 
+  dplyr::group_by(participant, font, cond) %>% 
+  dplyr::mutate(rt=mouse_4.time*1000) %>% 
+dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
+    dplyr::filter(rt > 150 || rt > sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt), na.rm=TRUE)) %>%
+   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica")) %>%
+   tidyr::pivot_wider(names_from = "font", values_from = "mean_rt")
+
+t.test(rt_all_wide$`Sans Forgetica`, rt_all_wide$Arial, paired=TRUE)
+
+```
+## Effect Size
+```{r}
+rt_all1<- dataset3_all%>% 
+  dplyr::group_by(participant, font, cond) %>% 
+  dplyr::mutate(rt=mouse_4.time*1000) %>% 
+dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
+    dplyr::filter(rt > 150 || rt > sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt), na.rm=TRUE)) %>%
+   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica")) %>%
+   tidyr::pivot_wider(names_from = "font", values_from = "mean_rt")%>%
+  ungroup() %>%
+  dplyr::summarise(mean1=mean(Arial), mean2=mean(`Sans Forgetica`), sd1=sd(Arial), sd2=sd(`Sans Forgetica`))
+
+rt_h=d.dep.t.avg(m1 = mean(rt_all1$mean1), m2 = mean(rt_all1$mean2), sd1 = mean(rt_all1$sd1),
+                sd2 = mean(rt_all1$sd2), n = 116, a = .05)
+
+rt_h
+
 ```
 
 # Plot 

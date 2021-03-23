@@ -34,12 +34,15 @@ footnotelist      : no
 linenumbers       : no
 mask              : no
 draft             : no
+
 csl               : "apa.csl"
 documentclass     : "apa7"
 classoption       : "jou, a4paper"
 output            : "papaja::apa6_pdf"
-mainfont: Times
+css: style.css
 ---
+
+
 
 ```{r setup, include = FALSE}
 library("papaja")
@@ -302,10 +305,10 @@ sdt1 <- sdt1 %>%
 
 
 fig1b <- ggplot(sdt1,aes(x=condition1,y=value,fill=condition1))+ facet_grid(~testexpect + isold) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
-  geom_boxplot(aes(x = condition1, y = value),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = condition1, y = value),outlier.shape = NA,
+          #     alpha = 0.3, width = .1, colour = "BLACK") +
     stat_summary(fun=mean, geom="point", colour="darkred", size=5)+
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
@@ -366,38 +369,39 @@ sfgend_wsci= Rmisc::summarySEwithin(data = highlowaov, measurevar = "dprime",
                        withinvars = "condition1", betweenvars = "testexpect", idvar = "participant_private_id")
 #plot
 
-fig1a <- ggplot(highlowaov,aes(x=condition1,y=dprime,fill=condition1))+ facet_grid(~testexpect) + 
-  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+fig1a <- ggplot(highlowaov,aes(x=condition1,y=dprime,fill=condition1))+ 
+  facet_grid(~testexpect) + 
+  geom_pirate(cis=FALSE, points = FALSE)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
-  geom_boxplot(aes(x = condition1, y = dprime),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
-    geom_line(data=sfgend_wsci,aes(y=dprime, group=1), size=1)+ 
+  #geom_boxplot(aes(x = condition1, y = dprime),outlier.shape = NA,
+       #        alpha = 0.3, width = .1, colour = "BLACK") +
+    #geom_line(data=sfgend_wsci,aes(y=dprime, group=1), size=1)+ 
   #stat_summary(fun="mean", geom="point", colour="darkred", size=3) + 
-    geom_pointrange(data=sfgend_wsci, aes(y=dprime, ymin=dprime, ymax=dprime), size=.8, color="darkred")+
-  theme_cowplot() +
+    #geom_pointrange(data=sfgend_wsci, aes(y=dprime, ymin=dprime-ci, ymax=dprime+ci), size=.4, color="black")+
+  theme_cowplot(font_size = 14) +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Sensitivity(d')", x = "Typeface") + theme(legend.position = "none") + 
-    geom_label_repel(data=sfgend_wsci, aes(y=dprime, label=round(dprime, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) +
+    #geom_label_repel(data=sfgend_wsci, aes(y=dprime, label=round(dprime, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) +
   theme_cowplot(font_size = 14) + 
  theme(axis.title=bold, legend.position = "none")
  
 fig1a_diff <- ggplot(highlowaov_wide,aes(x=testexpect,y=Difference, fill=testexpect)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = testexpect, y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
-  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
+  #geom_boxplot(aes(x = testexpect, y = Difference),outlier.shape = NA,
+             #  alpha = 0.3, width = .1, colour = "BLACK") +
+  stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.65)+
   #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
   #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
   scale_colour_brewer(palette = "Accent")+
   scale_fill_brewer(palette = "Accent") +
-  labs(y = "Test Difference (Sans Forgetica - Arial", x = "Test Expectancy")+
+  labs(y = "Test Difference (Sans Forgetica - Arial)", x = "Test Expectancy")+
      theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title =bold) + 
-  geom_hline(yintercept = 0, linetype="dotted") + 
-   geom_label_repel(data=highlowwide_mean, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
+  geom_hline(yintercept = 0, linetype="dotted") 
+  # geom_label_repel(data=highlowwide_mean, aes(y=mean, label=round(mean, 2)), seed=42, box.padding=0.8)
 
 ```
 
@@ -500,33 +504,33 @@ JOL_mean <- JOL_wide %>%
   dplyr::summarise(mean=mean(Difference, na.rm=TRUE))
 
 
-figjol <- ggplot(jols1,aes(x=font,y=response,fill=font))+ facet_grid(~testexpect) + 
-  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+figjol <- ggplot(jols1,aes(x=font,y=response,fill=font))+ 
+  facet_grid(~testexpect) + 
+  geom_pirate(cis=FALSE, points = FALSE)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
-  geom_boxplot(aes(x = font, y = response),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
-      geom_line(data=sfgenjol_wsci,aes(y=response, group=1), size=1)+ 
+ # geom_boxplot(aes(x = font, y = response),outlier.shape = NA,
+          #     alpha = 0.3, width = .1, colour = "BLACK") +
+      #geom_line(data=sfgenjol_wsci,aes(y=response, group=1), size=1)+ 
 
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_pointrange(data=sfgenjol_wsci, aes(y=response, ymin=response, ymax=response), size=.8, color="darkred")+
-  theme_cowplot() +
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=response, ymin=response, ymax=response), size=.8, color="darkred")+
+  theme_cowplot(font_size = 14) +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + theme(legend.position = "none") +
-   geom_label_repel(data=sfgenjol_wsci, aes(y=response, label=round(response, 2)), seed = 42, box.padding = 0.8)+
-  theme_cowplot() +
+   #geom_label_repel(data=sfgenjol_wsci, aes(y=response, label=round(response, 2)), seed = 42, box.padding = 0.8)+
 theme(axis.title=bold, legend.position = "none")
 
 
 fig2b_diff <- ggplot(JOL_wide,aes(x=testexpect,y=Difference,fill=testexpect)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = testexpect, y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = testexpect, y = Difference),outlier.shape = NA,
+            #   alpha = 0.3, width = .1, colour = "BLACK") +
   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
  # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
- # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
+  #geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols-ci, ymax=jols+ci), size=.3, color="red")+ 
   scale_colour_brewer(palette = "Accent")+
   scale_fill_brewer(palette = "Accent") +
   labs(y = "JOL Difference (Sans Forgetica - Arial)", x = "Test Expectancy") +  theme(legend.position = "none")+ 
@@ -607,28 +611,28 @@ sfgenrt_wsci= Rmisc::summarySEwithin(data = rt1, measurevar = "mean_rt",
 #plot fig
 
 figrt <- ggplot(rt1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~testexpt) + 
-  #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_pirate(cis=FALSE, points=FALSE)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) + 
-  geom_boxplot(aes(x = font, y = mean_rt),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
-        geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+  #geom_boxplot(aes(x = font, y = mean_rt),outlier.shape = NA,
+     #          alpha = 0.3, width = .1, colour = "BLACK") +
+       # geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
 
-   geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt), size=.8, color="darkred")+
+   #geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt), size=.8, color="darkred")+
   theme_cowplot() +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "log(Study Times)", x = "Typeface") + theme(legend.position = "none")+
-   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
+ #  geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.8) + 
   theme_cowplot(font_size=14) + 
   theme(legend.position = "none", axis.title = bold)
 
 
 
 figrt_diff <- ggplot(rt_wide,aes(x=testexpt,y=Difference,fill=testexpt)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = testexpt , y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = testexpt , y = Difference),outlier.shape = NA,
+   #            alpha = 0.3, width = .1, colour = "BLACK") +
    stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   #geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
@@ -1276,27 +1280,28 @@ sfarial_wsci=summarySEwithin(data = recall_highlow_agg, measurevar = "mean_acc",
 
 fig2a <- ggplot(recall_highlow_agg,aes(x=Typeface,y=mean_acc,fill=Typeface))+ 
   facet_grid(~cond) + 
+  geom_pirate(cis=FALSE, points = FALSE)+ 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
-  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = mean_acc ),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  geom_point(position=position_jitter(width = .05),size = 1, alpha = 0.2) +
+  #geom_boxplot(aes(x = Typeface, y = mean_acc ),outlier.shape = NA,
+        #       alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
-  geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc, ymax=mean_acc), size=.8, color="darkred")+ 
+  #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
+ # geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc, ymax=mean_acc), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)),seed = 42, box.padding = 0.8) + 
+ #  geom_label_repel(data=sfarial_wsci, aes(y=mean_acc, label=round(mean_acc, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
 
 # plot difference plots 
 fig2adiff <- ggplot(recall_highlow_agg_wide,aes(x=cond,y=Difference, fill=cond)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+            #   alpha = 0.3, width = .1, colour = "BLACK") +
   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
   #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
   #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
@@ -1327,27 +1332,28 @@ sfgenjol_wsci= Rmisc::summarySEwithin(data = jol_rename, measurevar = "jols",
 
 fig2b <- ggplot(jol_rename,aes(x=Typeface,y=jols,fill=Typeface))+ 
   facet_grid(~cond) + 
+  geom_pirate(cis=FALSE,points = FALSE) + 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+ # geom_boxplot(aes(x = Typeface, y = jols),outlier.shape = NA,
+        #       alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
+  #geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") +  theme(legend.position = "none")+ 
-  geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), seed = 42, box.padding = 0.8) + 
+  #geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)), seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
 
 
 fig2b_diff <- ggplot(all_jol_wide,aes(x=cond,y=Difference,fill=cond)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+ # geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+    #           alpha = 0.3, width = .1, colour = "BLACK") +
   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
  # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
@@ -1375,27 +1381,29 @@ sfgenrt_wsci= Rmisc::summarySEwithin(data = rt_all1, measurevar = "mean_rt",
                        withinvars = "font", betweenvars = "cond", idvar = "new_id1")
 
 
-fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ facet_grid(~cond) + 
+fig2c <- ggplot(rt_all1,aes(x=font,y=mean_rt,fill=font))+ 
+  facet_grid(~cond) + 
+  geom_pirate(cis=FALSE, dots=FALSE)+ 
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = font , y = mean_rt),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+ # geom_boxplot(aes(x = font , y = mean_rt),outlier.shape = NA,
+     #          alpha = 0.3, width = .1, colour = "BLACK") +
   #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
-  geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt),size=.8, color="darkred") + 
+  #geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenrt_wsci, aes(y=mean_rt, ymin=mean_rt, ymax=mean_rt),size=.8, color="darkred") + 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "log(Study Time)", x = "Typeface") + theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
+  # geom_label_repel(data=sfgenrt_wsci, aes(y=mean_rt, label=round(mean_rt, 2)), min.segment.length = 0, seed = 42, box.padding = 0.5) + 
 theme_cowplot(font_size=14) + 
   theme(legend.position = "none", axis.title = bold)
 
 
 fig2c_diff <- ggplot(rt_all_wide,aes(x=cond,y=Difference,fill=cond)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = cond , y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = cond , y = Difference),outlier.shape = NA,
+ #              alpha = 0.3, width = .1, colour = "BLACK") +
    stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
   #geom_line(data=sfgenrt_wsci,aes(y=mean_rt, group=1), size=1)+ 
@@ -1646,6 +1654,49 @@ jol_all <- rbind(dataset1_jol, dataset2_jol, dataset3_jol, dataset4_jol)
 ```
 
 
+
+```{r}
+
+# RTs for self-paced group
+
+dataset1_rt <- datasetlow1 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, mouse_4.time, font) %>%
+  dplyr::mutate(cond="self-paced")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(participant, cond, font, mouse_4.time)
+
+
+dataset2_rt <-  dataselow2 %>% 
+    dplyr::group_by(participant)%>%
+     dplyr::select(participant, mouse_4.time, font) %>%
+  dplyr::mutate(new_id=ifelse(is.na(participant), turkid, participant)) %>%
+  dplyr::mutate(new_id1=ifelse(is.na(new_id), participant, new_id))%>%
+  dplyr::mutate(cond="self_paced")%>%
+  dplyr::ungroup() %>%
+  dplyr::select(participant, cond, font, mouse_4.time)
+
+#as.data.frame(dplyr::count(dataset3_rt, new_id1))
+
+dataset3_all<-rbind(dataset1_rt, dataset2_rt)
+
+rt_all1<- dd %>% 
+  dplyr::group_by(participant, font, cond) %>% 
+  dplyr::mutate(rt=mouse_4.time*1000) %>% 
+dplyr::mutate(sdabove = mean(rt, na.rm=TRUE) +  2.5*sd(rt, na.rm=TRUE)) %>%
+    dplyr::filter(rt > 150 || rt > sdabove) %>%
+  dplyr::summarise(mean_rt= mean(log(rt), na.rm=TRUE)) %>%
+   mutate(font=ifelse(font=="flu", "Arial", "Sans Forgetica")) %>%
+   tidyr::pivot_wider(names_from = "font", values_from = "mean_rt")%>%
+  ungroup() %>%
+  dplyr::summarise(mean1=mean(Arial), mean2=mean(`Sans Forgetica`), sd1=sd(Arial), sd2=sd(`Sans Forgetica`))
+
+rt_h=d.dep.t.avg(m1 = mean(rt_all1$mean1), m2 = mean(rt_all1$mean2), sd1 = mean(rt_all1$sd1),
+                sd2 = mean(rt_all1$sd2), n = 116, a = .05)
+
+```
+  
+
 ```{r message=FALSE, warning=FALSE, echo=FALSE}
 setwd(here::here('TimeTaskSelf', "scored_recall")) # folder to find Ps in
 
@@ -1738,28 +1789,29 @@ sfgen_wsci=summarySEwithin(data = recall_all1, measurevar = "acc",
 
 fig3a <- ggplot(recall_all1,aes(x=Typeface,y=acc,fill=Typeface))+ 
   facet_grid(~timed) + 
+  geom_pirate(cis=FALSE, points = FALSE)+
   #geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
-  geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  geom_point(position=position_jitter(width = .05),size = 1, alpha = 0.2) +
+  #geom_boxplot(aes(x = Typeface, y = acc ),outlier.shape = NA,
+              # alpha = 0.3, width = .1, colour = "BLACK") +
     #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
-  geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc, ymax=acc), size=.8, color="darkred")+ 
+ # geom_line(data=sfgen_wsci,aes(y=acc, group=1), size=1)+ 
+ # geom_pointrange(data=sfgen_wsci, aes(y=acc, ymin=acc, ymax=acc), size=.8, color="darkred")+ 
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Porportion Correct on Final Test", x = "Typeface") + 
   theme(legend.position = "none") + 
-   geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)),seed = 42, box.padding = 0.8) + 
+  # geom_label_repel(data=sfgen_wsci, aes(y=acc, label=round(acc, 2)),seed = 42, box.padding = 0.8) + 
    theme_cowplot(font_size=14)+ 
   theme(legend.position = "none") +
   theme(axis.title = bold)
 
 # plot difference plots 
 fig3a_diff <- ggplot(recall_all1_diff,aes(x=cond,y=Difference, fill=cond)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
-  geom_point(position=position_jitter(width = .18),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  geom_violin()+
+  geom_point(position=position_jitter(width = .1),size = 1, alpha = 0.2) +
+  #geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+   #            alpha = 0.3, width = .1, colour = "BLACK") +
   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
   #geom_line(data=sfarial_wsci,aes(y=mean_acc, group=1), size=1)+ 
   #geom_pointrange(data=sfarial_wsci, aes(y=mean_acc, ymin=mean_acc-ci, ymax=mean_acc+ci), size=.5, color="red")+ 
@@ -1808,31 +1860,31 @@ sfgenjol_wsci=summarySEwithin(data = jol_rename, measurevar = "jols",
 
 fig3b <- ggplot(jol_rename,aes(x=Typeface,y=round(jols,2),fill=Typeface))+ 
   facet_grid(~timed) + 
+  geom_pirate(cis=FALSE, points=FALSE)+
   #geom_violinhalf(position = position_nudge(x = .2, y = 0), alpha = .5,adjust=4)+
   #geom_violinhalf(fill_dots = "black") + 
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = Typeface, y = jols ),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = Typeface, y = jols ),outlier.shape = NA,
+      #         alpha = 0.3, width = .1, colour = "BLACK") +
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
-  geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
-  geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
-  theme_cowplot() +
+  #geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
+ # geom_pointrange(data=sfgenjol_wsci, aes(y=jols, ymin=jols, ymax=jols), size=.8, color="darkred")+ 
+  theme_cowplot(font_size = 14) +
   scale_colour_brewer(palette = "Dark2")+
   scale_fill_brewer(palette = "Dark2") +
   labs(y = "Judgements of Learning", x = "Typeface") + 
   theme(legend.position = "none") + 
-   geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)),seed = 42, box.padding = 0.8) + 
-  theme_cowplot(font_size=14)+ 
+   #geom_label_repel(data=sfgenjol_wsci, aes(y=jols, label=round(jols, 2)),seed = 42, box.padding = 0.8) +
   theme(legend.position = "none") +
   theme(axis.title = bold)
 
   
 
 fig3b_diff <- ggplot(jol_diff,aes(x=cond,y=Difference,fill=cond)) + 
-  geom_flat_violin(position = position_nudge(x = .2, y = 0), alpha = .4,adjust=4)+
+  geom_violin()+
   geom_point(position=position_jitter(width = .15),size = 1, alpha = 0.2) +
-  geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
-               alpha = 0.3, width = .1, colour = "BLACK") +
+  #geom_boxplot(aes(x = cond, y = Difference),outlier.shape = NA,
+      #         alpha = 0.3, width = .1, colour = "BLACK") +
   stat_summary(fun.data="mean_cl_boot", colour="darkred", size=.8)+
    #stat_summary(fun="mean", geom="point", colour="darkred", size=3)+
  # geom_line(data=sfgenjol_wsci,aes(y=jols, group=1), size=1)+ 
